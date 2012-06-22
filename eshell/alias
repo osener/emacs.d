@@ -1,0 +1,6 @@
+alias clear recenter 0
+alias ll ls -l $*
+alias emacs find-file $1
+alias ff find-file $1
+alias d dired $1
+alias veidt cd /ssh:veidt:

@@ -60,15 +60,15 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a light color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(sanityinc-solarized-light)))
-    (color-theme-sanityinc-solarized-light)))
+      (custom-set-variables '(custom-enabled-themes '(sanityinc-tomorrow-day)))
+    (sanityinc-tomorrow-day)))
 
 (defun dark ()
   "Activate a dark color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(sanityinc-solarized-dark)))
-    (color-theme-sanityinc-solarized-dark)))
+      (custom-set-variables '(custom-enabled-themes '(sanityinc-tomorrow-night)))
+    (sanityinc-tomorrow-night)))
 
 
 (provide 'init-themes)

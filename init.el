@@ -4,8 +4,8 @@
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
-(setq *spell-check-support-enabled* nil)
-(setq *macbook-pro-support-enabled* t)
+(setq *spell-check-support-enabled* t)
+(setq *macbook-pro-support-enabled* nil)
 (setq *is-a-mac* (eq system-type 'darwin))
 (setq *is-carbon-emacs* (and *is-a-mac* (eq window-system 'mac)))
 (setq *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
@@ -21,9 +21,9 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-(require 'init-osx-keys)
+;(require 'init-osx-keys)
 (require 'init-gui-frames)
-(require 'init-maxframe)
+;(require 'init-maxframe)
 (require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)

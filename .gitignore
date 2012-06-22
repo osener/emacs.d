@@ -20,3 +20,9 @@ cookies
 /elpa
 site-lisp/package/
 /swank
+/eshell/history
+/eshell/lastdir
+/.smex-items
+/.bookmarks.el
+/places
+/osener.el

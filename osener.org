@@ -1,0 +1,178 @@
+#+TITLE: Ozan Sener's Emacs configuration
+#+OPTIONS: toc:nil num:nil ^:nil
+* Load some lisp
+#+begin_src emacs-lisp
+  (require 'cl)
+#+end_src
+
+** Install some additional packages
+#+begin_src emacs-lisp
+  (require-package 'starter-kit-eshell)
+  (require-package 'starter-kit-bindings)
+  (require-package 'ack-and-a-half)
+  (require-package 'bm)
+  (require-package 'helm)
+  (require-package 'undo-tree)
+#+end_src
+
+* Eshell
+Great intro post for eshell, also the source of some of these settings:
+http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
+** Change some defaults
+#+begin_src emacs-lisp
+  (eval-after-load 'esh-opt
+    '(progn
+       (require 'em-prompt)
+       (set-face-attribute 'eshell-prompt nil :foreground "#5D8F8B")
+       (setq eshell-cmpl-ignore-case t)
+       (setq eshell-prefer-lisp-functions t)
+       (setq eshell-where-to-jump 'begin)
+       (setq eshell-review-quick-commands nil)
+       (setq eshell-smart-space-goes-to-end t)
+       (setq eshell-directory-name
+             (expand-file-name "./" (expand-file-name "eshell" "~/.emacs.d")))))
+#+end_src
+
+** Convenience function for usage in a terminal emulator
+This allows you to use eshell in a similar fashion to standard Unix
+shells in a terminal emulator.
+
+Call Emacs like this for an one-off eshell buffer:
+emacsclient -a '' -t -e "(server-eshell)"
+#+begin_src emacs-lisp
+  (defun server-eshell ()
+    "Command to be called by emacs-client to start a new shell.
+
+  A new eshell will be created. When the frame is closed, the buffer is
+  deleted or the shell exits, then hooks will take care that the other
+  actions happen. For example, when the frame is closed, then the buffer
+  will be deleted and the client disconnected.
+
+  Also creates a local binding of 'C-x #' to kill the buffer."
+    (lexical-let ((buf (eshell t))
+                  (client (first server-clients))
+                  (frame (selected-frame)))
+      (labels ((close (&optional arg)
+                      (when (not (boundp 'cve/recurse))
+                        (let ((cve/recurse t))
+                          (delete-frame frame)
+                          (kill-buffer buf)
+                          (server-delete-client client)))))
+        (add-hook 'eshell-exit-hook #'close t t)
+        (add-hook 'delete-frame-functions #'close t t))
+      (local-set-key (kbd "C-x #") (lambda () (interactive) (kill-buffer buf)))
+      (delete-other-windows)
+      nil))
+#+end_src
+
+
+** Don't show trailing whitespace in eshell
+#+begin_src emacs-lisp
+  (add-hook 'eshell-mode-hook (lambda ()
+                                (setq show-trailing-whitespace nil)))
+#+end_src
+
+** Quake-like eshell window
+#+begin_src emacs-lisp
+  (require 'shell-pop)
+  (shell-pop-set-internal-mode "eshell")
+  (global-set-key [f8] 'shell-pop)
+#+end_src
+
+* TRAMP
+** Enable remote sudo
+#+begin_src emacs-lisp
+  (set-default 'tramp-default-proxies-alist '((".*" "\\`root\\'" "/ssh:%h:")))
+#+end_src
+
+* OSX related tweaks
+** Use system Trash
+Uses [[http://hasseg.org/trash/][trash]]
+#+begin_src emacs-lisp
+  (when *is-a-mac*
+    (setq delete-by-moving-to-trash t)
+    (defun system-move-file-to-trash (filename)
+      (shell-command (concat "trash " (shell-quote-argument filename)))))
+#+end_src
+
+** Input related tweaks
+#+begin_src emacs-lisp
+  (when *is-a-mac*
+    (setq mac-command-modifier 'super)
+    (setq mac-option-modifier 'meta)
+    (setq mouse-wheel-scroll-amount '(0.001)))
+#+end_src
+
+** Add a shortcut for toggling fullscreen mode in Cocoa Emacs
+#+begin_src emacs-lisp
+(when *is-cocoa-emacs*
+  (global-set-key [f11] 'ns-toggle-fullscreen))
+#+end_src
+
+* Cosmetic changes
+** Set default font
+#+begin_src emacs-lisp
+  (if *is-a-mac*
+      (add-to-list 'default-frame-alist
+                   '(font . "Akkurat-Mono-15"))
+    (add-to-list 'default-frame-alist
+                 '(font . "Akkurat-Mono-12")))
+#+end_src
+
+** Set Unicode font
+#+begin_src emacs-lisp
+  (set-fontset-font "fontset-default" 'unicode "Menlo")
+#+end_src
+
+** Disable bold faces
+#+begin_src emacs-lisp
+  (set-face-bold-p 'bold nil)
+#+end_src
+
+* Misc Emacs modes
+** Convenient bookmarking using bm
+#+begin_src emacs-lisp
+(global-set-key (kbd "<C-f2>") 'bm-toggle)
+(global-set-key (kbd "<f2>")   'bm-next)
+(global-set-key (kbd "<S-f2>") 'bm-previous)
+(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+(global-set-key (kbd "<left-fringe> <wheel-down>") 'bm-next-mouse)
+(global-set-key (kbd "<left-fringe> <wheel-up>") 'bm-previous-mouse)
+#+end_src
+
+** Use undo-tree everywhere
+#+begin_src emacs-lisp
+  (global-undo-tree-mode)
+#+end_src
+
+** Set default browser to w3m
+#+begin_src emacs-lisp
+  (setq browse-url-browser-function 'w3m-browse-url)
+  (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+#+end_src
+
+** Disable hl-line-mode
+#+begin_src emacs-lisp
+  (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+#+end_src
+
+** Shorter aliases for ack-and-a-half
+#+begin_src emacs-lisp
+  (defalias 'ack 'ack-and-a-half)
+  (defalias 'ack-same 'ack-and-a-half-same)
+  (defalias 'ack-find-file 'ack-and-a-half-find-file)
+  (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
+#+end_src
+
+* Misc keybindings
+** Quick way to open a link
+#+begin_src emacs-lisp
+  (global-set-key "\C-cb" 'browse-url-at-point)
+#+end_src
+
+* Misc tweaks
+** No bell whatsoever please
+#+begin_src emacs-lisp
+  (setq visual-bell nil)
+  (setq ring-bell-function 'ignore)
+#+end_src
