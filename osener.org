@@ -15,6 +15,20 @@
   (require-package 'undo-tree)
 #+end_src
 
+* Programming languages
+** Scheme
+#+begin_src emacs-lisp
+  (add-hook 'scheme-mode-hook 'sanityinc/lisp-setup)
+#+end_src
+*** Chicken Scheme
+Load chicken
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "/usr/local/lib/chicken/6/")
+  (autoload 'chicken-slime "chicken-slime" "SWANK backend for Chicken" t)
+  (add-hook 'scheme-mode-hook
+            (lambda ()
+              (slime-mode t)))
+#+end_src
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
