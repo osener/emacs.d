@@ -11,9 +11,9 @@
   (require-package 'starter-kit-bindings)
   (require-package 'ack-and-a-half)
   (require-package 'bm)
-  (require-package 'helm)
   (require-package 'undo-tree)
   (require-package 'popwin)
+  (require-package 'ace-jump-mode)
 #+end_src
 
 * Programming languages
@@ -179,8 +179,8 @@ Send mail using smtpmail
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
-
 #+end_src
+
 * OSX related tweaks
 ** Use system Trash
 Uses [[http://hasseg.org/trash/][trash]]
@@ -239,6 +239,11 @@ Uses [[http://hasseg.org/trash/][trash]]
 ** Use undo-tree everywhere
 #+begin_src emacs-lisp
   (global-undo-tree-mode)
+#+end_src
+
+** Easy navigation using ace-jump-mode
+#+begin_src emacs-lisp
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 #+end_src
 
 ** Set default browser to w3m
