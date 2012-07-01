@@ -225,6 +225,16 @@ Uses [[http://hasseg.org/trash/][trash]]
   (set-face-bold-p 'bold nil)
 #+end_src
 
+** Cute mode-line
+#+begin_src emacs-lisp
+  (require 'powerline)
+  (setq powerline-color1 "#373b41")
+  (setq powerline-color2 "#4d4d4c")
+  (setq powerline-arrow-shape 'half)
+  (set-face-attribute 'mode-line nil
+                      :background powerline-color2
+                      :box nil)
+#+end_src
 * Misc Emacs modes
 ** Convenient bookmarking using bm
 #+begin_src emacs-lisp
