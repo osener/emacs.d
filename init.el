@@ -75,7 +75,7 @@
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
 (require 'server)
-(unless (server-running-p)
+(unless (or (server-running-p) window-system)
   (server-start))
 
 
