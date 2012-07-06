@@ -98,12 +98,6 @@ emacsclient -a '' -t -e "(server-eshell)"
   (global-set-key [f8] 'shell-pop)
 #+end_src
 
-* TRAMP
-** Enable remote sudo
-#+begin_src emacs-lisp
-  (set-default 'tramp-default-proxies-alist '((".*" "\\`root\\'" "/ssh:%h:")))
-#+end_src
-
 * Window management
 ** Popwin
 #+begin_src emacs-lisp
