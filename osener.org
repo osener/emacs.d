@@ -16,6 +16,8 @@
   (require-package 'ace-jump-mode)
   (require-package 'smartrep)
   (require-package 'ein)
+  (require-package 'znc)
+  (require-package 'erc-hl-nicks)
 #+end_src
 
 * Programming languages
@@ -183,6 +185,25 @@ Send mail using smtpmail
   (setq message-kill-buffer-on-exit t)
 #+end_src
 
+* ERC
+** Disable trailing whitespace in ERC buffers
+#+begin_src emacs-lisp
+  (add-hook 'erc-mode-hook (lambda ()
+                                (setq show-trailing-whitespace nil)))
+#+end_src
+
+** Growl notifications
+#+begin_src emacs-lisp
+  (defun my-erc-hook (match-type nick message)
+    "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
+    (unless (posix-string-match "^\\** *Users on #" message)
+      (todochiku-message
+       (concat "ERC: name mentioned on: " (buffer-name (current-buffer)))
+       (concat "<" (first (split-string nick "!")) "> " message)
+       (todochiku-icon 'irc))))
+
+  (add-hook 'erc-text-matched-hook 'my-erc-hook)
+#+end_src
 * OSX related tweaks
 ** Use system Trash
 Uses [[http://hasseg.org/trash/][trash]]
