@@ -265,7 +265,7 @@ Uses [[http://hasseg.org/trash/][trash]]
 
 ** Set default browser to w3m
 #+begin_src emacs-lisp
-  (setq browse-url-browser-function 'w3m-browse-url)
+  (setq browse-url-browser-function 'browse-url-firefox)
   (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 #+end_src
 
