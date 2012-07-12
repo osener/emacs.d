@@ -13,7 +13,6 @@
   (require-package 'bm)
   (require-package 'undo-tree)
   (require-package 'popwin)
-  (require-package 'ace-jump-mode)
   (require-package 'smartrep)
   (require-package 'ein)
   (require-package 'znc)
@@ -257,11 +256,6 @@ Uses [[http://hasseg.org/trash/][trash]]
 ** Use undo-tree everywhere
 #+begin_src emacs-lisp
   (global-undo-tree-mode)
-#+end_src
-
-** Easy navigation using ace-jump-mode
-#+begin_src emacs-lisp
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 #+end_src
 
 ** Set default browser to w3m
