@@ -218,6 +218,27 @@ Send mail using smtpmail-async
     sauron-watch-nicks
     '("ozansener" "meegee"))
 
+  (add-hook 'sauron-event-block-functions
+    (lambda (origin prio msg &optional props)
+      (or
+        (string-match "^*** Users" msg)))) ;; filter out IRC spam
+    (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
+  (global-set-key (kbd "C-c h") 'sauron-clear)
+
+  (setq
+    sauron-max-line-length 120
+
+    ;; uncomment to show sauron in the current frame
+    ;; sauron-separate-frame nil
+
+    ;; you probably want to add your own nickname to the these patterns
+    sauron-watch-patterns
+    '("ozansener" "meegee" "Ozan")
+
+    ;; you probably want to add you own nick here as well
+    sauron-watch-nicks
+    '("ozansener" "meegee"))
+
   ;; some sound/light effects for certain events
   (add-hook 'sauron-event-added-functions
     (lambda (origin prio msg &optional props)
