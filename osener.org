@@ -17,6 +17,7 @@
   (require-package 'ein)
   (require-package 'znc)
   (require-package 'erc-hl-nicks)
+  (require-package 'sauron)
 #+end_src
 
 * Programming languages
@@ -197,6 +198,42 @@ Send mail using smtpmail-async
        (todochiku-icon 'irc))))
 
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
+#+end_src
+* Notifications
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
+  (global-set-key (kbd "C-c h") 'sauron-clear)
+
+  (setq
+    sauron-max-line-length 120
+
+    ;; uncomment to show sauron in the current frame
+    ;; sauron-separate-frame nil
+
+    ;; you probably want to add your own nickname to the these patterns
+    sauron-watch-patterns
+    '("ozansener" "meegee" "Ozan")
+
+    ;; you probably want to add you own nick here as well
+    sauron-watch-nicks
+    '("ozansener" "meegee"))
+
+  ;; some sound/light effects for certain events
+  (add-hook 'sauron-event-added-functions
+    (lambda (origin prio msg &optional props)
+      (if (string-match "ping" msg)
+        (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
+      (cond
+        ((= prio 3) (sauron-fx-sox "/System/Library/Sounds/Ping.aiff"))
+        ((= prio 4) (sauron-fx-sox "/System/Library/Sounds/Purr.aiff"))
+        ((= prio 5)
+          (sauron-fx-sox "/System/Library/Sounds/Glass.aiff")))))
+
+  (add-hook 'sauron-event-block-functions
+    (lambda (origin prio msg &optional props)
+      (or
+        (string-match "^*** Users" msg)))) ;; filter out IRC spam
+
 #+end_src
 * OSX related tweaks
 ** Use system Trash
