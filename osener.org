@@ -199,6 +199,10 @@ Send mail using smtpmail-async
 
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
 #+end_src
+** Disable autopair in ERC
+#+begin_src emacs-lisp
+  (add-hook 'erc-mode-hook 'inhibit-autopair)
+#+end_src
 * Notifications
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
