@@ -91,8 +91,7 @@
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
-(global-set-key (kbd "C-;") 'ace-jump-mode)
-(global-set-key (kbd "C-:") 'ace-jump-word-mode)
+(global-set-key (kbd "C-:") 'ace-jump-mode)
 
 (defun duplicate-line ()
   (interactive)
