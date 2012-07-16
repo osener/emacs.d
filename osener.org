@@ -37,6 +37,16 @@ Load chicken
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
+
+Temporary fix that allows me to launch Eshell on Emacs BZR Head
+#+begin_src emacs-lisp
+  (setq eshell-output-filter-functions
+    '(eshell-postoutput-scroll-to-bottom
+      eshell-handle-control-codes
+      eshell-handle-ansi-color
+      eshell-watch-for-password-prompt))
+#+end_src
+
 ** Change some defaults
 #+begin_src emacs-lisp
   (eval-after-load 'esh-opt
