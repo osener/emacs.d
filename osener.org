@@ -383,10 +383,6 @@ Exclude very large buffers from dabbrev
   (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 #+end_src
 
-** nXhtml
-#+begin_src emacs-lisp
-  (load "~/.emacs.d/site-lisp/nxhtml/autostart.el")
-#+end_src
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp
