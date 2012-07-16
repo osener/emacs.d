@@ -1,6 +1,3 @@
-[submodule "site-lisp/auto-complete"]
-	path = site-lisp/auto-complete
-	url = https://github.com/purcell/auto-complete.git
 [submodule "site-lisp/erlware-mode"]
 	path = site-lisp/erlware-mode
 	url = https://github.com/erlware/erlware-mode.git
@@ -19,3 +16,9 @@
 [submodule "site-lisp/nxhtml"]
 	path = site-lisp/nxhtml
 	url = https://github.com/emacsmirror/nxhtml.git
+[submodule "site-lisp/fuzzy"]
+	path = site-lisp/fuzzy
+	url = https://github.com/m2ym/fuzzy-el.git
+[submodule "site-lisp/helm-ipython"]
+	path = site-lisp/helm-ipython
+	url = https://github.com/emacs-helm/helm-ipython.git
