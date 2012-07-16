@@ -38,11 +38,4 @@
     (flymake-css-load)))
 (add-hook 'css-mode-hook 'maybe-flymake-css-load)
 
-
-
-(eval-after-load 'auto-complete
-  '(progn
-     (dolist (hook '(css-mode-hook sass-mode-hook))
-       (add-hook hook 'ac-css-mode-setup))))
-
 (provide 'init-css)

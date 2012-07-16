@@ -162,7 +162,6 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'pretty-mode)
 
 ;; I maintain this chunk:
-(require-package 'ac-slime)
 (require-package 'coffee-mode)
 (require-package 'color-theme-sanityinc-solarized)
 (require-package 'color-theme-sanityinc-tomorrow)
