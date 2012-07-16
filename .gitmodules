@@ -13,9 +13,6 @@
 [submodule "site-lisp/async"]
 	path = site-lisp/async
 	url = https://github.com/jwiegley/emacs-async.git
-[submodule "site-lisp/nxhtml"]
-	path = site-lisp/nxhtml
-	url = https://github.com/emacsmirror/nxhtml.git
 [submodule "site-lisp/fuzzy"]
 	path = site-lisp/fuzzy
 	url = https://github.com/m2ym/fuzzy-el.git
