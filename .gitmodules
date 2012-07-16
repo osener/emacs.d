@@ -10,12 +10,12 @@
 [submodule "site-lisp/smarty-mode"]
 	path = site-lisp/smarty-mode
 	url = https://github.com/emacsmirror/smarty-mode.git
-[submodule "site-lisp/html5-el"]
-	path = site-lisp/html5-el
-	url = https://github.com/hober/html5-el.git
 [submodule "site-lisp/flymake-python-pyflakes"]
 	path = site-lisp/flymake-python-pyflakes
 	url = https://github.com/purcell/flymake-python-pyflakes.git
 [submodule "site-lisp/async"]
 	path = site-lisp/async
 	url = https://github.com/jwiegley/emacs-async.git
+[submodule "site-lisp/nxhtml"]
+	path = site-lisp/nxhtml
+	url = https://github.com/emacsmirror/nxhtml.git

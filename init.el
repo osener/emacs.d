@@ -51,7 +51,6 @@
 (require 'init-sh)
 (require 'init-php)
 (require 'init-org)
-(require 'init-nxml)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
