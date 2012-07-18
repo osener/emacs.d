@@ -241,9 +241,6 @@ Send mail using smtpmail-async
 Eshell completion
 #+begin_src emacs-lisp
   (require 'helm-files)
-  (add-hook 'eshell-mode-hook
-            #'(lambda ()
-                (define-key eshell-mode-map [remap pcomplete] 'helm-esh-pcomplete)))
 
   (add-hook 'eshell-mode-hook
             #'(lambda ()
