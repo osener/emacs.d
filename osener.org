@@ -420,7 +420,7 @@ Exclude very large buffers from dabbrev
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp
-  (global-set-key "\C-cb" 'browse-url-at-point)
+  (global-set-key "\C-cb" 'org-open-at-point)
 #+end_src
 
 * Misc tweaks
