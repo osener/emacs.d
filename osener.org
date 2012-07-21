@@ -252,13 +252,13 @@ Eshell completion
 Ipython completion
 #+begin_src emacs-lisp
   (require 'helm-ipython)
-  (define-key python-mode-map (kbd "M-<tab>") 
+  (define-key python-mode-map (kbd "M-<tab>")
     'helm-ipython-complete)
 #+end_src
 
 Elisp completion
 #+begin_src emacs-lisp
-  (define-key emacs-lisp-mode-map (kbd "M-<tab>") 
+  (define-key emacs-lisp-mode-map (kbd "M-<tab>")
     'helm-lisp-completion-at-point)
 #+end_src
 
@@ -420,7 +420,7 @@ Exclude very large buffers from dabbrev
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp
-  (global-set-key "\C-cb" 'org-open-at-point)
+  (global-set-key "\C-cb" 'org-open-at-point-global)
 #+end_src
 
 * Misc tweaks
