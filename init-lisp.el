@@ -97,7 +97,6 @@
   "Enable features useful in any Lisp mode."
   (enable-paredit-mode)
   (turn-on-eldoc-mode)
-  (turn-on-pretty-mode)
   (rainbow-delimiters-mode t)
   (hl-sexp-mode t))
 

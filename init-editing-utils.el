@@ -93,6 +93,14 @@
 
 (global-set-key (kbd "C-:") 'ace-jump-mode)
 
+
+;; Mark-multiple and friends
+(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
+(global-set-key (kbd "C-<") 'mark-previous-like-this)
+(global-set-key (kbd "C->") 'mark-next-like-this)
+(global-set-key (kbd "C-M-m") 'mark-more-like-this)
+
+
 (defun duplicate-line ()
   (interactive)
   (save-excursion
@@ -108,6 +116,31 @@
 ;; Train myself to use M-f and M-b instead
 (global-unset-key [M-left])
 (global-unset-key [M-right])
+
+
+
+;;----------------------------------------------------------------------------
+;; Fill column indicator
+;;----------------------------------------------------------------------------
+(defun sanityinc/prog-mode-fci-settings ()
+  (turn-on-fci-mode)
+  (when show-trailing-whitespace
+    (set (make-local-variable 'whitespace-style) '(face trailing))
+    (whitespace-mode 1)))
+
+(add-hook 'prog-mode-hook 'sanityinc/prog-mode-fci-settings)
+
+(defvar sanityinc/fci-mode-suppressed nil)
+(defadvice popup-create (before suppress-fci-mode activate)
+  "Suspend fci-mode while popups are visible"
+  (set (make-local-variable 'sanityinc/fci-mode-suppressed) fci-mode)
+  (when fci-mode
+    (turn-off-fci-mode)))
+(defadvice popup-delete (after restore-fci-mode activate)
+  "Restore fci-mode when all popups have closed"
+  (when (and (not popup-instances) sanityinc/fci-mode-suppressed)
+    (setq sanityinc/fci-mode-suppressed nil)
+    (turn-on-fci-mode)))
 
 
 ;;----------------------------------------------------------------------------
