@@ -70,6 +70,12 @@ Code completion
     #'(lambda ()
         (define-key python-mode-map "\C-m" 'newline-and-indent)))
 #+end_src
+** C
+Auto indentation (C-j is harder to reach on Colemak)
+#+begin_src emacs-lisp
+  (add-hook 'c-mode-common-hook '(lambda ()
+        (local-set-key (kbd "RET") 'newline-and-indent)))
+#+end_src
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
