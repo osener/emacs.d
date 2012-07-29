@@ -16,6 +16,7 @@
   (require-package 'smartrep)
   (require-package 'erc-hl-nicks)
   (require-package 'sauron)
+  (require-package 'helm)
 #+end_src
 
 * Programming languages
