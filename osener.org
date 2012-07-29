@@ -451,3 +451,7 @@ Exclude very large buffers from dabbrev
   (setq visual-bell nil)
   (setq ring-bell-function 'ignore)
 #+end_src
+** Enable menubar explicitly
+#+begin_src emacs-lisp
+  (menu-bar-mode t)
+#+end_src
