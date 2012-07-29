@@ -88,14 +88,6 @@ ARCHIVE is the string name of the package archive.")
                          findr))))))
 
 
-(defadvice package-download-transaction
-  (around disable-keepalives (&optional args) activate)
-  "Disable HTTP keep-alives to work around network issues with Melpa host."
-  (require 'url-http)
-  (let ((url-http-attempt-keepalives nil))
-    ad-do-it))
-
-
 ;;------------------------------------------------------------------------------
 ;; Fire up package.el and ensure the following packages are installed.
 ;;------------------------------------------------------------------------------
@@ -131,6 +123,7 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'paredit)
 (require-package 'eldoc-eval)
 (require-package 'legalese)
+(require-package 'erlang)
 (require-package 'slime)
 (require-package 'slime-fuzzy)
 (require-package 'slime-repl)
@@ -155,6 +148,7 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'autopair)
 (require-package 'js-comint)
 (require-package 'php-mode)
+(require-package 'smarty-mode)
 (require-package 'scratch)
 (require-package 'mic-paren)
 (require-package 'rainbow-delimiters)
@@ -176,6 +170,7 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'flymake-haml)
 (require-package 'flymake-jslint)
 (require-package 'flymake-php)
+(require-package 'flymake-python-pyflakes)
 (require-package 'flymake-ruby)
 (require-package 'flymake-sass)
 (require-package 'flymake-shell)
@@ -183,6 +178,7 @@ ARCHIVE is the string name of the package archive.")
 (require-package 'hl-sexp)
 (require-package 'ibuffer-vc)
 (require-package 'less-css-mode)
+(require-package 'lively)
 (require-package 'mmm-mode)
 (require-package 'move-text)
 (require-package 'mwe-log-commands)
