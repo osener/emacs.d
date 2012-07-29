@@ -7,3 +7,6 @@
 [submodule "site-lisp/helm-ipython"]
 	path = site-lisp/helm-ipython
 	url = https://github.com/emacs-helm/helm-ipython.git
+[submodule "site-lisp/znc"]
+	path = site-lisp/znc
+	url = https://github.com/osener/ZNC.el.git

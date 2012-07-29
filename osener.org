@@ -14,7 +14,6 @@
   (require-package 'undo-tree)
   (require-package 'popwin)
   (require-package 'smartrep)
-  (require-package 'znc)
   (require-package 'erc-hl-nicks)
   (require-package 'sauron)
 #+end_src
@@ -254,6 +253,10 @@ Send mail using smtpmail-async
 ** Disable autopair in ERC
 #+begin_src emacs-lisp
   (add-hook 'erc-mode-hook 'inhibit-autopair)
+#+end_src
+** ZNC
+#+begin_src emacs-lisp
+  (require 'znc)
 #+end_src
 * Helm
 #+begin_src emacs-lisp
