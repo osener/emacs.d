@@ -60,7 +60,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a light color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(sanityinc-tomorrow-day)))
+      (custom-set-variables '(custom-enabled-themes '(sanityinc-solarized-light)))
     (sanityinc-tomorrow-day)))
 
 (defun dark ()
