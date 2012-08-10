@@ -17,6 +17,7 @@
   (require-package 'erc-hl-nicks)
   (require-package 'sauron)
   (require-package 'helm)
+  (require-package 'expand-region)
 #+end_src
 
 * Programming languages
@@ -443,6 +444,11 @@ Exclude very large buffers from dabbrev
   (defalias 'ack-same 'ack-and-a-half-same)
   (defalias 'ack-find-file 'ack-and-a-half-find-file)
   (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
+#+end_src
+
+** Expand-region
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-=") 'er/expand-region)
 #+end_src
 
 * Misc keybindings
