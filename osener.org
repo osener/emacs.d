@@ -138,12 +138,6 @@ emacsclient -a '' -t -e "(server-eshell)"
 #+end_src
 
 
-** Don't show trailing whitespace in eshell
-#+begin_src emacs-lisp
-  (add-hook 'eshell-mode-hook (lambda ()
-                                (setq show-trailing-whitespace nil)))
-#+end_src
-
 ** Quake-like eshell window
 #+begin_src emacs-lisp
   (require 'shell-pop)
@@ -250,10 +244,6 @@ Send mail using smtpmail-async
        (concat "Name mentioned on: " (buffer-name (current-buffer)))
        (todochiku-icon 'irc))))
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
-#+end_src
-** Disable autopair in ERC
-#+begin_src emacs-lisp
-  (add-hook 'erc-mode-hook 'inhibit-autopair)
 #+end_src
 ** ZNC
 #+begin_src emacs-lisp
@@ -466,4 +456,19 @@ Exclude very large buffers from dabbrev
 ** Enable menubar explicitly
 #+begin_src emacs-lisp
   (menu-bar-mode t)
+#+end_src
+** Disable autopair in some modes
+#+begin_src emacs-lisp
+  (add-hook 'erc-mode-hook 'inhibit-autopair)
+  (add-hook 'term-mode-hook 'inhibit-autopair)
+#+end_src
+
+** Disable show-trailing-whitespace in some modes
+#+begin_src emacs-lisp
+  (defun inhibit-show-trailing-whitespace ()
+    "Prevent show-trailing-whitespace from enabling in the current buffer"
+    (setq show-trailing-whitespace nil))
+
+  (add-hook 'erc-mode-hook 'inhibit-show-trailing-whitespace)
+  (add-hook 'term-mode-hook 'inhibit-show-trailing-whitespace)
 #+end_src
