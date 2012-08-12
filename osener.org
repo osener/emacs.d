@@ -369,7 +369,7 @@ Uses [[http://hasseg.org/trash/][trash]]
 #+begin_src emacs-lisp
   (if *is-a-mac*
       (add-to-list 'default-frame-alist
-                   '(font . "Akkurat-Mono-15"))
+                   '(font . "Akkurat-Mono-14"))
     (add-to-list 'default-frame-alist
                  '(font . "Akkurat-Mono-12")))
 #+end_src
