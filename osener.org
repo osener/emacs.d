@@ -7,7 +7,6 @@
 
 ** Install some additional packages
 #+begin_src emacs-lisp
-  (require-package 'starter-kit-eshell)
   (require-package 'starter-kit-bindings)
   (require-package 'ack-and-a-half)
   (require-package 'bm)
