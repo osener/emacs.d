@@ -94,7 +94,6 @@ Temporary fix that allows me to launch Eshell on Emacs BZR Head
   (eval-after-load 'esh-opt
     '(progn
        (require 'em-prompt)
-       (set-face-attribute 'eshell-prompt nil :foreground "#5D8F8B")
        (setq eshell-cmpl-ignore-case t)
        (setq eshell-prefer-lisp-functions t)
        (setq eshell-where-to-jump 'begin)
