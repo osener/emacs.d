@@ -17,6 +17,7 @@
   (require-package 'sauron)
   (require-package 'helm)
   (require-package 'expand-region)
+  (require-package 'w3m)
 #+end_src
 
 * Programming languages
@@ -416,10 +417,11 @@ Exclude very large buffers from dabbrev
   (global-undo-tree-mode)
 #+end_src
 
-** Set default browser to w3m
+** Browsers
 #+begin_src emacs-lisp
   (setq browse-url-browser-function 'browse-url-firefox)
-  (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+  (setq w3m-command "/usr/local/bin/w3m")
+
 #+end_src
 
 ** Disable hl-line-mode
