@@ -18,6 +18,8 @@
   (require-package 'helm)
   (require-package 'expand-region)
   (require-package 'w3m)
+  (require-package 'python-pep8)
+  (require-package 'python-pylint)
 #+end_src
 
 * Programming languages
