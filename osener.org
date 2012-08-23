@@ -477,4 +477,5 @@ Exclude very large buffers from dabbrev
   (add-hook 'eshell-mode-hook 'inhibit-show-trailing-whitespace)
   (add-hook 'nrepl-mode-hook 'inhibit-show-trailing-whitespace)
   (add-hook 'inferior-python-mode-hook 'inhibit-show-trailing-whitespace)
+  (add-hook 'helm-update-hook 'inhibit-show-trailing-whitespace)
 #+end_src
