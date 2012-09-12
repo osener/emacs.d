@@ -44,6 +44,11 @@
 ;;----------------------------------------------------------------------------
 (paren-activate)     ; activating mic-paren
 
+;;----------------------------------------------------------------------------
+;; Expand region
+;;----------------------------------------------------------------------------
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;----------------------------------------------------------------------------
 ;; Autopair quotes and parentheses
@@ -121,7 +126,7 @@
 ;;----------------------------------------------------------------------------
 ;; Fill column indicator
 ;;----------------------------------------------------------------------------
-(when (boundp 'prog-mode-hook)
+(when (> emacs-major-version 23)
   (defun sanityinc/prog-mode-fci-settings ()
     (turn-on-fci-mode)
     (when show-trailing-whitespace
