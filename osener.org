@@ -17,6 +17,7 @@
   (require-package 'sauron)
   (require-package 'helm)
   (require-package 'w3m)
+  (require-package 'python '(20120814))
   (require-package 'python-pep8)
   (require-package 'python-pylint)
   (require-package 'yasnippet)
