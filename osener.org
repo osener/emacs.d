@@ -78,6 +78,36 @@ Auto indentation (C-j is harder to reach on Colemak)
   (add-hook 'c-mode-common-hook '(lambda ()
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
+** Javascript
+*** Insert semicolons automatically
+#+begin_src emacs-lisp
+  (require 'js3-mode)
+  (defvar js3-semicolon-contexts
+    (list js3-NAME js3-LP js3-SCRIPT js3-CALL js3-BLOCK))
+  (defun autopair-js3-maybe-insert-semi-colon (action pair pos-before)
+    "handler for automatically inserting semi-colon at the end of function call."
+    (cond ((and (eq action 'opening)
+                (eq pair ?\))
+               (save-excursion
+                 (goto-char pos-before)
+                 (skip-chars-backward " \t")
+                 (memq (js3-node-type (js3-node-at-point (point)))
+                       js3-semicolon-contexts)
+                 ))
+           (save-excursion
+             (let ((forward-sexp-function nil))
+               (goto-char pos-before)
+               (forward-sexp))
+             (if (looking-at-p "[^[:graph:]]*$")
+               (insert ";"))))))
+
+  (add-hook 'js3-mode-hook
+            '(lambda ()
+               (setq autopair-handle-action-fns
+                     (list #'autopair-default-handle-action
+                           #'autopair-js3-maybe-insert-semi-colon))))
+#+end_src
+
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
