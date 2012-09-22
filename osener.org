@@ -479,3 +479,8 @@ Use fish shell
   (add-hook 'inferior-python-mode-hook 'inhibit-show-trailing-whitespace)
   (add-hook 'helm-update-hook 'inhibit-show-trailing-whitespace)
 #+end_src
+
+** Wrap lines longer than 79 characters
+#+begin_src emacs-lisp
+  (setq fill-column 79)
+#+end_src
