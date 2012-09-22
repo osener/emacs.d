@@ -6,7 +6,7 @@
 	url = https://github.com/m2ym/fuzzy-el.git
 [submodule "site-lisp/helm-ipython"]
 	path = site-lisp/helm-ipython
-	url = https://github.com/emacs-helm/helm-ipython.git
+	url = https://github.com/osener/helm-ipython.git
 [submodule "site-lisp/znc"]
 	path = site-lisp/znc
 	url = https://github.com/osener/ZNC.el.git
