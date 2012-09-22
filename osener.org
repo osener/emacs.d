@@ -19,6 +19,7 @@
   (require-package 'w3m)
   (require-package 'python-pep8)
   (require-package 'python-pylint)
+  (require-package 'yasnippet)
 #+end_src
 
 * Programming languages
@@ -472,6 +473,11 @@ Exclude very large buffers from dabbrev
 Use fish shell
 #+begin_src emacs-lisp
   (setq explicit-shell-file-name "/usr/local/bin/fish")
+#+end_src
+
+** Snippets
+#+begin_src emacs-lisp
+  (yas-global-mode 1)
 #+end_src
 
 * Misc keybindings
