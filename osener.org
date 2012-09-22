@@ -438,6 +438,12 @@ Exclude very large buffers from dabbrev
   (defalias 'ack-find-file-same 'ack-and-a-half-find-file-same)
 #+end_src
 
+** Shell
+Use fish shell
+#+begin_src emacs-lisp
+  (setq explicit-shell-file-name "/usr/local/bin/fish")
+#+end_src
+
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp
