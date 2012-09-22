@@ -37,9 +37,11 @@ ignored: use `custom-enabled-themes' instead."
 ;;------------------------------------------------------------------------------
 ;; New-style theme support, in which per-frame theming is not possible
 ;;------------------------------------------------------------------------------
-
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(sanityinc-solarized-light))
+(require 'solarized-definitions)
+(setq solarized-bold nil
+      solarized-contrast 'high)
+(setq-default custom-enabled-themes '(solarized-light))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -60,7 +62,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a light color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(sanityinc-solarized-light)))
+      (custom-set-variables '(custom-enabled-themes '(solarized-light)))
     (sanityinc-tomorrow-day)))
 
 (defun dark ()

@@ -10,3 +10,6 @@
 [submodule "site-lisp/znc"]
 	path = site-lisp/znc
 	url = https://github.com/osener/ZNC.el.git
+[submodule "site-lisp/color-theme-solarized"]
+	path = site-lisp/color-theme-solarized
+	url = https://github.com/osener/emacs-color-theme-solarized.git

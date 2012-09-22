@@ -158,7 +158,6 @@ ARCHIVE is the string name of the package archive.")
 
 ;; I maintain this chunk:
 (require-package 'coffee-mode)
-(require-package 'color-theme-sanityinc-solarized)
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'crontab-mode)
 (require-package 'dsvn)
