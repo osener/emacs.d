@@ -23,5 +23,6 @@
           (lambda ()
             (add-to-list 'flyspell-prog-text-faces 'nxml-text-face)))
 
+(setq flyspell-use-meta-tab nil)
 
 (provide 'init-flyspell)
