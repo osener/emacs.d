@@ -54,8 +54,16 @@
 ;; Autopair quotes and parentheses
 ;;----------------------------------------------------------------------------
 (require 'autopair)
-(setq autopair-autowrap t)
+(setq autopair-autowrap t
+      autopair-blink t
+      autopair-skip-whitespace 'chomp)
 (autopair-global-mode t)
+
+(add-hook 'python-mode-hook
+          #'(lambda ()
+              (setq autopair-handle-action-fns
+                    (list #'autopair-default-handle-action
+                          #'autopair-python-triple-quote-action))))
 
 (defun inhibit-autopair ()
   "Prevent autopair from enabling in the current buffer."
