@@ -26,3 +26,4 @@ site-lisp/package/
 /.bookmarks.el
 /places
 /osener.el
+/.mc-lists.el
