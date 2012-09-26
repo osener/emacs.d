@@ -519,5 +519,5 @@ Use fish shell
 
 ** Wrap lines longer than 79 characters
 #+begin_src emacs-lisp
-  (setq fill-column 79)
+  (setq-default fill-column 79)
 #+end_src
