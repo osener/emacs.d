@@ -110,6 +110,11 @@ Auto indentation (C-j is harder to reach on Colemak)
                            #'autopair-js3-maybe-insert-semi-colon))))
 #+end_src
 
+*** json-mode
+#+begin_src emacs-lisp
+  (require 'json-mode)
+  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+#+end_src
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/

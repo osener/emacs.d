@@ -16,3 +16,6 @@
 [submodule "site-lisp/helm-slime"]
 	path = site-lisp/helm-slime
 	url = https://github.com/emacs-helm/helm-slime.git
+[submodule "site-lisp/json-mode"]
+	path = site-lisp/json-mode
+	url = https://github.com/joshwnj/json-mode.git
