@@ -1,4 +1,4 @@
-(defcustom preferred-javascript-mode 'js3-mode
+(defcustom preferred-javascript-mode 'js2-mode
   "Javascript mode to use for .js files"
   :type 'symbol
   :group 'programming
@@ -13,14 +13,10 @@
                                   unless (eq preferred-javascript-mode (cdr entry))
                                   collect entry)))
 
-
-;; On-the-fly syntax checking
-(eval-after-load 'js
-  '(add-hook 'js-mode-hook 'flymake-jslint-load))
-
-
 ;; js2-mode
+
 (add-hook 'js2-mode-hook '(lambda () (setq mode-name "JS2")))
+
 (setq js2-use-font-lock-faces t
       js2-mode-must-byte-compile nil
       js2-basic-offset preferred-javascript-indent-level
@@ -49,22 +45,5 @@
          coffee-tab-width preferred-javascript-indent-level))
 
 (add-hook 'coffee-mode-hook 'flymake-coffee-load)
-
-
-;; ---------------------------------------------------------------------------
-;; Run and interact with an inferior JS via js-comint.el
-;; ---------------------------------------------------------------------------
-
-(setq inferior-js-program-command "js")
-(defun add-inferior-js-keys ()
-  (local-set-key "\C-x\C-e" 'js-send-last-sexp)
-  (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
-  (local-set-key "\C-cb" 'js-send-buffer)
-  (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
-  (local-set-key "\C-cl" 'js-load-file-and-go))
-
-(dolist (hook '(js2-mode-hook js3-mode-hook js-mode-hook))
-  (add-hook hook 'add-inferior-js-keys))
-
 
 (provide 'init-javascript)
