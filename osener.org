@@ -523,6 +523,32 @@ Use fish shell
   (yas-global-mode 1)
 #+end_src
 
+*** Helper functions
+[[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-helpers.el][(From here)]]
+#+begin_src emacs-lisp
+  ;;; javascript
+
+  (defun js-method-p ()
+    (save-excursion
+      (word-search-backward "function")
+      (looking-back ": ")))
+
+  (defun js-function-declaration-p ()
+    (save-excursion
+      (word-search-backward "function")
+      (looking-back "^\\s *")))
+
+  (defun snippet--function-punctuation ()
+    (if (js-method-p)
+        (when (not (looking-at "[ \n\t\r]*}"))
+          (insert ","))
+      (unless (js-function-declaration-p)
+        (if (looking-at "$") (insert ";")))))
+
+  (defun snippet--function-name ()
+    (if (js-function-declaration-p) "name" ""))
+#+end_src
+
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp
