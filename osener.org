@@ -20,7 +20,9 @@
   (require-package 'python '(20120814))
   (require-package 'python-pep8)
   (require-package 'python-pylint)
+  (require-package 'virtualenv)
   (require-package 'yasnippet)
+  (require-package 'slime-js)
 #+end_src
 
 * Programming languages
@@ -81,35 +83,61 @@ Auto indentation (C-j is harder to reach on Colemak)
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
 ** Javascript
+*** Set up Slime with swank-js
+#+begin_src emacs-lisp
+  (autoload 'slime-fuzzy-init "slime-fuzzy" "" nil)
+  (eval-after-load 'slime-fuzzy
+    '(require 'slime-repl))
+
+  (eval-after-load 'slime
+    '(progn
+       (setq slime-protocol-version 'ignore)
+       (setq slime-net-coding-system 'utf-8-unix)
+       (slime-setup '(slime-repl slime-js helm-slime))))
+
+  (defun set-up-slime-js ()
+    (require 'slime)
+    (slime-js-minor-mode 1)
+    (global-set-key [f5] 'slime-js-reload))
+
+  (add-hook 'js2-mode-hook 'set-up-slime-js)
+#+end_src
+
 *** Insert semicolons automatically
 #+begin_src emacs-lisp
-  (require 'js3-mode)
-  (defvar js3-semicolon-contexts
-    (list js3-NAME js3-LP js3-SCRIPT js3-CALL js3-BLOCK))
-  (defun autopair-js3-maybe-insert-semi-colon (action pair pos-before)
+  (require 'js2-mode)
+  (defvar js2-semicolon-contexts
+    (list js2-NAME js2-LP js2-SCRIPT js2-CALL js2-BLOCK))
+  (defun autopair-js2-maybe-insert-semi-colon (action pair pos-before)
     "handler for automatically inserting semi-colon at the end of function call."
     (cond ((and (eq action 'opening)
                 (eq pair ?\))
-               (save-excursion
-                 (goto-char pos-before)
-                 (skip-chars-backward " \t")
-                 (memq (js3-node-type (js3-node-at-point (point)))
-                       js3-semicolon-contexts)
-                 ))
+                (save-excursion
+                  (goto-char pos-before)
+                  (skip-chars-backward " \t")
+                  (memq (js2-node-type (js2-node-at-point (point)))
+                        js2-semicolon-contexts)
+                  ))
            (save-excursion
              (let ((forward-sexp-function nil))
                (goto-char pos-before)
                (forward-sexp))
              (if (looking-at-p "[^[:graph:]]*$")
-               (insert ";"))))))
+                 (insert ";"))))))
 
-  (add-hook 'js3-mode-hook
+  (add-hook 'js2-mode-hook
             '(lambda ()
                (setq autopair-handle-action-fns
                      (list #'autopair-default-handle-action
-                           #'autopair-js3-maybe-insert-semi-colon))))
+                           #'autopair-js2-maybe-insert-semi-colon))))
 #+end_src
 
+*** Syntax checking with jshint
+#+begin_src emacs-lisp
+  (require 'flymake-jshint)
+  (dolist (hook '(js2-mode-hook js3-mode-hook js-mode-hook))
+    (add-hook hook (lambda () (flymake-mode t))))
+#+end_src
 *** json-mode
 #+begin_src emacs-lisp
   (require 'json-mode)
