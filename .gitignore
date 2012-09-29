@@ -27,3 +27,4 @@ site-lisp/package/
 /places
 /osener.el
 /.mc-lists.el
+site-lisp/jshint-mode/node_modules/
