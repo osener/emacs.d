@@ -510,16 +510,14 @@ Use fish shell
 
 ** Disable show-trailing-whitespace in some modes
 #+begin_src emacs-lisp
-  (defun inhibit-show-trailing-whitespace ()
-    "Prevent show-trailing-whitespace from enabling in the current buffer"
-    (setq show-trailing-whitespace nil))
-
-  (add-hook 'erc-mode-hook 'inhibit-show-trailing-whitespace)
-  (add-hook 'term-mode-hook 'inhibit-show-trailing-whitespace)
-  (add-hook 'eshell-mode-hook 'inhibit-show-trailing-whitespace)
-  (add-hook 'nrepl-mode-hook 'inhibit-show-trailing-whitespace)
-  (add-hook 'inferior-python-mode-hook 'inhibit-show-trailing-whitespace)
-  (add-hook 'helm-update-hook 'inhibit-show-trailing-whitespace)
+  (dolist (hook '(erc-mode-hook
+                  term-mode-hook
+                  eshell-mode-hook
+                  nrepl-mode-hook
+                  inferior-python-mode-hook
+                  helm-update-hook
+                  slime-repl-mode-hook))
+    (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 #+end_src
 
 ** Wrap lines longer than 79 characters
