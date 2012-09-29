@@ -23,6 +23,8 @@
   (require-package 'virtualenv)
   (require-package 'yasnippet)
   (require-package 'slime-js)
+  (require-package 'textmate)
+  (require-package 'peepopen)
 #+end_src
 
 * Programming languages
@@ -428,6 +430,13 @@ Uses [[http://hasseg.org/trash/][trash]]
 #+begin_src emacs-lisp
 (when *is-cocoa-emacs*
   (global-set-key [f11] 'ns-toggle-fullscreen))
+#+end_src
+
+** PeepOpen
+#+begin_src emacs-lisp
+  (when *is-a-mac*
+    (textmate-mode)
+    (define-key *textmate-mode-map* [(super t)] 'peepopen-goto-file-gui))
 #+end_src
 
 * Cosmetic changes
