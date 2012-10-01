@@ -29,6 +29,7 @@
 (setq js3-auto-indent-p t
       js3-enter-indents-newline t
       js3-indent-on-enter-key t
+      js3-consistent-level-indent-inner-bracket t
       js3-indent-level preferred-javascript-indent-level)
 
 ;; js-mode
