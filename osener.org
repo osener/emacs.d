@@ -259,6 +259,21 @@ emacsclient -a '' -t -e "(server-eshell)"
                    '(face esk-eshell-error-prompt-face))))))
 #+end_src
 
+** Misc commands
+#+begin_src emacs-lisp
+  (defun eshell/cds ()
+    "Change directory to the project's root."
+    (eshell/cd (locate-dominating-file default-directory "src")))
+
+  (defun eshell/cdl ()
+    "Change directory to the project's root."
+    (eshell/cd (locate-dominating-file default-directory "lib")))
+
+  (defun eshell/cdg ()
+    "Change directory to the project's root."
+    (eshell/cd (locate-dominating-file default-directory ".git")))
+#+end_src
+
 * Window management
 ** Popwin
 #+begin_src emacs-lisp
