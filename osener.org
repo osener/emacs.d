@@ -202,6 +202,40 @@ emacsclient -a '' -t -e "(server-eshell)"
   (global-set-key [f8] 'shell-pop)
 #+end_src
 
+** Easy way to open eshell in the directory of current buffer
+[[https://github.com/technomancy/emacs-starter-kit/commit/c0e568d3c9940c9dd5241e4b49467723590fc2c2][From here]]
+#+begin_src
+(defun eshell-in-dir (&optional prompt)
+  "Change the directory of an existing eshell to the directory of the file in
+the current buffer or launch a new eshell if one isn't running. If the
+current buffer does not have a file (e.g., a *scratch* buffer) launch or raise
+eshell, as appropriate. Given a prefix arg, prompt for the destination
+directory."
+  (interactive "P")
+  (let* ((original-buffer (current-buffer))
+         (name (buffer-file-name))
+         (dir (cond (prompt (read-directory-name "Directory: " nil nil t))
+                    (name (file-name-directory name))
+                    (t nil)))
+         (buffers (delq nil (mapcar (lambda (buf)
+                                      (with-current-buffer buf
+                                        (when (eq 'eshell-mode major-mode)
+                                          (buffer-name))))
+                                    (buffer-list))))
+         (buffer (cond ((eq 1 (length buffers)) (first buffers))
+                       ((< 1 (length buffers)) (ido-completing-read
+                                                "Eshell buffer: " buffers nil t
+                                                nil nil (first buffers)))
+                       (t (eshell)))))
+    (with-current-buffer buffer
+      (when dir
+        (eshell/cd (list dir))
+        (eshell-send-input))
+      (end-of-buffer)
+      (switch-to-buffer original-buffer)
+      (shell-pop-up))))
+#+end_src
+
 ** Clickable ls output
 [[http://www.emacswiki.org/emacs/EshellEnhancedLS][From EmacsWiki]]
 #+begin_src emacs-lisp
