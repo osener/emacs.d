@@ -14,7 +14,6 @@
   (require-package 'popwin)
   (require-package 'smartrep)
   (require-package 'erc-hl-nicks)
-  (require-package 'sauron)
   (require-package 'helm)
   (require-package 'w3m)
   (require-package 'python '(20120814))
@@ -195,7 +194,6 @@ emacsclient -a '' -t -e "(server-eshell)"
       (delete-other-windows)
       nil))
 #+end_src
-
 
 ** Quake-like eshell window
 #+begin_src emacs-lisp
@@ -388,63 +386,6 @@ Keybindings
   (global-set-key (kbd "<f1>") 'helm-mini)
 #+end_src
 
-* Notifications
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
-  (global-set-key (kbd "C-c h") 'sauron-clear)
-
-  (setq
-    sauron-max-line-length 120
-
-    ;; uncomment to show sauron in the current frame
-    ;; sauron-separate-frame nil
-
-    ;; you probably want to add your own nickname to the these patterns
-    sauron-watch-patterns
-    '("ozansener" "meegee" "Ozan")
-
-    ;; you probably want to add you own nick here as well
-    sauron-watch-nicks
-    '("ozansener" "meegee"))
-
-  (add-hook 'sauron-event-block-functions
-    (lambda (origin prio msg &optional props)
-      (or
-        (string-match "^*** Users" msg)))) ;; filter out IRC spam
-    (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
-  (global-set-key (kbd "C-c h") 'sauron-clear)
-
-  (setq
-    sauron-max-line-length 120
-
-    ;; uncomment to show sauron in the current frame
-    ;; sauron-separate-frame nil
-
-    ;; you probably want to add your own nickname to the these patterns
-    sauron-watch-patterns
-    '("ozansener" "meegee" "Ozan")
-
-    ;; you probably want to add you own nick here as well
-    sauron-watch-nicks
-    '("ozansener" "meegee"))
-
-  ;; some sound/light effects for certain events
-  (add-hook 'sauron-event-added-functions
-    (lambda (origin prio msg &optional props)
-      (if (string-match "ping" msg)
-        (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
-      (cond
-        ((= prio 3) (sauron-fx-sox "/System/Library/Sounds/Ping.aiff"))
-        ((= prio 4) (sauron-fx-sox "/System/Library/Sounds/Purr.aiff"))
-        ((= prio 5)
-          (sauron-fx-sox "/System/Library/Sounds/Glass.aiff")))))
-
-  (add-hook 'sauron-event-block-functions
-    (lambda (origin prio msg &optional props)
-      (or
-        (string-match "^*** Users" msg)))) ;; filter out IRC spam
-
-#+end_src
 * OSX related tweaks
 ** Use system Trash
 Uses [[http://hasseg.org/trash/][trash]]
