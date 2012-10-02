@@ -549,7 +549,13 @@ Exclude very large buffers from dabbrev
   (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 #+end_src
 
-** Shorter aliases for ack-and-a-half
+** ack-and-a-half
+Editable buffer
+#+begin_src emacs-lisp
+  (require 'wgrep-ack)
+#+end_src
+
+Shorter aliases
 #+begin_src emacs-lisp
   (defalias 'ack 'ack-and-a-half)
   (defalias 'ack-same 'ack-and-a-half-same)

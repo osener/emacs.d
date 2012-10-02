@@ -19,3 +19,6 @@
 [submodule "site-lisp/json-mode"]
 	path = site-lisp/json-mode
 	url = https://github.com/joshwnj/json-mode.git
+[submodule "site-lisp/wgrep"]
+	path = site-lisp/wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep.git
