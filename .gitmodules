@@ -25,6 +25,3 @@
 [submodule "site-lisp/shell-pop"]
 	path = site-lisp/shell-pop
 	url = https://github.com/whitypig/shell-pop.git
-[submodule "site-lisp/jshint-mode"]
-	path = site-lisp/jshint-mode
-	url = https://github.com/daleharvey/jshint-mode.git

@@ -21,6 +21,7 @@
   (require-package 'python-pylint)
   (require-package 'virtualenv)
   (require-package 'yasnippet)
+  (require-package 'flymake-jshint)
   (require-package 'slime-js)
   (require-package 'textmate)
   (require-package 'peepopen)
@@ -137,7 +138,6 @@ Auto indentation (C-j is harder to reach on Colemak)
 
 *** Syntax checking with jshint
 #+begin_src emacs-lisp
-  (require 'flymake-jshint)
   (dolist (hook '(js2-mode-hook js3-mode-hook js-mode-hook))
     (add-hook hook (lambda () (flymake-mode t))))
 #+end_src
@@ -659,6 +659,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                   eshell-mode-hook
                   nrepl-mode-hook
                   inferior-python-mode-hook
+                  inferior-emacs-lisp-mode
                   helm-update-hook
                   slime-repl-mode-hook))
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
