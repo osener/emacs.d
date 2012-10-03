@@ -481,6 +481,7 @@ Uses [[http://hasseg.org/trash/][trash]]
 #+begin_src emacs-lisp
   (when *is-a-mac*
     (textmate-mode)
+    (diminish 'textmate-mode)
     (define-key *textmate-mode-map* [(super t)] 'peepopen-goto-file-gui))
 #+end_src
 
@@ -532,9 +533,10 @@ Exclude very large buffers from dabbrev
 (global-set-key (kbd "<left-fringe> <wheel-up>") 'bm-previous-mouse)
 #+end_src
 
-** Use undo-tree everywhere
+** Undo-Tree
 #+begin_src emacs-lisp
   (global-undo-tree-mode)
+  (diminish 'undo-tree-mode)
 #+end_src
 
 ** Browsers
