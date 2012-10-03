@@ -1,5 +1,6 @@
 ;; -*- coding: utf-8 -*-
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+(setq max-lisp-eval-depth 1500)
 
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)

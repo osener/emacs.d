@@ -24,6 +24,7 @@
   (require-package 'slime-js)
   (require-package 'textmate)
   (require-package 'peepopen)
+  (require-package 'powerline)
 #+end_src
 
 * Programming languages
@@ -506,6 +507,11 @@ Uses [[http://hasseg.org/trash/][trash]]
    (lambda (face)
      (set-face-attribute face nil :weight 'normal :underline nil))
    (face-list))
+#+end_src
+
+** Fancy mode line
+#+begin_src emacs-lisp
+  (powerline-default)
 #+end_src
 
 * Misc Emacs modes
