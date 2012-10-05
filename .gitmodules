@@ -1,9 +1,6 @@
 [submodule "site-lisp/async"]
 	path = site-lisp/async
 	url = https://github.com/jwiegley/emacs-async.git
-[submodule "site-lisp/fuzzy"]
-	path = site-lisp/fuzzy
-	url = https://github.com/m2ym/fuzzy-el.git
 [submodule "site-lisp/helm-ipython"]
 	path = site-lisp/helm-ipython
 	url = https://github.com/osener/helm-ipython.git
