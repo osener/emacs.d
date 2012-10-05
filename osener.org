@@ -102,7 +102,10 @@ Auto indentation (C-j is harder to reach on Colemak)
   (defun set-up-slime-js ()
     (require 'slime)
     (slime-js-minor-mode 1)
-    (global-set-key [f5] 'slime-js-reload))
+    (global-set-key [f5] 'slime-js-reload)
+
+    (defadvice slime-js-event-hook-function (after slime-js-yasnippet activate)
+      (setq yas/mode-symbol 'js3-mode)))
 
   (add-hook 'js3-mode-hook 'set-up-slime-js)
 #+end_src
