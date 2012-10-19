@@ -669,7 +669,10 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                   inferior-python-mode-hook
                   inferior-emacs-lisp-mode
                   helm-update-hook
-                  slime-repl-mode-hook))
+                  slime-repl-mode-hook
+                  mu4e-main-mode-hook
+                  mu4e-headers-mode-hook
+                  mu4e-view-mode-hook))
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 #+end_src
 
