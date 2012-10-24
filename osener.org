@@ -26,6 +26,7 @@
   (require-package 'textmate)
   (require-package 'peepopen)
   (require-package 'powerline)
+  (require-package 'stylus-mode)
 #+end_src
 
 * Programming languages
