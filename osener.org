@@ -399,6 +399,11 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587)
 
+  (setq mu4e-bookmarks
+        '( ("flag:unread AND NOT flag:trashed" "Unread messages"      ?u)
+           ("date:today..now"                  "Today's messages"     ?t)
+           ("date:7d..now"                     "Last 7 days"          ?w)
+           ("mime:image/*"                     "Messages with images" ?i)))
 #+end_src
 
 * ERC
