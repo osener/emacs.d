@@ -367,17 +367,16 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+begin_src emacs-lisp
   (require 'mu4e)
 
-  (setq mu4e-drafts-folder "/Ozansener/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/Ozansener/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/Ozansener/[Gmail].Trash")
+  (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail].Trash")
 
   ;; setup some handy shortcuts
   (setq mu4e-maildir-shortcuts
-        '( ("/Ozansener/INBOX"               . ?i)
-           ("/Ozansener/[Gmail].Sent Mail"   . ?s)
-           ("/Ozansener/[Gmail].Trash"       . ?t)
-           ("/Ozansener/[Gmail].All Mail"    . ?a)
-           ("/Gmail/INBOX"                   . ?g)))
+        '( ("/INBOX"               . ?i)
+           ("/[Gmail].Sent Mail"   . ?s)
+           ("/[Gmail].Trash"       . ?t)
+           ("/[Gmail].All Mail"    . ?a)))
 
   ;; allow for updating mail using 'U' in the main view:
   (setq mu4e-get-mail-command "offlineimap")
@@ -404,6 +403,9 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
            ("date:today..now"                  "Today's messages"     ?t)
            ("date:7d..now"                     "Last 7 days"          ?w)
            ("mime:image/*"                     "Messages with images" ?i)))
+
+  (setq mu4e-update-interval 900)
+  (setq mu4e-html2text-command "w3m -dump -T text/html")
 #+end_src
 
 * ERC
