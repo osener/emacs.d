@@ -416,6 +416,13 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+end_src
 
 * Chat
+#+begin_src emacs-lisp
+  (defun start-im ()
+    (interactive)
+    (require 'secrets "~/secrets.gpg")
+    (jabber-connect-all)
+    (znc-erc 'bitlbee))
+#+end_src
 ** ERC
 *** Disable trailing whitespace in ERC buffers
 #+begin_src emacs-lisp
