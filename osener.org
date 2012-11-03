@@ -13,6 +13,7 @@
   (require-package 'undo-tree)
   (require-package 'popwin)
   (require-package 'smartrep)
+  (require-package 'jabber)
   (require-package 'erc-hl-nicks)
   (require-package 'helm)
   (require-package 'w3m)
@@ -414,14 +415,15 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 
 #+end_src
 
-* ERC
-** Disable trailing whitespace in ERC buffers
+* Chat
+** ERC
+*** Disable trailing whitespace in ERC buffers
 #+begin_src emacs-lisp
   (add-hook 'erc-mode-hook (lambda ()
                                 (setq show-trailing-whitespace nil)))
 #+end_src
 
-** Growl notifications
+*** Growl notifications
 #+begin_src emacs-lisp
   (defun my-erc-hook (match-type nick message)
     "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
@@ -432,9 +434,38 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
        (todochiku-icon 'irc))))
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
 #+end_src
-** ZNC
+*** ZNC
 #+begin_src emacs-lisp
   (require 'znc)
+#+end_src
+** Jabber
+#+begin_src emacs-lisp
+  (add-hook 'jabber-post-connect-hooks 'jabber-autoaway-start)
+  (add-hook 'jabber-post-connect-hooks 'jabber-whitespace-ping-start)
+  (add-hook 'jabber-post-connect-hooks 'jabber-muc-autojoin)
+
+  (setq jabber-auto-reconnect t
+        jabber-activity-count-in-title t)
+#+end_src
+*** Hipchat
+From https://gist.github.com/4002033
+#+begin_src emacs-lisp
+  ;; To join HipChat rooms easily
+  (defvar hipchat-number "29017")
+  (defvar hipchat-nickname "Ozan Sener")
+  (defun hipchat-join (room)
+    (interactive "sRoom name: ")
+    (jabber-groupchat-join
+     (jabber-read-account)
+     (concat hipchat-number "_" room "@conf.hipchat.com")
+     hipchat-nickname
+     t))
+
+  ;; Mention nicknames in a way that HipChat clients will pickup
+  (defun hipchat-mention (nickname)
+    (interactive
+     (list (jabber-muc-read-nickname jabber-group "Nickname: ")))
+    (insert (concat "@\"" nickname "\" ")))
 #+end_src
 * Helm
 #+begin_src emacs-lisp
@@ -686,7 +717,10 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                   slime-repl-mode-hook
                   mu4e-main-mode-hook
                   mu4e-headers-mode-hook
-                  mu4e-view-mode-hook))
+                  mu4e-view-mode-hook
+                  jabber-roster-mode-hook
+                  jabber-chat-mode-hook
+                  jabber-browse-mode-hook))
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 #+end_src
 
