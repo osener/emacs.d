@@ -13,8 +13,8 @@
   (require-package 'undo-tree)
   (require-package 'popwin)
   (require-package 'smartrep)
-  (require-package 'jabber)
   (require-package 'erc-hl-nicks)
+  (require-package 'sauron)
   (require-package 'helm)
   (require-package 'w3m)
   (require-package 'python '(20120814))
@@ -421,7 +421,8 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
     (interactive)
     (require 'secrets "~/secrets.gpg")
     (jabber-connect-all)
-    (znc-erc 'bitlbee))
+    (znc-erc 'bitlbee)
+    (sauron-start-hidden))
 #+end_src
 ** ERC
 *** Disable trailing whitespace in ERC buffers
@@ -447,7 +448,7 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+end_src
 ** Jabber
 #+begin_src emacs-lisp
-  (add-hook 'jabber-post-connect-hooks 'jabber-autoaway-start)
+  (require 'jabber-autoloads)
   (add-hook 'jabber-post-connect-hooks 'jabber-whitespace-ping-start)
   (add-hook 'jabber-post-connect-hooks 'jabber-muc-autojoin)
 
@@ -514,6 +515,42 @@ Keybindings
   (global-set-key (kbd "<f1>") 'helm-mini)
 #+end_src
 
+* Notifications
+#+begin_src emacs-lisp
+  (defun sauron-fx-sox (path)
+    "Play a wav-file at PATH using program sox."
+    (unless (and (file-readable-p path) (file-regular-p path))
+      (error "%s is not a playable file" path))
+    (unless (executable-find "sox")
+      (error "sox not found"))
+    (call-process "sox" nil 0 nil "--volume=1" "-V0" "-q" path "-d"))
+
+  (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
+  (global-set-key (kbd "C-c h") 'sauron-clear)
+
+  (setq
+   sauron-max-line-length 120
+   sauron-separate-frame nil
+   sauron-watch-nicks '("ozan"))
+
+  ;; some sound/light effects for certain events
+  (add-hook 'sauron-event-added-functions
+            (lambda (origin prio msg &optional props)
+              (todochiku-message "Emacs" msg (todochiku-icon 'irc))
+              (if (string-match "ping" msg)
+                  (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
+              (cond
+               ((= prio 3) (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
+               ((= prio 4) (sauron-fx-sox "/System/Library/Sounds/Ping.aiff"))
+               ((= prio 5)
+                (sauron-fx-sox "/System/Library/Sounds/Glass.aiff")))))
+
+  (add-hook 'sauron-event-block-functions
+            (lambda (origin prio msg &optional props)
+              (or
+               (string-match "^*** Users" msg)))) ;; filter out IRC spam
+
+#+end_src
 * OSX related tweaks
 ** Use system Trash
 Uses [[http://hasseg.org/trash/][trash]]
