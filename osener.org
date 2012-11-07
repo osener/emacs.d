@@ -769,6 +769,11 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 #+end_src
 
+** Disable yasnippet in some modes
+#+begin_src emacs-lisp
+  (add-hook 'term-mode-hook (lambda()
+                  (yas-minor-mode -1)))
+#+end_src
 ** Wrap lines longer than 79 characters
 #+begin_src emacs-lisp
   (setq-default fill-column 79)
