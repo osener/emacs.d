@@ -25,6 +25,7 @@
   (require-package 'slime-js)
   (require-package 'powerline)
   (require-package 'stylus-mode)
+  (require-package 'git-commit-mode)
 #+end_src
 
 * Programming languages
