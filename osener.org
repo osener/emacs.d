@@ -26,6 +26,7 @@
   (require-package 'powerline)
   (require-package 'stylus-mode)
   (require-package 'git-commit-mode)
+  (require-package 'org-bullets)
 #+end_src
 
 * Programming languages
@@ -635,6 +636,10 @@ Uses [[http://hasseg.org/trash/][trash]]
   (powerline-default)
 #+end_src
 
+** Use UTF-8 bullets on org-mode buffers
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
