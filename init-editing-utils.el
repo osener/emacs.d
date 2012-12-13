@@ -134,6 +134,11 @@
 
 
 ;;----------------------------------------------------------------------------
+;; Page break lines
+;;----------------------------------------------------------------------------
+(global-page-break-lines-mode)
+
+;;----------------------------------------------------------------------------
 ;; Fill column indicator
 ;;----------------------------------------------------------------------------
 (when (> emacs-major-version 23)
@@ -163,7 +168,7 @@
       (turn-on-fci-mode)))
 
   ;; Regenerate fci-mode line images after switching themes
-  (defadvice load-theme (after recompute-fci-face activate)
+  (defadvice enable-theme (after recompute-fci-face activate)
     (dolist (buffer (buffer-list))
       (with-current-buffer buffer
         (when (sanityinc/fci-enabled-p)
