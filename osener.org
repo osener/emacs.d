@@ -22,7 +22,6 @@
   (require-package 'python-pylint)
   (require-package 'virtualenv)
   (require-package 'yasnippet)
-  (require-package 'flymake-jshint)
   (require-package 'slime-js)
   (require-package 'powerline)
   (require-package 'stylus-mode)
@@ -141,6 +140,8 @@ Auto indentation (C-j is harder to reach on Colemak)
 
 *** Syntax checking with jshint
 #+begin_src emacs-lisp
+  (setq flymake-run-in-place nil)
+
   (dolist (hook '(js2-mode-hook js3-mode-hook js-mode-hook))
     (add-hook hook (lambda () (flymake-mode t))))
 #+end_src
@@ -798,4 +799,13 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 ** Wrap lines longer than 79 characters
 #+begin_src emacs-lisp
   (setq-default fill-column 79)
+#+end_src
+** Set tmp dir to ~/.emacs.d/tmp
+#+begin_src emacs-lisp
+  (setq temporary-file-directory "~/.emacs.d/tmp")
+
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
 #+end_src

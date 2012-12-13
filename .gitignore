@@ -28,3 +28,4 @@ site-lisp/package/
 /osener.el
 /.mc-lists.el
 site-lisp/jshint-mode/node_modules/
+/tmp
