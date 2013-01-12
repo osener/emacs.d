@@ -22,7 +22,7 @@
          :front "style=\""
          :back "\"")))
      (dolist (mode (list 'html-mode 'nxml-mode))
-       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?$" 'html-css))))
+       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?\\'" 'html-css))))
 
 
 
@@ -36,5 +36,10 @@
   (when (eq major-mode 'css-mode)
     (flymake-css-load)))
 (add-hook 'css-mode-hook 'maybe-flymake-css-load)
+
+
+(add-hook 'sass-mode-hook 'flymake-sass-load)
+(add-hook 'scss-mode-hook 'flymake-sass-load)
+(setq-default scss-compile-at-save nil)
 
 (provide 'init-css)

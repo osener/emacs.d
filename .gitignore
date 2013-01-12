@@ -29,3 +29,4 @@ site-lisp/package/
 /.mc-lists.el
 site-lisp/jshint-mode/node_modules/
 /tmp
+/var

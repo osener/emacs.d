@@ -36,9 +36,6 @@
 
 ;; Compatibility with other modes
 
-(defadvice enable-paredit-mode (before disable-autopair activate)
-  (inhibit-autopair))
-
 (suspend-mode-during-cua-rect-selection 'paredit-mode)
 
 
@@ -47,7 +44,9 @@
 
 (defvar paredit-minibuffer-commands '(eval-expression
                                       pp-eval-expression
-                                      eval-expression-with-eldoc)
+                                      eval-expression-with-eldoc
+                                      ibuffer-do-eval
+                                      ibuffer-do-view-and-eval)
   "Interactive commands for which paredit should be enabled in the minibuffer.")
 
 (defun conditionally-enable-paredit-mode ()
@@ -67,16 +66,13 @@
   (add-to-list 'hippie-expand-try-functions-list 'try-complete-lisp-symbol-partially t))
 
 
-(defun maybe-byte-compile ()
-  (when (and (eq major-mode 'emacs-lisp-mode)
-             buffer-file-name
-             (string-match "\\.el$" buffer-file-name)
-             (not (string-match "\\.dir-locals.el$" buffer-file-name)))
-    (save-excursion (byte-compile-file buffer-file-name))))
+;; ----------------------------------------------------------------------------
+;; Automatic byte compilation
+;; ----------------------------------------------------------------------------
 
-
-(add-hook 'after-save-hook 'maybe-byte-compile)
-
+(auto-compile-on-save-mode 1)
+;; TODO: also use auto-compile-on-load-mode
+;; TODO: exclude .dir-locals.el
 
 ;; ----------------------------------------------------------------------------
 ;; Highlight current sexp
@@ -120,8 +116,8 @@
 
 (require 'eldoc-eval)
 
-(add-to-list 'auto-mode-alist '("\\.emacs-project$" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("archive-contents$" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.emacs-project\\'" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("archive-contents\\'" . emacs-lisp-mode))
 
 (define-key emacs-lisp-mode-map (kbd "C-x C-a") 'pp-macroexpand-last-sexp)
 
