@@ -314,24 +314,6 @@ directory."
     (eshell/cd (locate-dominating-file default-directory ".git")))
 #+end_src
 
-* Editing
-** Multiple cursors
-#+begin_src emacs-lisp
-  (require 'region-bindings-mode)
-  (region-bindings-mode-enable)
-
-  (define-key region-bindings-mode-map "a" 'mc/mark-all-like-this)
-  (define-key region-bindings-mode-map "p" 'mc/mark-previous-like-this)
-  (define-key region-bindings-mode-map "n" 'mc/mark-next-like-this)
-  (define-key region-bindings-mode-map "m" 'mc/mark-more-like-this-extended)
-
-  (define-key region-bindings-mode-map "cc" 'mc/edit-lines)
-  (define-key region-bindings-mode-map "ce" 'mc/edit-ends-of-lines)
-  (define-key region-bindings-mode-map "ca" 'mc/edit-beginnings-of-lines)
-
-  (global-set-key (kbd "<s-return>") 'set-rectangular-region-anchor)
-#+end_src
-
 * Window management
 ** Popwin
 #+begin_src emacs-lisp
