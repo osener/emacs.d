@@ -596,7 +596,7 @@ Uses [[http://hasseg.org/trash/][trash]]
       (add-to-list 'default-frame-alist
                    '(font . "Akkurat-Mono-15"))
     (add-to-list 'default-frame-alist
-                 '(font . "Akkurat-Mono-12")))
+                 '(font . "Akkurat-Mono-13")))
 #+end_src
 
 ** Set Unicode font
