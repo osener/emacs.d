@@ -115,6 +115,7 @@ Auto indentation (C-j is harder to reach on Colemak)
 
 *** Syntax checking with jshint
 #+begin_src emacs-lisp
+  (require 'flymake)
   (setq flymake-run-in-place nil)
 
   (dolist (hook '(js2-mode-hook js3-mode-hook js-mode-hook))

@@ -25,3 +25,6 @@
 [submodule "site-lisp/slate-config-mode"]
 	path = site-lisp/slate-config-mode
 	url = https://github.com/ddjfreedom/slate-config-mode.git
+[submodule "site-lisp/flymake"]
+	path = site-lisp/flymake
+	url = https://github.com/illusori/emacs-flymake.git
