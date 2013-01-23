@@ -16,6 +16,7 @@
   (require-package 'erc-hl-nicks)
   (require-package 'sauron)
   (require-package 'helm)
+  (require-package 'helm-ls-git)
   (require-package 'w3m)
   (require-package 'python-pep8)
   (require-package 'python-pylint)
@@ -471,6 +472,7 @@ JavaScript completion
 Keybindings
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f1>") 'helm-mini)
+  (global-set-key (kbd "s-t") 'helm-ls-git-ls)
 #+end_src
 
 * Notifications
@@ -531,37 +533,6 @@ Uses [[http://hasseg.org/trash/][trash]]
 #+begin_src emacs-lisp
 (when *is-cocoa-emacs*
   (global-set-key [f11] 'ns-toggle-fullscreen))
-#+end_src
-
-** PeepOpen
-#+begin_src emacs-lisp
-  (defun peepopen-git-root-dir ()
-    (let ((result
-           (with-output-to-string
-               (with-current-buffer standard-output
-                 (process-file "git" nil (list t nil) nil
-                               "rev-parse" "--git-dir")))))
-      (unless (or (string= result "") (not result))
-        (file-name-as-directory
-         (expand-file-name
-          ".." (replace-regexp-in-string "\n" "" result))))))
-
-  (defun peepopen-goto-file-gui ()
-    "Uses external GUI app to quickly jump to a file in the project."
-    (interactive)
-    (defun string-join (separator strings)
-      "Join all STRINGS using SEPARATOR."
-      (mapconcat 'identity strings separator))
-    (let ((root (peepopen-git-root-dir)))
-      (when (null root)
-        (error
-         (concat
-          "Not in a git repository")))
-      (shell-command-to-string
-       (format "open 'peepopen://%s?editor=/Applications/Emacs.app'" root))))
-
-  (when *is-a-mac*
-    (global-set-key (kbd "s-t") 'peepopen-goto-file-gui))
 #+end_src
 
 * Cosmetic changes
