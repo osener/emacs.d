@@ -430,6 +430,7 @@ From https://gist.github.com/4002033
 * Helm
 #+begin_src emacs-lisp
   (require 'helm-config)
+  (setq helm-ls-git-show-abs-or-relative 'relative)
 #+end_src
 
 Eshell completion
