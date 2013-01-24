@@ -58,6 +58,7 @@
 (require 'init-rails)
 
 (require 'init-lisp)
+(require 'init-slime)
 (require 'init-clojure)
 (require 'init-common-lisp)
 

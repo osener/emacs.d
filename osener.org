@@ -93,20 +93,12 @@ Auto indentation (C-j is harder to reach on Colemak)
 *** Set up Slime with swank-js
 #+begin_src emacs-lisp
   (require 'js3-mode)
-  (autoload 'slime-fuzzy-init "slime-fuzzy" "" nil)
-  (eval-after-load 'slime-fuzzy
-    '(require 'slime-repl))
-
-  (eval-after-load 'slime
-    '(progn
-       (setq slime-protocol-version 'ignore)
-       (setq slime-net-coding-system 'utf-8-unix)
-       (slime-setup '(slime-repl slime-js helm-slime))
-       (setq slime-complete-symbol-function 'helm-slime-complete)))
 
   (defun set-up-slime-js ()
     (require 'slime)
     (slime-js-minor-mode 1)
+    (set-up-slime-ac)
+
     (global-set-key [f5] 'slime-js-reload)
 
     (defadvice slime-js-event-hook-function (after slime-js-yasnippet activate)
