@@ -29,6 +29,7 @@
   (require-package 'git-commit-mode)
   (require-package 'org-bullets)
   (require-package 'smartparens)
+  (require-package 'iedit)
 #+end_src
 
 * Programming languages
@@ -778,6 +779,13 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     ;; simulate user pressing '(' key
     (execute-kbd-macro (kbd "(")))
   (define-key sp-keymap (kbd "C-(") 'my-wrap-with-paren)
+#+end_src
+** Iedit
+#+begin_src emacs-lisp
+  (define-key global-map       (kbd "C-:") 'iedit-mode)
+  (define-key isearch-mode-map (kbd "C-:") 'iedit-mode)
+  (define-key esc-map          (kbd "C-:") 'iedit-execute-last-modification)
+  (define-key help-map         (kbd "C-:") 'iedit-mode-toggle-on-function)
 #+end_src
 * Misc keybindings
 ** Quick way to open a link

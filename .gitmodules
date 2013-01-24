@@ -1,3 +1,6 @@
+[submodule "site-lisp/auto-complete"]
+	path = site-lisp/auto-complete
+	url = https://github.com/purcell/auto-complete.git
 [submodule "site-lisp/async"]
 	path = site-lisp/async
 	url = https://github.com/jwiegley/emacs-async.git
