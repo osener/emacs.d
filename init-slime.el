@@ -13,6 +13,9 @@
      (setq slime-net-coding-system 'utf-8-unix)
      (slime-setup '(slime-repl slime-fuzzy slime-js))
 
+     (dolist (hook '(sldb-mode-hook slime-repl-mode-hook))
+       (add-hook hook 'inhibit-autopair))
+
      ;; Stop SLIME's REPL from grabbing DEL, which is annoying when backspacing over a '('
      (defun override-slime-repl-bindings-with-paredit ()
        (define-key slime-repl-mode-map (read-kbd-macro paredit-backward-delete-key) nil))

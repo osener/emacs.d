@@ -28,7 +28,6 @@
   (require-package 'stylus-mode)
   (require-package 'git-commit-mode)
   (require-package 'org-bullets)
-  (require-package 'smartparens)
   (require-package 'iedit)
 #+end_src
 
@@ -90,6 +89,35 @@ Auto indentation (C-j is harder to reach on Colemak)
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
 ** Javascript
+*** Insert semicolons automatically
+#+begin_src emacs-lisp
+  (require 'js3-mode)
+  (defvar js3-semicolon-contexts
+    (list js3-NAME js3-LP js3-SCRIPT js3-CALL js3-BLOCK))
+  (defun autopair-js3-maybe-insert-semi-colon (action pair pos-before)
+    "handler for automatically inserting semi-colon at the end of function call."
+    (cond ((and (eq action 'opening)
+                (eq pair ?\))
+                (save-excursion
+                  (goto-char pos-before)
+                  (skip-chars-backward " \t")
+                  (memq (js3-node-type (js3-node-at-point (point)))
+                        js3-semicolon-contexts)
+                  ))
+           (save-excursion
+             (let ((forward-sexp-function nil))
+               (goto-char pos-before)
+               (forward-sexp))
+             (if (looking-at-p "[^[:graph:]]*$")
+                 (insert ";"))))))
+
+  (add-hook 'js3-mode-hook
+            '(lambda ()
+               (setq autopair-handle-action-fns
+                     (list #'autopair-default-handle-action
+                           #'autopair-js3-maybe-insert-semi-colon))))
+#+end_src
+
 *** Set up Slime with swank-js
 #+begin_src emacs-lisp
   (require 'js3-mode)
@@ -681,98 +709,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 #+begin_src emacs-lisp
   (require 'slate-config-mode)
 #+end_src
-** Enable Smartparens
-#+begin_src emacs-lisp
-  (smartparens-global-mode t)
 
-  ;;;;;;;;;
-  ;; global
-  (smartparens-global-mode t)
-
-  ;; highlights matching pairs
-  (show-smartparens-global-mode t)
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; keybinding management
-
-  (define-key sp-keymap (kbd "C-M-f") 'sp-forward-sexp)
-  (define-key sp-keymap (kbd "C-M-b") 'sp-backward-sexp)
-
-  (define-key sp-keymap (kbd "C-M-d") 'sp-down-sexp)
-  (define-key sp-keymap (kbd "C-M-a") 'sp-backward-down-sexp)
-
-  (define-key sp-keymap (kbd "C-M-e") 'sp-up-sexp)
-  (define-key sp-keymap (kbd "C-M-u") 'sp-backward-up-sexp)
-
-  (define-key sp-keymap (kbd "C-M-n") 'sp-next-sexp)
-  (define-key sp-keymap (kbd "C-M-p") 'sp-previous-sexp)
-
-  (define-key sp-keymap (kbd "C-M-k") 'sp-kill-sexp)
-
-  (define-key sp-keymap (kbd "M-<delete>") 'sp-unwrap-sexp)
-  (define-key sp-keymap (kbd "M-<backspace>") 'sp-backward-unwrap-sexp)
-
-  (define-key sp-keymap (kbd "C-<right>") 'sp-forward-slurp-sexp)
-  (define-key sp-keymap (kbd "C-<left>") 'sp-forward-barf-sexp)
-  (define-key sp-keymap (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
-  (define-key sp-keymap (kbd "C-M-<right>") 'sp-backward-barf-sexp)
-
-  (define-key sp-keymap (kbd "M-D") 'sp-splice-sexp)
-  (define-key sp-keymap (kbd "C-M-<delete>") 'sp-splice-sexp-killing-forward)
-  (define-key sp-keymap (kbd "C-M-<backspace>") 'sp-splice-sexp-killing-backward)
-  (define-key sp-keymap (kbd "C-S-<backspace>") 'sp-splice-sexp-killing-around)
-
-  (define-key sp-keymap (kbd "C-]") 'sp-select-next-thing-exchange)
-  (define-key sp-keymap (kbd "C-<left_bracket>") 'sp-select-previous-thing)
-  (define-key sp-keymap (kbd "C-M-]") 'sp-select-next-thing)
-
-  (define-key sp-keymap (kbd "M-F") 'sp-forward-symbol)
-  (define-key sp-keymap (kbd "M-B") 'sp-backward-symbol)
-
-  ;;;;;;;;;;;;;;;;;;
-  ;; pair management
-
-  ;;; markdown-mode
-  (sp-add-pair "*" "*")
-
-  ;; you can use the `sp-with' macro. It will automatically add the
-  ;; _mode_ to the end of each call. How cool is that!
-  (sp-with '(markdown-mode gfm-mode rst-mode)
-    ;; this also disables '*' in all other modes
-    (sp-add-local-allow-insert-pair "*")
-    (sp-add-tag-pair "2" "**" "**" nil)
-    (sp-add-tag-pair "s" "```scheme" "```" nil)
-    (sp-add-tag-pair "<"  "<_>" "</_>" 'sp-match-sgml-tags))
-
-  ;; Besides the `sp-with' macro, when applying various permissions on
-  ;; the same tag, you can also use the `sp-with-tag' macro. It will
-  ;; automatically add the _tag_ to each function. Use this only with
-  ;; functions where the first argument is the opening pair! Here, we
-  ;; want to apply several permissions on the '' pair:
-  ;;
-  ;; (sp-with-tag "'"
-  ;;   (sp-add-local-ban-insert-pair 'text-mode)
-  ;;   (sp-add-local-ban-insert-pair-in-string 'c-mode))
-
-  ;;; python-mode
-  (sp-with 'python-mode
-    (sp-add-local-ban-insert-pair "`"))
-
-  ;;; html-mode
-  (sp-add-pair "<" ">") ;; in html only!
-  (sp-with '(html-mode sgml-mode)
-    (sp-add-local-allow-insert-pair "<"))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Custom defuns and macros
-  (defun my-wrap-with-paren (&optional arg)
-    "Select ARG next things and wrap them with a () pair."
-    (interactive "p")
-    (sp-select-next-thing-exchange arg)
-    ;; simulate user pressing '(' key
-    (execute-kbd-macro (kbd "(")))
-  (define-key sp-keymap (kbd "C-(") 'my-wrap-with-paren)
-#+end_src
 ** Iedit
 #+begin_src emacs-lisp
   (define-key global-map       (kbd "C-:") 'iedit-mode)
@@ -796,6 +733,12 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 #+begin_src emacs-lisp
   (menu-bar-mode t)
 #+end_src
+** Disable autopair in some modes
+#+begin_src emacs-lisp
+  (add-hook 'erc-mode-hook 'inhibit-autopair)
+  (add-hook 'term-mode-hook 'inhibit-autopair)
+#+end_src
+
 ** Disable show-trailing-whitespace in some modes
 #+begin_src emacs-lisp
   (dolist (hook '(erc-mode-hook
