@@ -1,4 +1,4 @@
-(defcustom preferred-javascript-mode 'js3-mode
+(defcustom preferred-javascript-mode 'js2-mode
   "Javascript mode to use for .js files"
   :type 'symbol
   :group 'programming
@@ -24,7 +24,7 @@
       js2-basic-offset preferred-javascript-indent-level
       js2-indent-on-enter-key t
       js2-auto-indent-p t
-      js2-bounce-indent-p t)
+      js2-bounce-indent-p nil)
 
 ;; js3-mode
 (add-hook 'js3-mode-hook '(lambda () (setq mode-name "JS3")))
