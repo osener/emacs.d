@@ -92,6 +92,16 @@ Auto indentation (C-j is harder to reach on Colemak)
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
 ** Javascript
+#+begin_src emacs-lisp
+  (setq js2-concat-multiline-strings 'eol
+        js2-rebind-eol-bol-keys t
+        js2-idle-timer-delay 0.1
+        js2-strict-inconsistent-return-warning nil)
+
+  (require 'js2-imenu-extras)
+  (js2-imenu-extras-setup)
+#+end_src
+
 *** Insert semicolons automatically
 #+begin_src emacs-lisp
   (require 'js2-mode)
@@ -149,6 +159,29 @@ Auto indentation (C-j is harder to reach on Colemak)
 #+begin_src emacs-lisp
   (require 'json-mode)
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
+#+end_src
+*** Use lambda for anonymous functions
+#+begin_src emacs-lisp
+  (font-lock-add-keywords
+   'js2-mode `(("\\(function\\) *("
+                (0 (progn (compose-region (match-beginning 1)
+                                          (match-end 1) "\u0192")
+                          nil)))))
+#+end_src
+*** Use right arrow for return in one-line functions
+#+begin_src emacs-lisp
+  (font-lock-add-keywords
+   'js2-mode `(("function *([^)]*) *{ *\\(return\\) "
+                (0 (progn (compose-region (match-beginning 1)
+                                          (match-end 1) "\u2190")
+                          nil)))))
+#+end_src
+*** Refactoring
+#+begin_src emacs-lisp
+  (require 'js2-refactor)
+
+  (defadvice js2r-inline-var (after reindent-buffer activate)
+    (cleanup-buffer))
 #+end_src
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
