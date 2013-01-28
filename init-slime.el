@@ -1,7 +1,3 @@
-(autoload 'slime-fuzzy-init "slime-fuzzy" "" nil)
-(eval-after-load 'slime-fuzzy
-  '(require 'slime-repl))
-
 (defun smp/set-up-slime-repl-auto-complete ()
   "Bind TAB to `indent-for-tab-command', as in regular Slime buffers."
   (local-set-key (kbd "TAB") 'indent-for-tab-command))
@@ -11,7 +7,8 @@
      (add-to-list 'load-path (concat (directory-of-library "slime") "/contrib"))
      (setq slime-protocol-version 'ignore)
      (setq slime-net-coding-system 'utf-8-unix)
-     (slime-setup '(slime-repl slime-fuzzy slime-js))
+     (setq slime-complete-symbol*-fancy t)
+     (slime-setup '(slime-repl slime-js))
 
      (dolist (hook '(sldb-mode-hook slime-repl-mode-hook))
        (add-hook hook 'inhibit-autopair))
@@ -35,5 +32,6 @@
        '(add-to-list 'ac-modes 'slime-repl-mode))))
 
 
+(setq slime-load-hook nil)
 
 (provide 'init-slime)
