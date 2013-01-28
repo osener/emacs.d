@@ -32,6 +32,7 @@
   (require-package 'dash)
   (require-package 'multiple-cursors)
   (require-package 'js2-refactor)
+  (require-package 'dired-details)
 #+end_src
 
 * Programming languages
@@ -402,6 +403,15 @@ directory."
     "Change directory to the project's root."
     (eshell/cd (locate-dominating-file default-directory ".git")))
 #+end_src
+
+* Dired
+** Toggle verbose display
+#+begin_src emacs-lisp
+  (require 'dired-details)
+  (setq-default dired-details-hidden-string "--- ")
+  (dired-details-install)
+#+end_src
+
 
 * Window management
 ** Popwin
