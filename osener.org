@@ -134,12 +134,60 @@ Auto indentation (C-j is harder to reach on Colemak)
 #+begin_src emacs-lisp
   (require 'js2-mode)
 
+  (defun js2-eval-friendly-node-p (n)
+    (or (and (js2-stmt-node-p n) (not (js2-block-node-p n)))
+        (and (js2-function-node-p n) (js2-function-node-name n))))
+
+  (defun slime-js--echo-result (result &rest _)
+    (message result))
+
+  (defun slime-js--replace-with-result (replacement beg end)
+    (save-excursion
+      (goto-char beg)
+      (delete-char (- end beg))
+      (insert replacement)))
+
+  (defun slime-js-eval-region (beg end &optional func)
+    (lexical-let ((func (or func 'slime-js--echo-result))
+                  (beg beg)
+                  (end end))
+      (slime-flash-region beg end)
+      (slime-js-eval
+       (buffer-substring-no-properties beg end)
+       #'(lambda (s) (funcall func (cadr s) beg end)))))
+
+  (defun slime-js-eval-statement (&optional func)
+    (let ((node (js2r--closest 'js2-eval-friendly-node-p)))
+      (slime-js-eval-region (js2-node-abs-pos node)
+                            (js2-node-abs-end node)
+                            func)))
+
+  (defun slime-js-eval-current ()
+    (interactive)
+    (if (use-region-p)
+        (slime-js-eval-region (point) (mark))
+      (slime-js-eval-statement)))
+
+  (defun slime-js-eval-and-replace-current ()
+    (interactive)
+    (if (use-region-p)
+        (slime-js-eval-region (point) (mark) 'slime-js--replace-with-result)
+      (slime-js-eval-statement 'slime-js--replace-with-result)))
+
   (defun set-up-slime-js ()
     (require 'slime)
     (slime-js-minor-mode 1)
     (set-up-slime-ac)
 
     (global-set-key [f5] 'slime-js-reload)
+
+    (define-key slime-js-minor-mode-map (kbd "C-x C-e") (lambda ()
+                                                          (interactive)
+                                                          (ignore-errors (slime-js-eval-current))))
+      (define-key slime-js-minor-mode-map (kbd "C-c C-e") '(lambda ()
+                                                          (interactive)
+                                                          (ignore-errors
+                                                            (slime-js-eval-and-replace-current))))
 
     (defadvice slime-js-event-hook-function (after slime-js-yasnippet activate)
       (setq yas/mode-symbol 'js2-mode)))
