@@ -102,6 +102,15 @@ Auto indentation (C-j is harder to reach on Colemak)
   (js2-imenu-extras-setup)
 #+end_src
 
+*** Declare globals
+#+begin_src emacs-lisp
+  (setq-default js2-global-externs '("module" "require" "jQuery"
+                                     "$" "_" "buster" "assert"
+                                     "setTimeout" "clearTimeout"
+                                     "setInterval" "clearInterval"
+                                     "__dirname" "console" "JSON"
+                                     "cengiz"))
+#+end_src
 *** Insert semicolons automatically
 #+begin_src emacs-lisp
   (require 'js2-mode)
