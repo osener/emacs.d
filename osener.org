@@ -627,19 +627,12 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 
 * Chat
 #+begin_src emacs-lisp
-  (defun flowdock ()
-    (interactive)
-    (erc-tls :server "irc.flowdock.com"
-             :port 6697
-             :nick "ozan"
-             :full-name "Ozan Sener"))
-
   (defun start-im ()
     (interactive)
     (require 'secrets "~/secrets.gpg")
     (sauron-start-hidden)
     (jabber-connect-all)
-    (flowdock))
+    (znc-all))
 #+end_src
 
 ** ERC
