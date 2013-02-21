@@ -641,6 +641,7 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
     (jabber-connect-all)
     (flowdock))
 #+end_src
+
 ** ERC
 *** Disable trailing whitespace in ERC buffers
 #+begin_src emacs-lisp
@@ -662,36 +663,6 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 *** ZNC
 #+begin_src emacs-lisp
   (require 'znc)
-#+end_src
-** Jabber
-#+begin_src emacs-lisp
-  (require 'jabber-autoloads)
-  (add-hook 'jabber-post-connect-hooks 'jabber-whitespace-ping-start)
-  (add-hook 'jabber-post-connect-hooks 'jabber-muc-autojoin)
-  (add-hook 'jabber-post-connect-hooks 'jabber-send-default-presence)
-
-  (setq jabber-auto-reconnect t
-        jabber-activity-count-in-title t)
-#+end_src
-*** Hipchat
-From https://gist.github.com/4002033
-#+begin_src emacs-lisp
-  ;; To join HipChat rooms easily
-  (defvar hipchat-number "29017")
-  (defvar hipchat-nickname "Ozan Sener")
-  (defun hipchat-join (room)
-    (interactive "sRoom name: ")
-    (jabber-groupchat-join
-     (jabber-read-account)
-     (concat hipchat-number "_" room "@conf.hipchat.com")
-     hipchat-nickname
-     t))
-
-  ;; Mention nicknames in a way that HipChat clients will pickup
-  (defun hipchat-mention (nickname)
-    (interactive
-     (list (jabber-muc-read-nickname jabber-group "Nickname: ")))
-    (insert (concat "@\"" nickname "\" ")))
 #+end_src
 * Helm
 #+begin_src emacs-lisp
