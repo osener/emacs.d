@@ -504,6 +504,17 @@ Toggleable verbosity
   (setq-default dired-details-hidden-string "--- ")
 #+end_src
 
+Custom ls invocation
+#+begin_src emacs-lisp
+  (setq dired-listing-switches
+        "-aGhlvF --group-directories-first --time-style=long-iso")
+#+end_src
+
+Try guessing dired targets
+#+begin_src emacs-lisp
+  (setq dired-dwim-target t)
+#+end_src
+
 * Navigation
 ** Goto line with feedback
 #+begin_src emacs-lisp
