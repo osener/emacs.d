@@ -472,6 +472,18 @@ directory."
     (eshell/cd (locate-dominating-file default-directory ".git")))
 #+end_src
 
+* Ansi-Term
+Don't keep buffers with finished processes around
+#+begin_src emacs-lisp
+  (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
+    (if (memq (process-status proc) '(signal exit))
+        (let ((buffer (process-buffer proc)))
+          ad-do-it
+          (kill-buffer buffer))
+      ad-do-it))
+  (ad-activate 'term-sentinel)
+#+end_src
+
 * Dired
 ** Toggle verbose display
 #+begin_src emacs-lisp
