@@ -345,8 +345,22 @@ emacsclient -a '' -t -e "(server-eshell)"
 ** Quake-like eshell window
 #+begin_src emacs-lisp
   (require 'shell-pop)
-  (shell-pop-set-internal-mode "eshell")
-  (global-set-key [f8] 'shell-pop)
+  (shell-pop-set-window-position "bottom")
+  (shell-pop-set-window-height 50)
+
+  (global-set-key (kbd "M-<f8>")
+                  (lambda ()
+                    (interactive)
+                    (shell-pop-set-internal-mode "ansi-term")
+                    (when *is-a-mac*
+                      (shell-pop-set-internal-mode-shell "/usr/local/bin/fish"))
+                    (shell-pop)))
+
+  (global-set-key (kbd "<f8>")
+                  (lambda ()
+                    (interactive)
+                    (shell-pop-set-internal-mode "eshell")
+                    (shell-pop)))
 #+end_src
 
 ** Easy way to open eshell in the directory of current buffer
