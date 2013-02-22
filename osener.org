@@ -484,6 +484,18 @@ Don't keep buffers with finished processes around
   (ad-activate 'term-sentinel)
 #+end_src
 
+Yank into terminal with C-y
+#+begin_src emacs-lisp
+  (defun my-term-paste (&optional string)
+   (interactive)
+   (process-send-string
+    (get-buffer-process (current-buffer))
+    (if string string (current-kill 0))))
+
+  (add-hook 'term-mode-hook
+            (lambda () (define-key term-raw-map "\C-y" 'my-term-paste)))
+#+end_src
+
 * Dired
 ** Toggle verbose display
 #+begin_src emacs-lisp
