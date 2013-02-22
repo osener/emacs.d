@@ -33,6 +33,7 @@
   (require-package 'multiple-cursors)
   (require-package 'js2-refactor)
   (require-package 'dired-details)
+  (require-package 'dired-details+)
   (require-package 'lein)
   (require-package 'async)
   (require-package 'nurumacs)
@@ -497,11 +498,10 @@ Yank into terminal with C-y
 #+end_src
 
 * Dired
-** Toggle verbose display
+Toggleable verbosity
 #+begin_src emacs-lisp
-  (require 'dired-details)
+  (require 'dired-details+)
   (setq-default dired-details-hidden-string "--- ")
-  (dired-details-install)
 #+end_src
 
 * Navigation
