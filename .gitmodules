@@ -1,9 +1,6 @@
 [submodule "site-lisp/auto-complete"]
         path = site-lisp/auto-complete
         url = https://github.com/purcell/auto-complete.git
-[submodule "site-lisp/async"]
-        path = site-lisp/async
-        url = https://github.com/jwiegley/emacs-async.git
 [submodule "site-lisp/helm-ipython"]
         path = site-lisp/helm-ipython
         url = https://github.com/osener/helm-ipython.git
@@ -29,5 +26,5 @@
         path = site-lisp/flymake
         url = https://github.com/illusori/emacs-flymake.git
 [submodule "site-lisp/shell-pop"]
-	path = site-lisp/shell-pop
-	url = http://github.com/kyagi/shell-pop-el.git
+        path = site-lisp/shell-pop
+        url = http://github.com/kyagi/shell-pop-el.git

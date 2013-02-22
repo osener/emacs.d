@@ -34,6 +34,7 @@
   (require-package 'js2-refactor)
   (require-package 'dired-details)
   (require-package 'lein)
+  (require-package 'async)
 #+end_src
 
 * Programming languages
