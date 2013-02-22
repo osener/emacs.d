@@ -4,3 +4,5 @@ alias emacs find-file $1
 alias ff find-file $1
 alias d dired $1
 alias veidt cd /ssh:veidt:
+alias fnd find-name-dired . $1
+alias fgd find-grep-dired . $1
