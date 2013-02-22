@@ -35,6 +35,7 @@
   (require-package 'dired-details)
   (require-package 'lein)
   (require-package 'async)
+  (require-package 'nurumacs)
 #+end_src
 
 * Programming languages
@@ -829,6 +830,10 @@ Uses [[http://hasseg.org/trash/][trash]]
 ** Use UTF-8 bullets on org-mode buffers
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+** Fancy scroll animation
+#+begin_src emacs-lisp
+  (require 'nurumacs)
 #+end_src
 * Misc Emacs modes
 ** Completion
