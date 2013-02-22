@@ -834,6 +834,8 @@ Uses [[http://hasseg.org/trash/][trash]]
 ** Fancy scroll animation
 #+begin_src emacs-lisp
   (require 'nurumacs)
+  (setq nurumacs-map nil)
+  (setq nurumacs-auto-hscroll nil)
 #+end_src
 * Misc Emacs modes
 ** Completion
