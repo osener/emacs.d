@@ -33,6 +33,7 @@
   (require-package 'multiple-cursors)
   (require-package 'js2-refactor)
   (require-package 'dired-details)
+  (require-package 'lein)
 #+end_src
 
 * Programming languages
