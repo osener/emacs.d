@@ -683,7 +683,6 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
     (interactive)
     (require 'secrets "~/secrets.gpg")
     (sauron-start-hidden)
-    (jabber-connect-all)
     (znc-all))
 #+end_src
 
