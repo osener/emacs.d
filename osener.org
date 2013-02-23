@@ -37,6 +37,7 @@
   (require-package 'lein)
   (require-package 'async)
   (require-package 'nurumacs)
+  (require-package 'restclient)
 #+end_src
 
 * Programming languages
