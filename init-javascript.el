@@ -1,5 +1,6 @@
-(defcustom preferred-javascript-mode 'js2-mode
-  "Javascript mode to use for .js files"
+(defcustom preferred-javascript-mode
+  (first (remove-if-not #'fboundp '(js2-mode js3-mode)))
+  "Javascript mode to use for .js files."
   :type 'symbol
   :group 'programming
   :options '(js2-mode js3-mode js-mode))

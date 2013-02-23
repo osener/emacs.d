@@ -60,15 +60,6 @@ source file under ~/.emacs.d/site-lisp/name/"
         (shell-command (format "svn co %s %s" url dir) "*site-lisp-svn*"))
       (add-to-list 'load-path dir))))
 
-
-;;----------------------------------------------------------------------------
-;; Fix up some load paths for libs from git submodules
-;;----------------------------------------------------------------------------
-
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/session/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/org-mode/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/org-mode/contrib/lisp"))
-
 (defun refresh-site-lisp-submodules ()
   (interactive)
   (message "Updating site-lisp git submodules")
@@ -83,7 +74,9 @@ source file under ~/.emacs.d/site-lisp/name/"
 
 (defun ensure-site-lisp-libs ()
   (unless (> emacs-major-version 23)
-    (ensure-lib-from-url 'package "http://bit.ly/pkg-el23")))
+    (ensure-lib-from-url
+     'package
+     "http://repo.or.cz/w/emacs.git/blob_plain/1a0a666f941c99882093d7bd08ced15033bc3f0c:/lisp/emacs-lisp/package.el")))
 
 
 
