@@ -60,6 +60,11 @@ source file under ~/.emacs.d/site-lisp/name/"
         (shell-command (format "svn co %s %s" url dir) "*site-lisp-svn*"))
       (add-to-list 'load-path dir))))
 
+
+;;----------------------------------------------------------------------------
+;; Fix up some load paths for libs from git submodules
+;;----------------------------------------------------------------------------
+
 (defun refresh-site-lisp-submodules ()
   (interactive)
   (message "Updating site-lisp git submodules")
