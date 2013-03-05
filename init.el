@@ -48,7 +48,8 @@
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
-(require 'init-erlang)
+(when (package-installed-p 'erlang)
+  (require 'init-erlang))
 (require 'init-javascript)
 (require 'init-sh)
 (require 'init-org)
@@ -80,7 +81,8 @@
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 
 ;;----------------------------------------------------------------------------
