@@ -1,8 +1,13 @@
+(require-package 'elisp-slime-nav)
+(require-package 'lively)
+
+(require-package 'pretty-mode)
 (autoload 'turn-on-pretty-mode "pretty-mode")
 
 ;; ----------------------------------------------------------------------------
 ;; Paredit
 ;; ----------------------------------------------------------------------------
+(require-package 'paredit)
 (autoload 'enable-paredit-mode "paredit")
 
 
@@ -74,6 +79,7 @@
 ;; Automatic byte compilation
 ;; ----------------------------------------------------------------------------
 
+(require-package 'auto-compile)
 (auto-compile-on-save-mode 1)
 ;; TODO: also use auto-compile-on-load-mode
 ;; TODO: exclude .dir-locals.el
@@ -82,9 +88,11 @@
 ;; Highlight current sexp
 ;; ----------------------------------------------------------------------------
 
+(require-package 'hl-sexp)
+
 ;; Prevent flickery behaviour due to hl-sexp-mode unhighlighting before each command
 (eval-after-load 'hl-sexp
-  '(defadvice hl-sexp-mode (after unflicker (turn-on) activate)
+  '(defadvice hl-sexp-mode (after unflicker (&optional turn-on) activate)
      (when turn-on
        (remove-hook 'pre-command-hook #'hl-sexp-unhighlight))))
 
@@ -119,6 +127,7 @@
     (add-hook hook 'sanityinc/emacs-lisp-setup)))
 
 
+(require-package 'eldoc-eval)
 (require 'eldoc-eval)
 
 (add-to-list 'auto-mode-alist '("\\.emacs-project\\'" . emacs-lisp-mode))

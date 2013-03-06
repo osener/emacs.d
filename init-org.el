@@ -1,4 +1,12 @@
+(when (< emacs-major-version 24)
+  (require-package 'org))
+(require-package 'org-fstree)
+(when *is-a-mac*
+  (require-package 'org-mac-link-grabber)
+  (require-package 'org-mac-iCal))
+
 (require 'org)
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -91,7 +99,7 @@
        (require 'org-mac-link-grabber)
        (add-hook 'org-mode-hook
                  (lambda ()
-                   (define-key org-mode-map (kbd "C-c g") 'omlg-grab-link))))
+                   (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link))))
      ;;(require 'org-checklist)
      (require 'org-fstree)))
 

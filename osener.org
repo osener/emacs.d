@@ -27,7 +27,6 @@
   (require-package 'stylus-mode)
   (require-package 'git-commit-mode)
   (require-package 'org-bullets)
-  (require-package 'iedit)
   (require-package 'dash)
   (require-package 'multiple-cursors)
   (require-package 'js2-refactor)
@@ -1013,13 +1012,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
   (require 'slate-config-mode)
 #+end_src
 
-** Iedit
-#+begin_src emacs-lisp
-  (define-key global-map       (kbd "C-:") 'iedit-mode)
-  (define-key isearch-mode-map (kbd "C-:") 'iedit-mode)
-  (define-key esc-map          (kbd "C-:") 'iedit-execute-last-modification)
-  (define-key help-map         (kbd "C-:") 'iedit-mode-toggle-on-function)
-#+end_src
 * Misc keybindings
 ** Quick way to open a link
 #+begin_src emacs-lisp

@@ -1,3 +1,6 @@
+(require-package 'unfill)
+(require-package 'whole-line-or-region)
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
@@ -52,12 +55,13 @@
 ;;----------------------------------------------------------------------------
 ;; Show matching parens
 ;;----------------------------------------------------------------------------
+(require-package 'mic-paren)
 (paren-activate)     ; activating mic-paren
 
 ;;----------------------------------------------------------------------------
 ;; Expand region
 ;;----------------------------------------------------------------------------
-(require 'expand-region)
+(require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;----------------------------------------------------------------------------
@@ -75,6 +79,7 @@
 ;;----------------------------------------------------------------------------
 ;; Fix per-window memory of buffer point positions
 ;;----------------------------------------------------------------------------
+(require-package 'pointback)
 (global-pointback-mode)
 (defadvice skeleton-insert (before disable-pointback activate)
   "Disable pointback when using skeleton functions like `sgml-tag'."
@@ -109,7 +114,24 @@
 (global-set-key (kbd "M-T") 'transpose-lines)
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
+
+(require-package 'ace-jump-mode)
 (global-set-key (kbd "C-;") 'ace-jump-mode)
+(global-set-key (kbd "C-:") 'ace-jump-word-mode)
+
+
+(require-package 'multiple-cursors)
+;; multiple-cursors
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-+") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; From active region to multiple cursors:
+(global-set-key (kbd "C-c c r") 'set-rectangular-region-anchor)
+(global-set-key (kbd "C-c c c") 'mc/edit-lines)
+(global-set-key (kbd "C-c c e") 'mc/edit-ends-of-lines)
+(global-set-key (kbd "C-c c a") 'mc/edit-beginnings-of-lines)
+
 
 (defun duplicate-line ()
   (interactive)
@@ -142,12 +164,51 @@
 ;;----------------------------------------------------------------------------
 ;; Page break lines
 ;;----------------------------------------------------------------------------
+(require-package 'page-break-lines)
 (global-page-break-lines-mode)
+
+;;----------------------------------------------------------------------------
+;; Fill column indicator
+;;----------------------------------------------------------------------------
+(when (> emacs-major-version 23)
+  (require-package 'fill-column-indicator)
+  (defun sanityinc/prog-mode-fci-settings ()
+    (turn-on-fci-mode)
+    (when show-trailing-whitespace
+      (set (make-local-variable 'whitespace-style) '(face trailing))
+      (whitespace-mode 1)))
+
+  (add-hook 'prog-mode-hook 'sanityinc/prog-mode-fci-settings)
+
+  (defun sanityinc/fci-enabled-p ()
+    (and (boundp 'fci-mode) fci-mode))
+
+  (defvar sanityinc/fci-mode-suppressed nil)
+  (defadvice popup-create (before suppress-fci-mode activate)
+    "Suspend fci-mode while popups are visible"
+    (let ((fci-enabled (sanityinc/fci-enabled-p)))
+      (when fci-enabled
+        (set (make-local-variable 'sanityinc/fci-mode-suppressed) fci-enabled)
+        (turn-off-fci-mode))))
+  (defadvice popup-delete (after restore-fci-mode activate)
+    "Restore fci-mode when all popups have closed"
+    (when (and sanityinc/fci-mode-suppressed
+               (null popup-instances))
+      (setq sanityinc/fci-mode-suppressed nil)
+      (turn-on-fci-mode)))
+
+  ;; Regenerate fci-mode line images after switching themes
+  (defadvice enable-theme (after recompute-fci-face activate)
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (sanityinc/fci-enabled-p)
+          (turn-on-fci-mode))))))
 
 
 ;;----------------------------------------------------------------------------
 ;; Shift lines up and down with M-up and M-down
 ;;----------------------------------------------------------------------------
+(require-package 'move-text)
 (move-text-default-bindings)
 
 
