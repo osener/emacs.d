@@ -64,4 +64,11 @@
 
 (add-hook 'coffee-mode-hook 'flymake-coffee-load)
 
+;; ---------------------------------------------------------------------------
+;; Alternatively, use skewer-mode
+;; ---------------------------------------------------------------------------
+
+(require-package 'skewer-mode)
+
+
 (provide 'init-javascript)

@@ -1,5 +1,4 @@
 (require-package 'magit)
-(require-package 'git-gutter-fringe)
 (require-package 'git-blame)
 (require-package 'git-commit-mode)
 (require-package 'gitignore-mode)
@@ -36,12 +35,6 @@
        (when (get-register :magit-fullscreen)
          (jump-to-register :magit-fullscreen)))
      (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
-
-
-;;; Use the fringe version of git-gutter
-
-(eval-after-load 'git-gutter
-  '(require 'git-gutter-fringe))
 
 
 (when *is-a-mac*
