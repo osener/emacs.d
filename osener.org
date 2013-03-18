@@ -792,6 +792,18 @@ Keybindings
 
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
 #+end_src
+
+Diff-hl mode
+#+begin_src emacs-lisp
+  (require-package 'diff-hl)
+  (global-diff-hl-mode t)
+#+end_src
+
+Magit extensions for using GitHub
+#+begin_src emacs-lisp
+  (require-package 'magithub)
+#+end_src
+
 * Notifications
 #+begin_src emacs-lisp
   (defun sauron-fx-sox (path)
