@@ -730,6 +730,7 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+begin_src emacs-lisp
   (require 'helm-config)
   (setq helm-ls-git-show-abs-or-relative 'relative)
+  (helm-mode t)
 #+end_src
 
 Eshell completion
