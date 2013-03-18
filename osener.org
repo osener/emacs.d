@@ -898,12 +898,6 @@ Uses [[http://hasseg.org/trash/][trash]]
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
-** Fancy scroll animation
-#+begin_src emacs-lisp
-  (require 'nurumacs)
-  (setq nurumacs-map nil)
-  (setq nurumacs-auto-hscroll nil)
-#+end_src
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
