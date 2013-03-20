@@ -36,6 +36,7 @@
   (require-package 'async)
   (require-package 'nurumacs)
   (require-package 'restclient)
+  (require-package 'autopair)
 #+end_src
 
 * Programming languages
