@@ -37,6 +37,7 @@
   (require-package 'nurumacs)
   (require-package 'restclient)
   (require-package 'autopair)
+  (require-package 'typo)
 #+end_src
 
 * Programming languages
@@ -1018,6 +1019,12 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 ** Slate configuration language
 #+begin_src emacs-lisp
   (require 'slate-config-mode)
+#+end_src
+
+** Automatic unicode insertion using Typo mode
+#+begin_src emacs-lisp
+  (typo-global-mode 1)
+  (add-hook 'text-mode-hook 'typo-mode)
 #+end_src
 
 * Misc keybindings
