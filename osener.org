@@ -316,6 +316,15 @@ Auto indentation (C-j is harder to reach on Colemak)
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
 #+end_src
+** Scala
+#+begin_src emacs-lisp
+  (require-package 'scala-mode2)
+
+  (let ((default-directory "~/vcs/ensime"))
+    (when (file-exists-p default-directory)
+      (add-to-list 'load-path (expand-file-name "elisp/"))
+      (require 'ensime)))
+#+end_src
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
