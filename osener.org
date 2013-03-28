@@ -1088,7 +1088,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 #+end_src
 ** Set tmp dir to ~/.emacs.d/tmp
 #+begin_src emacs-lisp
-  (setq temporary-file-directory "~/.emacs.d/tmp")
+  (setq temporary-file-directory "~/.emacs.d/tmp/")
+
+  (make-directory temporary-file-directory t)
 
   (setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
