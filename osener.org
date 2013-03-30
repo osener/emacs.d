@@ -19,7 +19,6 @@ Install some additional packages
   (require-package 'multiple-cursors)
   (require-package 'async)
   (require-package 'restclient)
-  (require-package 'autopair)
   (require-package 'typo)
 #+end_src
 

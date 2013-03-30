@@ -67,6 +67,7 @@
 ;;----------------------------------------------------------------------------
 ;; Autopair quotes and parentheses
 ;;----------------------------------------------------------------------------
+(require-package 'autopair)
 (require 'autopair)
 (setq autopair-autowrap t)
 (autopair-global-mode t)
