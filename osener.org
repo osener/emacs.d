@@ -1030,6 +1030,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                         nil 'eq))
        (require 'emms-mark nil t)
 
+       (require 'emms-history)
+       (emms-history-load)
+
        ;; swap time and other track info
        (let ((new-global-mode-string nil))
          (while (and (not (memq (car global-mode-string)
