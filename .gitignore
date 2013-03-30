@@ -30,3 +30,5 @@ site-lisp/package/
 site-lisp/jshint-mode/node_modules/
 /tmp
 /var
+/emms
+/image-dired
