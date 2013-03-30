@@ -6,7 +6,7 @@
 
   (defun load-secrets ()
     (interactive)
-    (require 'secrets "~/emacs.d/secrets.el.gpg"))
+    (require 'secrets "~/.emacs.d/secrets.el.gpg"))
 #+end_src
 
 Install some additional packages
