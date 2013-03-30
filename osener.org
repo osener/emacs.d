@@ -9,36 +9,15 @@
     (require 'secrets "~/emacs.d/secrets.el.gpg"))
 #+end_src
 
-** Install some additional packages
+Install some additional packages
 #+begin_src emacs-lisp
   (require-package 'starter-kit-bindings)
-  (require-package 'ack-and-a-half)
-  (require-package 'bm)
-  (require-package 'undo-tree)
-  (require-package 'popwin)
-  (require-package 'smartrep)
-  (require-package 'erc-hl-nicks)
-  (require-package 'sauron)
-  (require-package 'helm)
-  (require-package 'helm-ls-git)
-  (require-package 'w3m)
-  (require-package 'python-pep8)
-  (require-package 'python-pylint)
-  (require-package 'virtualenv)
   (require-package 'yasnippet)
-  (require-package 'slime-js)
   (require-package 'jade-mode)
   (require-package 'stylus-mode)
-  (require-package 'git-commit-mode)
-  (require-package 'org-bullets)
   (require-package 'dash)
   (require-package 'multiple-cursors)
-  (require-package 'js2-refactor)
-  (require-package 'dired-details)
-  (require-package 'dired-details+)
-  (require-package 'lein)
   (require-package 'async)
-  (require-package 'nurumacs)
   (require-package 'restclient)
   (require-package 'autopair)
   (require-package 'typo)
@@ -59,6 +38,10 @@ Load chicken
               (slime-mode t)))
 #+end_src
 ** Clojure
+#+begin_src emacs-lisp
+  (require-package 'lein)
+#+end_src
+
 Static checking using kibit
 #+begin_src emacs-lisp
   (require 'compile)
@@ -75,8 +58,13 @@ Static checking using kibit
     (compile "lein kibit"))
 #+end_src
 ** Python
-*** Python.el ipython integration
-Code completion
+#+begin_src emacs-lisp
+  (require-package 'virtualenv)
+  (require-package 'python-pep8)
+  (require-package 'python-pylint)
+#+end_src
+
+Code completion using IPython
 #+begin_src emacs-lisp
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args ""
@@ -89,12 +77,14 @@ Code completion
         python-shell-completion-string-code
         "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 #+end_src
-*** Auto-indentation
+
+Auto-indentation
 #+begin_src emacs-lisp
   (add-hook 'python-mode-hook
     #'(lambda ()
         (define-key python-mode-map "\C-m" 'newline-and-indent)))
 #+end_src
+
 ** C
 Auto indentation (C-j is harder to reach on Colemak)
 #+begin_src emacs-lisp
@@ -171,6 +161,7 @@ Auto indentation (C-j is harder to reach on Colemak)
 *** Set up Slime with swank-js
 #+begin_src emacs-lisp
   (require 'js2-mode)
+  (require-package 'slime-js)
 
   (defun js2-eval-friendly-node-p (n)
     (or (and (js2-stmt-node-p n) (not (js2-block-node-p n)))
@@ -315,6 +306,8 @@ Auto indentation (C-j is harder to reach on Colemak)
 #+end_src
 *** Refactoring
 #+begin_src emacs-lisp
+  (require-package 'js2-refactor)
+
   (require 'js2-refactor)
 
   (defadvice js2r-inline-var (after reindent-buffer activate)
@@ -533,6 +526,9 @@ Yank into terminal with C-y
 * Dired
 Toggleable verbosity
 #+begin_src emacs-lisp
+  (require-package 'dired-details)
+  (require-package 'dired-details+)
+
   (require 'dired-details+)
   (setq-default dired-details-hidden-string "--- ")
 #+end_src
@@ -549,7 +545,7 @@ Try guessing dired targets
 #+end_src
 
 * Navigation
-** Goto line with feedback
+Goto line with feedback
 #+begin_src emacs-lisp
   (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
@@ -568,6 +564,8 @@ Try guessing dired targets
 * Window management
 ** Popwin
 #+begin_src emacs-lisp
+  (require-package 'popwin)
+
   (require 'popwin)
   (setq display-buffer-function 'popwin:display-buffer)
 
@@ -720,13 +718,18 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+end_src
 
 ** ERC
-*** Disable trailing whitespace in ERC buffers
+Unique nick colorization
+#+begin_src emacs-lisp
+  (require-package 'erc-hl-nicks)
+#+end_src
+
+Disable trailing whitespace in ERC buffers
 #+begin_src emacs-lisp
   (add-hook 'erc-mode-hook (lambda ()
                                 (setq show-trailing-whitespace nil)))
 #+end_src
 
-*** Growl notifications
+Growl notifications
 #+begin_src emacs-lisp
   (defun my-erc-hook (match-type nick message)
     "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
@@ -737,12 +740,16 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
        (todochiku-icon 'irc))))
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
 #+end_src
-*** ZNC
+
+ZNC
 #+begin_src emacs-lisp
   (require 'znc)
 #+end_src
 * Helm
 #+begin_src emacs-lisp
+  (require-package 'helm)
+  (require-package 'helm-ls-git)
+
   (require 'helm-config)
   (setq helm-ls-git-show-abs-or-relative 'relative)
   (helm-mode t)
@@ -785,7 +792,7 @@ Keybindings
 #+end_src
 
 * Magit
-** Toggle whitespace
+Toggle whitespace
 #+begin_src emacs-lisp
   (require 'magit)
 
@@ -814,50 +821,13 @@ Diff-hl mode
   (global-diff-hl-mode t)
 #+end_src
 
-Magit extensions for using GitHub
+Style-checking for git commit messages
 #+begin_src emacs-lisp
-  (require-package 'magithub)
+  (require-package 'git-commit-mode)
 #+end_src
 
-* Notifications
-#+begin_src emacs-lisp
-  (defun sauron-fx-sox (path)
-    "Play a wav-file at PATH using program sox."
-    (unless (and (file-readable-p path) (file-regular-p path))
-      (error "%s is not a playable file" path))
-    (unless (executable-find "sox")
-      (error "sox not found"))
-    (call-process "sox" nil 0 nil "--volume=1" "-V0" "-q" path "-d"))
-
-  (global-set-key (kbd "C-c s") 'sauron-toggle-hide-show)
-  (global-set-key (kbd "C-c h") 'sauron-clear)
-
-  (setq
-   sauron-max-line-length 120
-   sauron-separate-frame nil
-   sauron-watch-nicks '("ozan"))
-
-  ;; some sound/light effects for certain events
-  (add-hook 'sauron-event-added-functions
-            (lambda (origin prio msg &optional props)
-              (todochiku-message "Emacs" msg (todochiku-icon 'irc))
-              (if (string-match "ping" msg)
-                  (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
-              (cond
-               ((= prio 3) (sauron-fx-sox "/System/Library/Sounds/Tink.aiff"))
-               ((= prio 4) (sauron-fx-sox "/System/Library/Sounds/Ping.aiff"))
-               ((= prio 5)
-                (sauron-fx-sox "/System/Library/Sounds/Glass.aiff")))))
-
-  (add-hook 'sauron-event-block-functions
-            (lambda (origin prio msg &optional props)
-              (or
-               (string-match "^*** Users" msg)))) ;; filter out IRC spam
-
-#+end_src
 * OSX related tweaks
-** Use system Trash
-Uses [[http://hasseg.org/trash/][trash]]
+Use system Trash (needs [[http://hasseg.org/trash/][trash]])
 #+begin_src emacs-lisp
   (when *is-a-mac*
     (setq delete-by-moving-to-trash t)
@@ -865,7 +835,7 @@ Uses [[http://hasseg.org/trash/][trash]]
       (shell-command (concat "trash " (shell-quote-argument filename)))))
 #+end_src
 
-** Input related tweaks
+Input related tweaks
 #+begin_src emacs-lisp
   (when *is-a-mac*
     (setq mac-command-modifier 'super)
@@ -873,14 +843,8 @@ Uses [[http://hasseg.org/trash/][trash]]
     (setq mouse-wheel-scroll-amount '(0.001)))
 #+end_src
 
-** Add a shortcut for toggling fullscreen mode in Cocoa Emacs
-#+begin_src emacs-lisp
-(when *is-cocoa-emacs*
-  (global-set-key [f11] 'ns-toggle-fullscreen))
-#+end_src
-
 * Cosmetic changes
-** Set default font
+Set default font
 #+begin_src emacs-lisp
   (if *is-a-mac*
       (add-to-list 'default-frame-alist
@@ -889,12 +853,12 @@ Uses [[http://hasseg.org/trash/][trash]]
                  '(font . "Akkurat-Mono-13")))
 #+end_src
 
-** Set Unicode font
+Set Unicode font
 #+begin_src emacs-lisp
   (set-fontset-font "fontset-default" 'unicode "Menlo")
 #+end_src
 
-** Disable bold faces
+Disable bold faces
 #+begin_src emacs-lisp
   (mapc
    (lambda (face)
@@ -902,15 +866,16 @@ Uses [[http://hasseg.org/trash/][trash]]
    (face-list))
 #+end_src
 
-** Use proportional fonts in mode-line
+Use proportional fonts in mode-line
 #+begin_src emacs-lisp
   (run-at-time "0 sec" nil
                (lambda ()
                  (set-face-attribute 'mode-line nil :family "Muli")))
 #+end_src
 
-** Use UTF-8 bullets on org-mode buffers
+Use UTF-8 bullets on org-mode buffers
 #+begin_src emacs-lisp
+  (require-package 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 * Misc Emacs modes
@@ -930,25 +895,28 @@ Exclude very large buffers from dabbrev
 #+end_src
 ** Convenient bookmarking using bm
 #+begin_src emacs-lisp
-(global-set-key (kbd "<C-f2>") 'bm-toggle)
-(global-set-key (kbd "<f2>")   'bm-next)
-(global-set-key (kbd "<S-f2>") 'bm-previous)
-(global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
-(global-set-key (kbd "<left-fringe> <wheel-down>") 'bm-next-mouse)
-(global-set-key (kbd "<left-fringe> <wheel-up>") 'bm-previous-mouse)
+  (require-package 'bm)
+
+  (global-set-key (kbd "<C-f2>") 'bm-toggle)
+  (global-set-key (kbd "<f2>")   'bm-next)
+  (global-set-key (kbd "<S-f2>") 'bm-previous)
+  (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
+  (global-set-key (kbd "<left-fringe> <wheel-down>") 'bm-next-mouse)
+  (global-set-key (kbd "<left-fringe> <wheel-up>") 'bm-previous-mouse)
 #+end_src
 
 ** Undo-Tree
 #+begin_src emacs-lisp
+  (require-package 'undo-tree)
   (global-undo-tree-mode)
   (diminish 'undo-tree-mode)
 #+end_src
 
 ** Browsers
 #+begin_src emacs-lisp
-  (setq browse-url-browser-function 'browse-url-firefox)
+  (require-package 'w3m)
   (setq w3m-command "/usr/local/bin/w3m")
-
+  (setq browse-url-browser-function 'browse-url-firefox)
 #+end_src
 
 ** Disable hl-line-mode
@@ -957,6 +925,10 @@ Exclude very large buffers from dabbrev
 #+end_src
 
 ** ack-and-a-half
+#+begin_src emacs-lisp
+  (require-package 'ack-and-a-half)
+#+end_src
+
 Editable buffer
 #+begin_src emacs-lisp
   (require 'wgrep-ack)
@@ -1258,22 +1230,24 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 #+end_src
 
 * Misc tweaks
-** No bell whatsoever please
+No bell whatsoever please
 #+begin_src emacs-lisp
   (setq visual-bell nil)
   (setq ring-bell-function 'ignore)
 #+end_src
-** Enable menubar explicitly
+
+Enable menubar explicitly
 #+begin_src emacs-lisp
   (menu-bar-mode t)
 #+end_src
-** Disable autopair in some modes
+
+Disable autopair in some modes
 #+begin_src emacs-lisp
   (add-hook 'erc-mode-hook 'inhibit-autopair)
   (add-hook 'term-mode-hook 'inhibit-autopair)
 #+end_src
 
-** Disable show-trailing-whitespace in some modes
+Disable show-trailing-whitespace in some modes
 #+begin_src emacs-lisp
   (dolist (hook '(erc-mode-hook
                   term-mode-hook
@@ -1292,16 +1266,18 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 #+end_src
 
-** Disable yasnippet in some modes
+Disable yasnippet in some modes
 #+begin_src emacs-lisp
   (add-hook 'term-mode-hook (lambda()
                   (yas-minor-mode -1)))
 #+end_src
-** Wrap lines longer than 79 characters
+
+Wrap lines longer than 79 characters
 #+begin_src emacs-lisp
   (setq-default fill-column 79)
 #+end_src
-** Set tmp dir to ~/.emacs.d/tmp
+
+Set tmp dir to ~/.emacs.d/tmp
 #+begin_src emacs-lisp
   (setq temporary-file-directory "~/.emacs.d/tmp/")
 
@@ -1312,7 +1288,8 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 #+end_src
-** Cleanup buffers before saving
+
+Cleanup buffers before saving
 #+begin_src emacs-lisp
   (defun untabify-buffer ()
     (interactive)
