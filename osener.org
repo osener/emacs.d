@@ -3,6 +3,10 @@
 * Load some lisp
 #+begin_src emacs-lisp
   (require 'cl)
+
+  (defun load-secrets ()
+    (interactive)
+    (require 'secrets "~/emacs.d/secrets.el.gpg"))
 #+end_src
 
 ** Install some additional packages
@@ -710,7 +714,7 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+begin_src emacs-lisp
   (defun start-im ()
     (interactive)
-    (require 'secrets "~/secrets.gpg")
+    (load-secrets)
     (sauron-start-hidden)
     (znc-all))
 #+end_src
@@ -1174,7 +1178,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
              emms-browser-covers 'my-emms-covers)
 
        ;; lastfm
-       (when (and (require 'secrets "~/secrets.gpg")
+       (when (and (load-secrets)
                   (require 'emms-lastfm-scrobbler nil t)
                   (let ((url-request-method "GET"))
                     (ignore-errors        ; check for internet connection
