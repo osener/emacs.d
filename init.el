@@ -26,10 +26,8 @@
 ;;----------------------------------------------------------------------------
 
 (require-package 'wgrep)
-(require-package 'project-local-variables)
 (require-package 'diminish)
 (require-package 'scratch)
-(require-package 'mwe-log-commands)
 
 (require 'init-frame-hooks)
 (require 'init-themes)
@@ -47,47 +45,27 @@
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
-(require 'init-mmm)
 (require 'init-growl)
 
 (require 'init-editing-utils)
 
-(require 'init-darcs)
 (require 'init-git)
 
-(require 'init-crontab)
-(require 'init-textile)
 (require 'init-markdown)
-(require 'init-csv)
-(require 'init-erlang)
 (require 'init-javascript)
-(require 'init-sh)
 (require 'init-org)
 (require 'init-css)
-(require 'init-haml)
 (require 'init-python-mode)
-(require 'init-haskell)
 
 (require 'init-lisp)
 (require 'init-slime)
 (require 'init-clojure)
-(require 'init-common-lisp)
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
 
 (require 'init-marmalade)
 (require 'init-misc)
-
-;; Extra packages which don't require any configuration
-
-(require-package 'gnuplot)
-(require-package 'lua-mode)
-(require-package 'htmlize)
-(require-package 'dsvn)
-(when *is-a-mac*
-  (require-package 'osx-location))
-(require-package 'regex-tool)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient

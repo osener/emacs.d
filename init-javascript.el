@@ -1,20 +1,15 @@
 (require-package 'json)
-(require-package 'js3-mode)
-(when (>= emacs-major-version 24)
-  (require-package 'js2-mode))
+(require-package 'js2-mode)
 (require-package 'js-comint)
 (require-package 'rainbow-delimiters)
-(require-package 'coffee-mode)
-(require-package 'flymake-coffee)
 (require-package 'flymake-json)
 
 
-(defcustom preferred-javascript-mode
-  (first (remove-if-not #'fboundp '(js2-mode js3-mode)))
+(defcustom preferred-javascript-mode 'js2-mode
   "Javascript mode to use for .js files."
   :type 'symbol
   :group 'programming
-  :options '(js2-mode js3-mode js-mode))
+  :options '(js2-mode js-mode))
 (defvar preferred-javascript-indent-level 4)
 
 ;; Need to first remove from list if present, since elpa adds entries too, which
@@ -40,29 +35,13 @@
 
 (eval-after-load 'js2-mode '(js2-imenu-extras-setup))
 
-;; js3-mode
-(add-hook 'js3-mode-hook '(lambda () (setq mode-name "JS3")))
-(setq js3-auto-indent-p t
-      js3-enter-indents-newline t
-      js3-indent-on-enter-key t
-      js3-consistent-level-indent-inner-bracket t
-      js3-indent-level preferred-javascript-indent-level)
-
 ;; js-mode
 (setq js-indent-level preferred-javascript-indent-level)
-
 
 ;; standard javascript-mode
 (setq javascript-indent-level preferred-javascript-indent-level)
 
 (add-to-list 'interpreter-mode-alist (cons "node" preferred-javascript-mode))
-
-
-(eval-after-load 'coffee-mode
-  `(setq coffee-js-mode preferred-javascript-mode
-         coffee-tab-width preferred-javascript-indent-level))
-
-(add-hook 'coffee-mode-hook 'flymake-coffee-load)
 
 ;; ---------------------------------------------------------------------------
 ;; Alternatively, use skewer-mode
