@@ -1047,17 +1047,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                         emms-mode-line-string))))
        (add-hook 'emms-player-started-hook 'emms-show)
 
-       (defun my-emms-default-info (track)
-         "Get some generic meta data."
-         (concat
-          "(" (number-to-string
-               (or (emms-track-get track 'play-count) 0))
-          ", " (emms-last-played-format-date
-                (or (emms-track-get track 'last-played) '(0 0 0)))
-          ")" (let ((time (emms-track-get track 'info-playing-time)))
-                (if time (format " %d:%02d" (/ time 60) (mod time 60))
-                  ""))))
-
        (defun my-emms-track-description-function (track)
          "Return a description of the current TRACK."
          (let ((type (emms-track-type track)))
@@ -1080,13 +1069,11 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                                                      'info-year)))
                            (if year (concat year " - ")))
                     (or (emms-track-get track 'info-album) "unknown")
-                    "]" (my-emms-default-info track))
-                 (concat (emms-track-name track)
-                         (my-emms-default-info track)))))
+                    "]")
+                 (emms-track-name track))))
             ((eq 'url type)
              (emms-format-url-track-name (emms-track-name track)))
-            (t (concat (symbol-name type) ": " (emms-track-name track)
-                       (my-emms-default-info track))))))
+            (t (concat (symbol-name type) ": " (emms-track-name track))))))
 
        (defun my-emms-covers (dir type)
          "Choose album cover in DIR deppending on TYPE.
@@ -1143,8 +1130,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                  (setq pics (cdr pics)))
                (car pic))))))
 
-       (setq emms-show-format "EMMS: %s"
+       (setq emms-show-format "🎵 %s"
              emms-mode-line-format "%s"
+             emms-playing-time-display-format "🎵 %s "
              emms-source-file-default-directory
              "/Volumes/DATA/Music/"
              emms-track-description-function
@@ -1180,8 +1168,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                (if emms-player-playing-p
                    (todochiku-message
                     "EMMS"
-                    (emms-track-description
-                     (emms-playlist-current-selected-track))
+                    (concat "🎵 "
+                            (emms-track-description
+                             (emms-playlist-current-selected-track)))
                     (todochiku-icon 'music)))))
 
        ;; track info ticker
