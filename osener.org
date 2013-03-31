@@ -877,6 +877,19 @@ Use UTF-8 bullets on org-mode buffers
   (require-package 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
+
+Smooth scrolling
+#+begin_src emacs-lisp
+  (require-package 'smooth-scroll)
+  (require 'smooth-scroll)
+
+  (when *is-a-mac*
+      (setq smooth-scroll/hscroll-step-size 6)
+      (setq smooth-scroll/vscroll-step-size 6))
+
+  (smooth-scroll-mode t)
+#+end_src
+*
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
