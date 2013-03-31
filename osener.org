@@ -561,7 +561,7 @@ Goto line with feedback
         (linum-mode -1))))
 #+end_src
 * Window management
-** Popwin
+Popwin
 #+begin_src emacs-lisp
   (require-package 'popwin)
 
@@ -588,7 +588,7 @@ Goto line with feedback
           ("*gists*" :height 30)
           ("*sldb.*":regexp t :height 30)))
 #+end_src
-** Rotate windows
+Rotate windows
 #+begin_src emacs-lisp
   (defun rotate-windows ()
     "Rotate your windows"
@@ -616,7 +616,7 @@ Goto line with feedback
                (setq i (1+ i)))))))
 #+end_src
 
-** Toggle window split
+Toggle window split
 #+begin_src emacs-lisp
   (defun toggle-window-split ()
     (interactive)
@@ -876,6 +876,14 @@ Use UTF-8 bullets on org-mode buffers
   (require-package 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
+
+Smooth scrolling
+#+begin_src emacs-lisp
+  (require-package 'nurumacs)
+  (require 'nurumacs)
+  (setq nurumacs-auto-hscroll nil)
+#+end_src
+
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
