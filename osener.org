@@ -20,6 +20,7 @@ Install some additional packages
   (require-package 'async)
   (require-package 'restclient)
   (require-package 'typo)
+  (require-package 'dic-lookup-w3m)
 #+end_src
 
 * Programming languages
