@@ -1060,33 +1060,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                         emms-mode-line-string))))
        (add-hook 'emms-player-started-hook 'emms-show)
 
-       (defun my-emms-track-description-function (track)
-         "Return a description of the current TRACK."
-         (let ((type (emms-track-type track)))
-           (cond
-            ((eq 'file type)
-             (let ((artist (emms-track-get track 'info-artist)))
-               (if artist
-                   (concat
-                    artist " - "
-                    (let ((num (emms-track-get track
-                                               'info-tracknumber)))
-                      (if num
-                          (format "%02d. " (string-to-number num))
-                        ""))
-                    (or (emms-track-get track 'info-title)
-                        (file-name-sans-extension
-                         (file-name-nondirectory
-                          (emms-track-name track))))
-                    " [" (let ((year (emms-track-get track
-                                                     'info-year)))
-                           (if year (concat year " - ")))
-                    (or (emms-track-get track 'info-album) "unknown")
-                    "]")
-                 (emms-track-name track))))
-            ((eq 'url type)
-             (emms-format-url-track-name (emms-track-name track)))
-            (t (concat (symbol-name type) ": " (emms-track-name track))))))
 
        (defun my-emms-covers (dir type)
          "Choose album cover in DIR deppending on TYPE.
@@ -1148,8 +1121,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
              emms-playing-time-display-format "🎵 %s "
              emms-source-file-default-directory
              "/Volumes/DATA/Music/"
-             emms-track-description-function
-             'my-emms-track-description-function
              emms-browser-covers 'my-emms-covers)
 
        ;; lastfm
