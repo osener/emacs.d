@@ -57,6 +57,7 @@
 (require 'init-css)
 (require 'init-python-mode)
 
+(require 'init-paredit)
 (require 'init-lisp)
 (require 'init-slime)
 (require 'init-clojure)
