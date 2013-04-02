@@ -888,6 +888,7 @@ Smooth scrolling
       (setq smooth-scroll/vscroll-step-size 6))
 
   (smooth-scroll-mode t)
+  (diminish 'smooth-scroll-mode)
 #+end_src
 *
 * Misc Emacs modes
