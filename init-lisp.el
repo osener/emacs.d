@@ -56,14 +56,19 @@
 ;; Enable desired features for all lisp modes
 ;; ----------------------------------------------------------------------------
 (require-package 'rainbow-delimiters)
-(require-package 'highlight-cl)
-(autoload 'highlight-cl-add-font-lock-keywords "highlight-cl")
+(require-package 'redshank)
+(eval-after-load 'redshank
+  '(diminish 'redshank-mode " R"))
+
 
 (defun sanityinc/lisp-setup ()
   "Enable features useful in any Lisp mode."
   (enable-paredit-mode)
   (turn-on-eldoc-mode)
   (rainbow-delimiters-mode t)
+  (enable-paredit-mode)
+  (turn-on-eldoc-mode)
+  (redshank-mode)
   (hl-sexp-mode t))
 
 (defun sanityinc/emacs-lisp-setup ()

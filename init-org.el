@@ -69,13 +69,14 @@
 
 (eval-after-load 'org
   '(progn
+     (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
      (require 'org-exp)
      (require 'org-clock)
      (when *is-a-mac*
        (require 'org-mac-link-grabber)
-       (add-hook 'org-mode-hook
-                 (lambda ()
-                   (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link))))))
+       (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link))
+     ;;(require 'org-checklist)
+     (require 'org-fstree)))
 
 (add-hook 'org-mode-hook 'inhibit-autopair)
 
