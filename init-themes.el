@@ -1,3 +1,5 @@
+(require-package 'color-theme-sanityinc-tomorrow)
+
 ;;------------------------------------------------------------------------------
 ;; Old-style color theming support (via color-theme.el)
 ;;------------------------------------------------------------------------------
