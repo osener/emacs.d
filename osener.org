@@ -374,6 +374,7 @@ emacsclient -a '' -t -e "(server-eshell)"
 
 ** Quake-like eshell window
 #+begin_src emacs-lisp
+  (require-package 'shell-pop)
   (require 'shell-pop)
   (shell-pop-set-window-position "bottom")
   (shell-pop-set-window-height 50)
@@ -790,8 +791,8 @@ Keybindings
   (global-set-key (kbd "s-t") 'helm-ls-git-ls)
 #+end_src
 
-* Magit
-Toggle whitespace
+* Git
+Toggle whitespace in magit-status buffers
 #+begin_src emacs-lisp
   (require 'magit)
 

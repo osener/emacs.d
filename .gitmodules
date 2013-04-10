@@ -25,6 +25,3 @@
 [submodule "site-lisp/flymake"]
         path = site-lisp/flymake
         url = https://github.com/illusori/emacs-flymake.git
-[submodule "site-lisp/shell-pop"]
-        path = site-lisp/shell-pop
-        url = http://github.com/kyagi/shell-pop-el.git
