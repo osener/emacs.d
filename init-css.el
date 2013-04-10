@@ -1,3 +1,7 @@
+(require-package 'less-css-mode)
+(require-package 'flymake-css)
+
+
 ;; Colourise CSS colour literals
 (when (featurep 'color)
   ;; rainbow-mode needs color.el, bundled with Emacs >= 24.
