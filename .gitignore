@@ -32,3 +32,5 @@ site-lisp/jshint-mode/node_modules/
 /var
 /emms
 /image-dired
+/ido.last
+/recentf
