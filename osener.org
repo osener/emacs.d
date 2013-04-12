@@ -850,7 +850,7 @@ Set default font
       (add-to-list 'default-frame-alist
                    '(font . "Akkurat-Mono-15"))
     (add-to-list 'default-frame-alist
-                 '(font . "Akkurat-Mono-13")))
+                 '(font . "Akkurat-Mono-11")))
 #+end_src
 
 Set Unicode font
