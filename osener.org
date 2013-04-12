@@ -1213,11 +1213,6 @@ No bell whatsoever please
   (setq ring-bell-function 'ignore)
 #+end_src
 
-Enable menubar explicitly
-#+begin_src emacs-lisp
-  (menu-bar-mode t)
-#+end_src
-
 Disable autopair in some modes
 #+begin_src emacs-lisp
   (add-hook 'erc-mode-hook 'inhibit-autopair)
