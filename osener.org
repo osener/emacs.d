@@ -383,8 +383,7 @@ emacsclient -a '' -t -e "(server-eshell)"
                   (lambda ()
                     (interactive)
                     (shell-pop-set-internal-mode "terminal")
-                    (when *is-a-mac*
-                      (shell-pop-set-internal-mode-shell "/usr/local/bin/fish"))
+                    (shell-pop-set-internal-mode-shell "/usr/local/bin/fish")
                     (shell-pop)))
 
   (global-set-key (kbd "<f8>")
