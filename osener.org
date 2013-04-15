@@ -828,10 +828,9 @@ Style-checking for git commit messages
 * OSX related tweaks
 Use system Trash (needs [[http://hasseg.org/trash/][trash]])
 #+begin_src emacs-lisp
-  (when *is-a-mac*
-    (setq delete-by-moving-to-trash t)
-    (defun system-move-file-to-trash (filename)
-      (shell-command (concat "trash " (shell-quote-argument filename)))))
+  (setq delete-by-moving-to-trash t)
+  (defun system-move-file-to-trash (filename)
+    (shell-command (concat "trash " (shell-quote-argument filename))))
 #+end_src
 
 Input related tweaks
