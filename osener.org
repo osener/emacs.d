@@ -1120,8 +1120,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
        (setq emms-show-format "🎵 %s"
              emms-mode-line-format "%s"
              emms-playing-time-display-format "🎵 %s "
-             emms-source-file-default-directory
-             "/Volumes/DATA/Music/"
+             emms-source-file-default-directory "~/Music"
              emms-browser-covers 'my-emms-covers)
 
        ;; lastfm
