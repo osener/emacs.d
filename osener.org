@@ -853,7 +853,7 @@ Set default font
 
 Set Unicode font
 #+begin_src emacs-lisp
-  (set-fontset-font "fontset-default" 'unicode "Menlo")
+  (set-fontset-font "fontset-default" 'unicode (if *is-a-mac* "Menlo" "Symbola"))
 #+end_src
 
 Disable bold faces
