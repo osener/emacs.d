@@ -313,6 +313,13 @@ Auto indentation (C-j is harder to reach on Colemak)
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
 #+end_src
+*** Auto-completion using Skewer
+#+begin_src emacs-lisp
+  (require-package 'ac-js2)
+  (setq ac-js2-evaluate-calls t)
+  (setq ac-js2-external-libraries '("~/jslibs/underscore.js"))
+#+end_src
+
 ** Scala
 #+begin_src emacs-lisp
   (require-package 'scala-mode2)
