@@ -545,6 +545,10 @@ Try guessing dired targets
   (setq dired-dwim-target t)
 #+end_src
 
+Don't ask before doing recursive copies
+#+begin_src emacs-lisp
+  (setq dired-recursive-copies 'always)
+#+end_src
 * Navigation
 Goto line with feedback
 #+begin_src emacs-lisp
