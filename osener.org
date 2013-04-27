@@ -313,6 +313,13 @@ Auto indentation (C-j is harder to reach on Colemak)
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
 #+end_src
+*** Auto-completion using Skewer
+#+begin_src emacs-lisp
+  (require-package 'ac-js2)
+  (setq ac-js2-evaluate-calls t)
+  (setq ac-js2-external-libraries '("~/jslibs/underscore.js"))
+#+end_src
+
 ** Scala
 #+begin_src emacs-lisp
   (require-package 'scala-mode2)
@@ -383,8 +390,7 @@ emacsclient -a '' -t -e "(server-eshell)"
                   (lambda ()
                     (interactive)
                     (shell-pop-set-internal-mode "terminal")
-                    (when *is-a-mac*
-                      (shell-pop-set-internal-mode-shell "/usr/local/bin/fish"))
+                    (shell-pop-set-internal-mode-shell "/usr/local/bin/fish")
                     (shell-pop)))
 
   (global-set-key (kbd "<f8>")
@@ -833,10 +839,9 @@ Style-checking for git commit messages
 * OSX related tweaks
 Use system Trash (needs [[http://hasseg.org/trash/][trash]])
 #+begin_src emacs-lisp
-  (when *is-a-mac*
-    (setq delete-by-moving-to-trash t)
-    (defun system-move-file-to-trash (filename)
-      (shell-command (concat "trash " (shell-quote-argument filename)))))
+  (setq delete-by-moving-to-trash t)
+  (defun system-move-file-to-trash (filename)
+    (shell-command (concat "trash " (shell-quote-argument filename))))
 #+end_src
 
 Input related tweaks
@@ -854,12 +859,12 @@ Set default font
       (add-to-list 'default-frame-alist
                    '(font . "Akkurat-Mono-15"))
     (add-to-list 'default-frame-alist
-                 '(font . "Akkurat-Mono-13")))
+                 '(font . "Akkurat-Mono-11")))
 #+end_src
 
 Set Unicode font
 #+begin_src emacs-lisp
-  (set-fontset-font "fontset-default" 'unicode "Menlo")
+  (set-fontset-font "fontset-default" 'unicode (if *is-a-mac* "Menlo" "Symbola"))
 #+end_src
 
 Disable bold faces
@@ -883,19 +888,6 @@ Use UTF-8 bullets on org-mode buffers
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-Smooth scrolling
-#+begin_src emacs-lisp
-  (require-package 'smooth-scroll)
-  (require 'smooth-scroll)
-
-  (when *is-a-mac*
-      (setq smooth-scroll/hscroll-step-size 8)
-      (setq smooth-scroll/vscroll-step-size 8))
-
-  (smooth-scroll-mode t)
-  (diminish 'smooth-scroll-mode)
-#+end_src
-*
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
@@ -1119,8 +1111,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
        (setq emms-show-format "🎵 %s"
              emms-mode-line-format "%s"
              emms-playing-time-display-format "🎵 %s "
-             emms-source-file-default-directory
-             "/Volumes/DATA/Music/"
+             emms-source-file-default-directory "~/Music"
              emms-browser-covers 'my-emms-covers)
 
        ;; lastfm
@@ -1209,11 +1200,6 @@ No bell whatsoever please
 #+begin_src emacs-lisp
   (setq visual-bell nil)
   (setq ring-bell-function 'ignore)
-#+end_src
-
-Enable menubar explicitly
-#+begin_src emacs-lisp
-  (menu-bar-mode t)
 #+end_src
 
 Disable autopair in some modes
