@@ -1190,9 +1190,14 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                      (emms-track-ticker-start))))))
 #+end_src
 * Misc keybindings
-** Quick way to open a link
+Quick way to open a link
 #+begin_src emacs-lisp
   (global-set-key "\C-cb" 'org-open-at-point-global)
+#+end_src
+
+Switch to previous buffer
+#+begin_src emacs-lisp
+  (global-set-key "\M-O" 'mode-line-other-buffer)
 #+end_src
 
 * Misc tweaks
