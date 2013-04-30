@@ -761,36 +761,6 @@ ZNC
   (setq helm-ls-git-show-abs-or-relative 'relative)
 #+end_src
 
-Eshell completion
-#+begin_src emacs-lisp
-  (require 'helm-files)
-
-  (add-hook 'eshell-mode-hook
-            #'(lambda ()
-                (define-key eshell-mode-map
-                  (kbd "M-p")
-                  'helm-eshell-history)))
-#+end_src
-
-Ipython completion
-#+begin_src emacs-lisp
-  (require 'helm-ipython)
-  (define-key python-mode-map (kbd "M-<tab>")
-    'helm-ipython-complete)
-#+end_src
-
-Elisp completion
-#+begin_src emacs-lisp
-  (define-key emacs-lisp-mode-map (kbd "M-<tab>")
-    'helm-lisp-completion-at-point)
-#+end_src
-
-JavaScript completion
-#+begin_src emacs-lisp
-  (define-key js2-mode-map (kbd "M-<tab>")
-    'helm-slime-complete)
-#+end_src
-
 Keybindings
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f1>") 'helm-mini)
