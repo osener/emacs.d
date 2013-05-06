@@ -1152,6 +1152,22 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                        (emms-track-ticker-stop)
                      (emms-track-ticker-start))))))
 #+end_src
+** Browse documentation using Dash
+#+begin_src emacs-lisp
+  (global-set-key "\C-cd" 'dash-at-point)
+
+  (defun define-dash-docset (mode-hook prefix)
+    (add-hook mode-hook `(lambda () (setq dash-at-point-docset ,prefix))))
+
+  (when *is-a-mac*
+    (require-package 'dash-at-point)
+    (make-variable-buffer-local 'dash-at-point-docset)
+    (define-dash-docset 'c-mode-hook "c")
+    (define-dash-docset 'c++-mode-hook "cpp")
+    (define-dash-docset 'clojure-mode-hook "clojure")
+    (define-dash-docset 'js2-mode-hook "js")
+    (define-dash-docset 'emacs-lisp-mode-hook "elisp"))
+#+end_src
 * Misc keybindings
 Quick way to open a link
 #+begin_src emacs-lisp
