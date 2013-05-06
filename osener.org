@@ -85,12 +85,40 @@ Auto-indentation
         (define-key python-mode-map "\C-m" 'newline-and-indent)))
 #+end_src
 
-** C
+** C/C++
 Auto indentation (C-j is harder to reach on Colemak)
 #+begin_src emacs-lisp
   (add-hook 'c-mode-common-hook '(lambda ()
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
+
+On the fly syntax checking
+#+begin_src emacs-lisp
+  ;; From Duncan Mac-Vicar's emacs setup:
+  ;; https://github.com/dmacvicar/duncan-emacs-setup
+
+  (defun flymake-clang-c++-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "clang++" (list "-fsyntax-only" "-fno-color-diagnostics"
+                            "--std=c++11" local-file))))
+
+  (defun flymake-clang-c++-load ()
+    (unless (eq buffer-file-name nil)
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.cpp\\'" flymake-clang-c++-init))
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.cc\\'" flymake-clang-c++-init))
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.h\\'" flymake-clang-c++-init))
+      (flymake-mode t)))
+
+  (add-hook 'c++-mode-hook 'flymake-clang-c++-load)
+#+end_src
+
 ** Javascript
 #+begin_src emacs-lisp
   (setq js2-concat-multiline-strings 'eol
