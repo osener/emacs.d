@@ -1,7 +1,6 @@
 (require-package 'slime)
 (require-package 'slime-fuzzy)
 (require-package 'slime-repl)
-(require-package 'ac-slime)
 (require-package 'hippie-expand-slime)
 
 (defun smp/set-up-slime-repl-auto-complete ()
@@ -29,13 +28,7 @@
 
      (add-hook 'slime-repl-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
-     (add-hook 'slime-mode-hook 'set-up-slime-ac)
-     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-
-     (add-hook 'slime-repl-mode-hook 'smp/set-up-slime-repl-auto-complete)
-
-     (eval-after-load 'auto-complete
-       '(add-to-list 'ac-modes 'slime-repl-mode))))
+     (add-hook 'slime-repl-mode-hook 'smp/set-up-slime-repl-auto-complete)))
 
 
 (setq slime-load-hook nil)
