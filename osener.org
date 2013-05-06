@@ -845,6 +845,27 @@ Exclude very large buffers from dabbrev
 
   (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
 #+end_src
+
+*** Company-mode
+#+begin_src emacs-lisp
+  (require-package 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
+
+Convenient key bindings
+#+begin_src emacs-lisp
+  (eval-after-load 'company
+    '(progn
+       (define-key company-active-map (kbd "\C-n") 'company-select-next)
+       (define-key company-active-map (kbd "\C-p") 'company-select-previous)
+       (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
+       (define-key company-active-map (kbd "\C-v") 'company-show-location)
+       (define-key company-active-map (kbd "<tab>") 'company-complete)
+       (define-key company-active-map (kbd "\C-g") '(lambda ()
+                                                      (interactive)
+                                                      (company-abort)))))
+#+end_src
+
 ** Convenient bookmarking using bm
 #+begin_src emacs-lisp
   (require-package 'bm)
