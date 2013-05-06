@@ -1,7 +1,16 @@
 (require-package 'slime)
-(require-package 'slime-fuzzy)
-(require-package 'slime-repl)
-(require-package 'ac-slime)
+
+;; There are 2 versions of Slime available as packages. The 2010* version
+;; is for Clojure compatibility, and uses separate packages for slime-fuzzy
+;; and slime-repl. The other version is the latest available, which
+;; contains a complete "contrib" dir.
+(let ((slime-contrib-dir (concat (directory-of-library "slime") "/contrib")))
+  (if (file-directory-p slime-contrib-dir)
+      ;; Ensure contrib dir is ahead of any slime-{fuzzy,repl} package
+      (add-to-list 'load-path slime-contrib-dir)
+    (require-package 'slime-fuzzy)
+    (require-package 'slime-repl)))
+
 (require-package 'hippie-expand-slime)
 
 (defun smp/set-up-slime-repl-auto-complete ()
@@ -29,13 +38,7 @@
 
      (add-hook 'slime-repl-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
-     (add-hook 'slime-mode-hook 'set-up-slime-ac)
-     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
-
-     (add-hook 'slime-repl-mode-hook 'smp/set-up-slime-repl-auto-complete)
-
-     (eval-after-load 'auto-complete
-       '(add-to-list 'ac-modes 'slime-repl-mode))))
+     (add-hook 'slime-repl-mode-hook 'smp/set-up-slime-repl-auto-complete)))
 
 
 (setq slime-load-hook nil)

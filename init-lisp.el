@@ -75,7 +75,6 @@
   "Enable features useful when working with elisp."
   (elisp-slime-nav-mode t)
   (set-up-hippie-expand-for-elisp)
-  (ac-emacs-lisp-mode-setup)
   (checkdoc-minor-mode))
 
 (defconst sanityinc/elispy-modes
@@ -109,6 +108,7 @@
 (add-to-list 'auto-mode-alist '("archive-contents\\'" . emacs-lisp-mode))
 
 (define-key emacs-lisp-mode-map (kbd "C-x C-a") 'pp-macroexpand-last-sexp)
+(define-key emacs-lisp-mode-map (kbd "C-x C-e") 'pp-eval-last-sexp)
 
 
 ;; ----------------------------------------------------------------------------
@@ -146,6 +146,11 @@
     ad-do-it))
 
 
+
+(require-package 'macrostep)
+
+(eval-after-load 'lisp-mode
+  '(define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand))
 
 
 

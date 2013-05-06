@@ -6,7 +6,7 @@
 
   (defun load-secrets ()
     (interactive)
-    (require 'secrets "~/.emacs.d/secrets.el.gpg"))
+    (require 'secrets (expand-file-name "secrets.el.gpg" user-emacs-directory)))
 #+end_src
 
 Install some additional packages
@@ -85,12 +85,40 @@ Auto-indentation
         (define-key python-mode-map "\C-m" 'newline-and-indent)))
 #+end_src
 
-** C
+** C/C++
 Auto indentation (C-j is harder to reach on Colemak)
 #+begin_src emacs-lisp
   (add-hook 'c-mode-common-hook '(lambda ()
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+end_src
+
+On the fly syntax checking
+#+begin_src emacs-lisp
+  ;; From Duncan Mac-Vicar's emacs setup:
+  ;; https://github.com/dmacvicar/duncan-emacs-setup
+
+  (defun flymake-clang-c++-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "clang++" (list "-fsyntax-only" "-fno-color-diagnostics"
+                            "--std=c++11" local-file))))
+
+  (defun flymake-clang-c++-load ()
+    (unless (eq buffer-file-name nil)
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.cpp\\'" flymake-clang-c++-init))
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.cc\\'" flymake-clang-c++-init))
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.h\\'" flymake-clang-c++-init))
+      (flymake-mode t)))
+
+  (add-hook 'c++-mode-hook 'flymake-clang-c++-load)
+#+end_src
+
 ** Javascript
 #+begin_src emacs-lisp
   (setq js2-concat-multiline-strings 'eol
@@ -196,13 +224,6 @@ Auto indentation (C-j is harder to reach on Colemak)
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
 #+end_src
-*** Auto-completion using Skewer
-#+begin_src emacs-lisp
-  (require-package 'ac-js2)
-  (setq ac-js2-evaluate-calls t)
-  (setq ac-js2-external-libraries '("~/jslibs/underscore.js"))
-#+end_src
-
 ** Scala
 #+begin_src emacs-lisp
   (require-package 'scala-mode2)
@@ -227,7 +248,7 @@ http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshel
        (setq eshell-review-quick-commands nil)
        (setq eshell-smart-space-goes-to-end t)
        (setq eshell-directory-name
-             (expand-file-name "./" (expand-file-name "eshell" "~/.emacs.d")))))
+             (expand-file-name "./" (expand-file-name "eshell" user-emacs-directory)))))
 #+end_src
 
 ** Convenience function for usage in a terminal emulator
@@ -434,6 +455,10 @@ Try guessing dired targets
   (setq dired-dwim-target t)
 #+end_src
 
+Don't ask before doing recursive copies
+#+begin_src emacs-lisp
+  (setq dired-recursive-copies 'always)
+#+end_src
 * Navigation
 Goto line with feedback
 #+begin_src emacs-lisp
@@ -752,6 +777,27 @@ Exclude very large buffers from dabbrev
 
   (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
 #+end_src
+
+*** Company-mode
+#+begin_src emacs-lisp
+  (require-package 'company)
+  (add-hook 'after-init-hook 'global-company-mode)
+#+end_src
+
+Convenient key bindings
+#+begin_src emacs-lisp
+  (eval-after-load 'company
+    '(progn
+       (define-key company-active-map (kbd "\C-n") 'company-select-next)
+       (define-key company-active-map (kbd "\C-p") 'company-select-previous)
+       (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
+       (define-key company-active-map (kbd "\C-v") 'company-show-location)
+       (define-key company-active-map (kbd "<tab>") 'company-complete)
+       (define-key company-active-map (kbd "\C-g") '(lambda ()
+                                                      (interactive)
+                                                      (company-abort)))))
+#+end_src
+
 ** Convenient bookmarking using bm
 #+begin_src emacs-lisp
   (require-package 'bm)
@@ -863,12 +909,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 ** Slate configuration language
 #+begin_src emacs-lisp
   (require 'slate-config-mode)
-#+end_src
-
-** Automatic unicode insertion using Typo mode
-#+begin_src emacs-lisp
-  (typo-global-mode 1)
-  (add-hook 'text-mode-hook 'typo-mode)
 #+end_src
 
 ** EMMS
@@ -1044,10 +1084,31 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                        (emms-track-ticker-stop)
                      (emms-track-ticker-start))))))
 #+end_src
+** Browse documentation using Dash
+#+begin_src emacs-lisp
+  (global-set-key "\C-cd" 'dash-at-point)
+
+  (defun define-dash-docset (mode-hook prefix)
+    (add-hook mode-hook `(lambda () (setq dash-at-point-docset ,prefix))))
+
+  (when *is-a-mac*
+    (require-package 'dash-at-point)
+    (make-variable-buffer-local 'dash-at-point-docset)
+    (define-dash-docset 'c-mode-hook "c")
+    (define-dash-docset 'c++-mode-hook "cpp")
+    (define-dash-docset 'clojure-mode-hook "clojure")
+    (define-dash-docset 'js2-mode-hook "js")
+    (define-dash-docset 'emacs-lisp-mode-hook "elisp"))
+#+end_src
 * Misc keybindings
-** Quick way to open a link
+Quick way to open a link
 #+begin_src emacs-lisp
   (global-set-key "\C-cb" 'org-open-at-point-global)
+#+end_src
+
+Switch to previous buffer
+#+begin_src emacs-lisp
+  (global-set-key "\M-O" 'mode-line-other-buffer)
 #+end_src
 
 * Misc tweaks
@@ -1095,7 +1156,7 @@ Wrap lines longer than 79 characters
 
 Set tmp dir to ~/.emacs.d/tmp
 #+begin_src emacs-lisp
-  (setq temporary-file-directory "~/.emacs.d/tmp/")
+  (setq temporary-file-directory (expand-file-name "tmp/" user-emacs-directory))
 
   (make-directory temporary-file-directory t)
 
@@ -1120,7 +1181,6 @@ Cleanup buffers before saving
   Does not indent buffer, because it is used for a before-save-hook, and that
   might be bad."
     (interactive)
-    (untabify-buffer)
     (delete-trailing-whitespace)
     (set-buffer-file-coding-system 'utf-8))
 
@@ -1129,6 +1189,7 @@ Cleanup buffers before saving
   Including indent-buffer, which should not be called automatically on save."
     (interactive)
     (cleanup-buffer-safe)
+    (untabify-buffer)
     (indent-buffer))
 
   (add-hook 'before-save-hook 'cleanup-buffer-safe)
