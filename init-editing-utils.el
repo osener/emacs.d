@@ -7,7 +7,7 @@
 (setq-default
  blink-cursor-delay 0
  blink-cursor-interval 0.4
- bookmark-default-file "~/.emacs.d/.bookmarks.el"
+ bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
  buffers-menu-max-size 30
  case-fold-search t
  column-number-mode t
@@ -82,11 +82,12 @@
 ;;----------------------------------------------------------------------------
 (require-package 'pointback)
 (global-pointback-mode)
-(defadvice skeleton-insert (before disable-pointback activate)
-  "Disable pointback when using skeleton functions like `sgml-tag'."
-  (when pointback-mode
-    (message "Disabling pointback.")
-    (pointback-mode -1)))
+(eval-after-load 'skeleton
+  '(defadvice skeleton-insert (before disable-pointback activate)
+     "Disable pointback when using skeleton functions like `sgml-tag'."
+     (when pointback-mode
+       (message "Disabling pointback.")
+       (pointback-mode -1))))
 
 
 ;;----------------------------------------------------------------------------
@@ -112,7 +113,6 @@
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "C-c J") (lambda () (interactive) (join-line 1)))
 
-(global-set-key (kbd "M-T") 'transpose-lines)
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
@@ -237,6 +237,12 @@
 (require-package 'visual-regexp)
 (global-set-key [remap query-replace-regexp] 'vr/query-replace)
 (global-set-key [remap replace-regexp] 'vr/replace)
+
+
+
+
+(when (executable-find "ag")
+  (require-package 'ag))
 
 
 (provide 'init-editing-utils)

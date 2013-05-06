@@ -6,7 +6,7 @@
 
   (defun load-secrets ()
     (interactive)
-    (require 'secrets "~/.emacs.d/secrets.el.gpg"))
+    (require 'secrets (expand-file-name "secrets.el.gpg" user-emacs-directory)))
 #+end_src
 
 Install some additional packages
@@ -314,7 +314,7 @@ http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshel
        (setq eshell-review-quick-commands nil)
        (setq eshell-smart-space-goes-to-end t)
        (setq eshell-directory-name
-             (expand-file-name "./" (expand-file-name "eshell" "~/.emacs.d")))))
+             (expand-file-name "./" (expand-file-name "eshell" user-emacs-directory)))))
 #+end_src
 
 ** Convenience function for usage in a terminal emulator
@@ -1252,7 +1252,7 @@ Wrap lines longer than 79 characters
 
 Set tmp dir to ~/.emacs.d/tmp
 #+begin_src emacs-lisp
-  (setq temporary-file-directory "~/.emacs.d/tmp/")
+  (setq temporary-file-directory (expand-file-name "tmp/" user-emacs-directory))
 
   (make-directory temporary-file-directory t)
 
