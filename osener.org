@@ -196,7 +196,7 @@ On the fly syntax checking
 #+end_src
 *** json-mode
 #+begin_src emacs-lisp
-  (require 'json-mode)
+  (require-package 'json-mode)
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 #+end_src
 *** Use lambda for anonymous functions
@@ -628,8 +628,7 @@ Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
   (defun start-im ()
     (interactive)
     (load-secrets)
-    (sauron-start-hidden)
-    (znc-all))
+    (sauron-start-hidden))
 #+end_src
 
 ** ERC
@@ -656,10 +655,6 @@ Growl notifications
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
 #+end_src
 
-ZNC
-#+begin_src emacs-lisp
-  (require 'znc)
-#+end_src
 * Helm
 #+begin_src emacs-lisp
   (require-package 'helm)
@@ -836,7 +831,7 @@ Convenient key bindings
 
 Editable buffer
 #+begin_src emacs-lisp
-  (require 'wgrep-ack)
+  (require-package 'wgrep-ack)
 #+end_src
 
 Shorter aliases
