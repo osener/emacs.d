@@ -13,3 +13,6 @@
 [submodule "site-lisp/flymake"]
         path = site-lisp/flymake
         url = https://github.com/illusori/emacs-flymake.git
+[submodule "site-lisp/tern"]
+	path = site-lisp/tern
+	url = git://github.com/marijnh/tern.git

@@ -224,6 +224,19 @@ On the fly syntax checking
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
 #+end_src
+*** Code completion and analysis using Tern
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (expand-file-name "site-lisp/tern/emacs/"
+                                            user-emacs-directory))
+  (require 'tern)
+
+  (defun enable-tern ()
+    (tern-mode t)
+    (setq tern-known-port 5005))
+
+  (add-hook 'js2-mode-hook 'enable-tern)
+#+end_src
+
 ** Scala
 #+begin_src emacs-lisp
   (require-package 'scala-mode2)
@@ -1081,8 +1094,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 #+end_src
 ** Browse documentation using Dash
 #+begin_src emacs-lisp
-  (global-set-key "\C-cd" 'dash-at-point)
-
   (defun define-dash-docset (mode-hook prefix)
     (add-hook mode-hook `(lambda () (setq dash-at-point-docset ,prefix))))
 
@@ -1093,7 +1104,8 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (define-dash-docset 'c++-mode-hook "cpp")
     (define-dash-docset 'clojure-mode-hook "clojure")
     (define-dash-docset 'js2-mode-hook "js")
-    (define-dash-docset 'emacs-lisp-mode-hook "elisp"))
+    (define-dash-docset 'emacs-lisp-mode-hook "elisp")
+    (global-set-key "\C-cd" 'dash-at-point))
 #+end_src
 * Misc keybindings
 Quick way to open a link
