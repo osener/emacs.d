@@ -218,11 +218,13 @@ On the fly syntax checking
 *** Refactoring
 #+begin_src emacs-lisp
   (require-package 'js2-refactor)
-
   (require 'js2-refactor)
 
   (defadvice js2r-inline-var (after reindent-buffer activate)
     (cleanup-buffer))
+
+  (js2r-add-keybindings-with-prefix "C-c C-m")
+  (define-key js2-mode-map (kbd "M-SPC") 'js2r--ensure-just-one-space)
 #+end_src
 *** Code completion and analysis using Tern
 #+begin_src emacs-lisp
@@ -759,9 +761,10 @@ Disable bold faces
 
 Use proportional fonts in mode-line
 #+begin_src emacs-lisp
-  (run-at-time "0 sec" nil
+  (run-at-time "1 sec" nil
                (lambda ()
-                 (set-face-attribute 'mode-line nil :family "Muli")))
+                 (set-face-attribute 'mode-line nil
+                                     :family (if *is-a-mac* "Muli" "Muli-Regular"))))
 #+end_src
 
 Use UTF-8 bullets on org-mode buffers
