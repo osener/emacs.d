@@ -3,8 +3,6 @@
 (require-package 'git-commit-mode)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
-(require-package 'yagist)
-(require-package 'github-browse-file)
 
 (setq-default
  magit-save-some-buffers nil
@@ -37,6 +35,12 @@
 (when *is-a-mac*
   (add-hook 'magit-mode-hook (lambda () (local-unset-key [(meta h)]))))
 
+
+
+;; Convenient binding for vc-git-grep
+(global-set-key (kbd "C-x v f") 'vc-git-grep)
+
+
 
 ;;; git-svn support
 
@@ -64,6 +68,16 @@
          (compilation-buffer-name-function (lambda (major-mode-name) "*git-svn*")))
     (compile (concat "git svn "
                      (ido-completing-read "git-svn command: " git-svn--available-commands nil t)))))
+
+
+
+;;; github
+
+(require-package 'yagist)
+(require-package 'github-browse-file)
+(require-package 'bug-reference-github)
+(add-hook 'prog-mode 'bug-reference-prog-mode)
+
 
 
 (provide 'init-git)
