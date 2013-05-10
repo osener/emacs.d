@@ -1,27 +1,18 @@
-[submodule "site-lisp/auto-complete"]
-        path = site-lisp/auto-complete
-        url = https://github.com/purcell/auto-complete.git
 [submodule "site-lisp/helm-ipython"]
         path = site-lisp/helm-ipython
         url = https://github.com/osener/helm-ipython.git
-[submodule "site-lisp/znc"]
-        path = site-lisp/znc
-        url = https://github.com/osener/ZNC.el.git
 [submodule "site-lisp/color-theme-solarized"]
         path = site-lisp/color-theme-solarized
         url = https://github.com/osener/emacs-color-theme-solarized.git
 [submodule "site-lisp/helm-slime"]
         path = site-lisp/helm-slime
         url = https://github.com/emacs-helm/helm-slime.git
-[submodule "site-lisp/json-mode"]
-        path = site-lisp/json-mode
-        url = https://github.com/joshwnj/json-mode.git
-[submodule "site-lisp/wgrep"]
-        path = site-lisp/wgrep
-        url = https://github.com/mhayashi1120/Emacs-wgrep.git
 [submodule "site-lisp/slate-config-mode"]
         path = site-lisp/slate-config-mode
         url = https://github.com/ddjfreedom/slate-config-mode.git
 [submodule "site-lisp/flymake"]
         path = site-lisp/flymake
         url = https://github.com/illusori/emacs-flymake.git
+[submodule "site-lisp/tern"]
+	path = site-lisp/tern
+	url = git://github.com/marijnh/tern.git
