@@ -807,13 +807,6 @@ Style-checking for git commit messages
 #+end_src
 
 * OSX related tweaks
-Use system Trash (needs [[http://hasseg.org/trash/][trash]])
-#+begin_src emacs-lisp
-  (setq delete-by-moving-to-trash t)
-  (defun system-move-file-to-trash (filename)
-    (shell-command (concat "trash " (shell-quote-argument filename))))
-#+end_src
-
 Input related tweaks
 #+begin_src emacs-lisp
   (when *is-a-mac*
@@ -1208,6 +1201,11 @@ Switch to previous buffer
 #+end_src
 
 * Misc tweaks
+Use system Trash
+#+begin_src emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+end_src
+
 No bell whatsoever please
 #+begin_src emacs-lisp
   (setq visual-bell nil)
