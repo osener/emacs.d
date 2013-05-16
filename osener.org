@@ -772,6 +772,15 @@ Use UTF-8 bullets on org-mode buffers
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
+Parse ansi color escape codes in compilation-mode buffers
+#+begin_src emacs-lisp
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+    (toggle-read-only)
+    (ansi-color-apply-on-region (point-min) (point-max))
+    (toggle-read-only))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+#+end_src
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
