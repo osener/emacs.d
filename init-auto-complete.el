@@ -4,10 +4,6 @@
 (setq ac-expand-on-auto-complete nil)
 (setq ac-auto-start nil)
 (setq ac-dwim nil) ; To get pop-ups with docs even if a word is uniquely completed
-(setq ac-quick-help-delay 0.3)
-(setq ac-use-fuzzy t)
-(define-key ac-completing-map (kbd "C-n") 'ac-next)
-(define-key ac-completing-map (kbd "C-p") 'ac-previous)
 
 ;;----------------------------------------------------------------------------
 ;; Use Emacs' built-in TAB completion hooks to trigger AC (Emacs >= 23.2)
@@ -15,9 +11,18 @@
 (setq tab-always-indent 't)  ;; use 't when auto-complete is disabled
 (add-to-list 'completion-styles 'initials t)
 
+;; TODO: find solution for php, c++, haskell modes where TAB always does something
+
 ;; hook AC into completion-at-point
+(defun sanityinc/auto-complete-at-point ()
+  (when (and (not (minibufferp))
+	     (fboundp 'auto-complete-mode)
+	     auto-complete-mode)
+    (auto-complete)))
+
 (defun set-auto-complete-as-completion-at-point-function ()
-  (setq completion-at-point-functions '(auto-complete)))
+  (add-to-list 'completion-at-point-functions 'sanityinc/auto-complete-at-point))
+
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
 

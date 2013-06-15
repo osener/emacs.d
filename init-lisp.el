@@ -1,4 +1,7 @@
 (require-package 'elisp-slime-nav)
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'elisp-slime-nav-mode))
+
 (require-package 'lively)
 
 (require-package 'pretty-mode)
@@ -29,10 +32,10 @@
 (require-package 'hl-sexp)
 
 ;; Prevent flickery behaviour due to hl-sexp-mode unhighlighting before each command
-(eval-after-load 'hl-sexp
-  '(defadvice hl-sexp-mode (after unflicker (&optional turn-on) activate)
-     (when turn-on
-       (remove-hook 'pre-command-hook #'hl-sexp-unhighlight))))
+(after-load 'hl-sexp
+  (defadvice hl-sexp-mode (after unflicker (&optional turn-on) activate)
+    (when turn-on
+      (remove-hook 'pre-command-hook #'hl-sexp-unhighlight))))
 
 
 
@@ -57,8 +60,8 @@
 ;; ----------------------------------------------------------------------------
 (require-package 'rainbow-delimiters)
 (require-package 'redshank)
-(eval-after-load 'redshank
-  '(diminish 'redshank-mode))
+(after-load 'redshank
+  (diminish 'redshank-mode))
 
 
 (defun sanityinc/lisp-setup ()
@@ -149,8 +152,8 @@
 
 (require-package 'macrostep)
 
-(eval-after-load 'lisp-mode
-  '(define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand))
+(after-load 'lisp-mode
+  (define-key emacs-lisp-mode-map (kbd "C-c e") 'macrostep-expand))
 
 
 

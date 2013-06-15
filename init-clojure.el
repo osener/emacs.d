@@ -21,7 +21,8 @@
     (let (font-lock-mode)
       (clojure-mode-font-lock-setup))))
 
-(add-hook 'slime-repl-mode-hook 'slime-clojure-repl-setup)
+(after-load 'slime-repl
+  (add-hook 'slime-repl-mode-hook 'slime-clojure-repl-setup))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,8 +43,9 @@
 ;; Misc clojure tweaks
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'clojure-mode-hook 'sanityinc/lisp-setup)
-(add-hook 'clojure-mode-hook 'subword-mode)
+(after-load 'clojure-mode
+  (add-hook 'clojure-mode-hook 'sanityinc/lisp-setup)
+  (add-hook 'clojure-mode-hook 'subword-mode))
 
 
 

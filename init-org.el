@@ -63,24 +63,40 @@
 (add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
 (add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
 
-(eval-after-load 'org-clock
-  '(progn
-     (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
-     (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu)))
+(after-load 'org-clock
+  (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
+  (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu))
 
-(eval-after-load 'org
-  '(progn
-     (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
-     (when *is-a-mac*
-       (define-key org-mode-map (kbd "M-h") nil))
-     (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
-     (require 'org-exp)
-     (require 'org-clock)
-     (when *is-a-mac*
-       (require 'org-mac-link-grabber)
-       (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link))
-     ;;(require 'org-checklist)
-     (require 'org-fstree)))
+
+;; ;; Show iCal calendars in the org agenda
+;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
+;;   (setq org-agenda-include-diary t
+;;         org-agenda-custom-commands
+;;         '(("I" "Import diary from iCal" agenda ""
+;;            ((org-agenda-mode-hook #'org-mac-iCal)))))
+
+;;   (add-hook 'org-agenda-cleanup-fancy-diary-hook
+;;             (lambda ()
+;;               (goto-char (point-min))
+;;               (save-excursion
+;;                 (while (re-search-forward "^[a-z]" nil t)
+;;                   (goto-char (match-beginning 0))
+;;                   (insert "0:00-24:00 ")))
+;;               (while (re-search-forward "^ [a-z]" nil t)
+;;                 (goto-char (match-beginning 0))
+;;                 (save-excursion
+;;                   (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
+;;                 (insert (match-string 0))))))
+
+
+(after-load 'org
+  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
+  (when *is-a-mac*
+    (define-key org-mode-map (kbd "M-h") nil))
+  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
+  (when *is-a-mac*
+    (autoload 'omlg-grab-link "org-mac-link-grabber")
+    (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link)))
 
 (add-hook 'org-mode-hook 'inhibit-autopair)
 
