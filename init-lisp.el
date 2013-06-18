@@ -69,8 +69,6 @@
   (enable-paredit-mode)
   (turn-on-eldoc-mode)
   (rainbow-delimiters-mode t)
-  (enable-paredit-mode)
-  (turn-on-eldoc-mode)
   (redshank-mode)
   (hl-sexp-mode t))
 
