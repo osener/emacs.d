@@ -21,6 +21,7 @@ Install some additional packages
   (require-package 'restclient)
   (require-package 'typo)
   (require-package 'dic-lookup-w3m)
+  (require-package 'protobuf-mode)
 #+end_src
 
 * Programming languages
