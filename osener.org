@@ -573,6 +573,18 @@ Keybindings
   (global-set-key (kbd "C-x C--") 'toggle-window-split)
   (global-unset-key (kbd "C-x C-+")) ;; don't zoom like this
 #+end_src
+
+#+BEGIN_SRC emacs-lisp
+  (defun toggle-fullscreen ()
+    "Toggle full screen"
+    (interactive)
+    (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+  (global-set-key (kbd "<f11>") 'toggle-fullscreen)
+#+END_SRC
+
 * Email
 Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
 #+begin_src sh
