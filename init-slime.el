@@ -23,7 +23,7 @@
      (setq slime-protocol-version 'ignore)
      (setq slime-net-coding-system 'utf-8-unix)
      (setq slime-complete-symbol*-fancy t)
-     (slime-setup '(slime-repl slime-js))
+     (slime-setup '(slime-repl))
 
      (dolist (hook '(sldb-mode-hook slime-repl-mode-hook))
        (add-hook hook 'inhibit-autopair))
