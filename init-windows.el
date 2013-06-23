@@ -4,13 +4,6 @@
 (winner-mode 1)
 
 
-
-;; Make "C-x o" prompt for a target window when there are more than 2
-(require-package 'switch-window)
-(require 'switch-window)
-(setq switch-window-shortcut-style 'qwerty)
-(setq switch-window-qwerty-shortcuts (split-string "arstneiowfuy" "" t))
-
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
 ;;----------------------------------------------------------------------------
