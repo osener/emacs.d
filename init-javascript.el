@@ -2,7 +2,6 @@
 (require-package 'js2-mode)
 (require-package 'js-comint)
 (require-package 'rainbow-delimiters)
-(require-package 'flymake-json)
 
 
 (defcustom preferred-javascript-mode 'js2-mode
@@ -20,10 +19,7 @@
                                   unless (eq preferred-javascript-mode (cdr entry))
                                   collect entry)))
 
-(add-hook 'json-mode-hook 'flymake-json-maybe-load)
-
 ;; js2-mode
-
 (add-hook 'js2-mode-hook '(lambda () (setq mode-name "JS2")))
 
 (setq js2-use-font-lock-faces t

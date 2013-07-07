@@ -34,3 +34,4 @@ site-lisp/jshint-mode/node_modules/
 /image-dired
 /ido.last
 /recentf
+/.sqli_history

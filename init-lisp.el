@@ -75,8 +75,7 @@
 (defun sanityinc/emacs-lisp-setup ()
   "Enable features useful when working with elisp."
   (elisp-slime-nav-mode t)
-  (set-up-hippie-expand-for-elisp)
-  (checkdoc-minor-mode))
+  (set-up-hippie-expand-for-elisp))
 
 (defconst sanityinc/elispy-modes
   '(emacs-lisp-mode ielm-mode)
