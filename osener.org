@@ -58,6 +58,13 @@ Static checking using kibit
     (interactive)
     (compile "lein kibit"))
 #+end_src
+
+Load snippets for datomic
+#+BEGIN_SRC emacs-lisp
+  (require-package 'datomic-snippets)
+  (require 'datomic-snippets)
+#+END_SRC
+
 ** Python
 #+begin_src emacs-lisp
   (require-package 'virtualenv)
