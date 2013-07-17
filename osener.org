@@ -1028,6 +1028,13 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (define-dash-docset 'emacs-lisp-mode-hook "elisp")
     (global-set-key "\C-cd" 'dash-at-point))
 #+end_src
+
+** Jenkins integration
+#+BEGIN_SRC emacs-lisp
+  (require-package 'butler)
+  (require 'butler)
+#+END_SRC
+
 * Misc keybindings
 Quick way to open a link
 #+begin_src emacs-lisp
