@@ -660,7 +660,7 @@ Set default font
 #+begin_src emacs-lisp
   (if *is-a-mac*
       (add-to-list 'default-frame-alist
-                   '(font . "Akkurat-Mono-15"))
+                   '(font . "Akkurat-Mono-13"))
     (add-to-list 'default-frame-alist
                  '(font . "Akkurat-Mono-11")))
 #+end_src
