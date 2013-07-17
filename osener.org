@@ -557,62 +557,6 @@ Keybindings
   (global-set-key (kbd "<f11>") 'toggle-fullscreen)
 #+END_SRC
 
-* Email
-Mu4e (http://www.djcbsoftware.nl/code/mu/) is e great mail reader.
-#+begin_src sh
-  brew install offlineimap
-  brew install mu --with-emacs
-#+end_src
-
-#+begin_src emacs-lisp
-  (require 'mu4e)
-
-  (setq mu4e-drafts-folder "/[Gmail].Drafts")
-  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-  (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-  ;; setup some handy shortcuts
-  (setq mu4e-maildir-shortcuts
-        '( ("/INBOX"               . ?i)
-           ("/[Gmail].Sent Mail"   . ?s)
-           ("/[Gmail].Trash"       . ?t)
-           ("/[Gmail].All Mail"    . ?a)))
-
-  ;; allow for updating mail using 'U' in the main view:
-  (setq mu4e-get-mail-command "offlineimap")
-
-  ;; something about ourselves
-  (setq
-   user-mail-address "ozan@ozansener.com"
-   user-full-name  "Ozan Sener"
-   message-signature
-   (concat
-    "Ozan Sener\n"
-    "http://ozansener.com\n"))
-
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        starttls-use-gnutls t
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
-
-  (setq mu4e-bookmarks
-        '( ("flag:unread AND NOT flag:trashed" "Unread messages"      ?u)
-           ("date:today..now"                  "Today's messages"     ?t)
-           ("date:7d..now"                     "Last 7 days"          ?w)
-           ("mime:image/*"                     "Messages with images" ?i)))
-
-  (setq mu4e-update-interval 900
-        mu4e-html2text-command "w3m -dump -T text/html"
-        mu4e-confirm-quit nil
-        mu4e-headers-date-format "%B %e, %Y"
-        mu4e-refile-folder "/Archives"
-        mu4e-show-images t
-        mu4e-use-fancy-chars t)
-
-#+end_src
 
 * Chat
 #+begin_src emacs-lisp
