@@ -480,7 +480,8 @@ Popwin
           ("\\*ansi-term\\*.*" :regexp t :height 30)
           ("*shell*" :height 30)
           ("*gists*" :height 30)
-          ("*sldb.*":regexp t :height 30)))
+          ("*sldb.*":regexp t :height 30)
+          ("*nrepl-error*" :noselect t)))
 #+end_src
 Rotate windows
 #+begin_src emacs-lisp
