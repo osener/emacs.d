@@ -64,6 +64,12 @@ Midje mode
   (require-package 'midje-mode)
 #+END_SRC
 
+Load snippets for datomic
+#+BEGIN_SRC emacs-lisp
+  (require-package 'datomic-snippets)
+  (require 'datomic-snippets)
+#+END_SRC
+
 ** Python
 #+begin_src emacs-lisp
   (require-package 'virtualenv)
