@@ -62,6 +62,17 @@ Static checking using kibit
 Midje mode
 #+BEGIN_SRC emacs-lisp
   (require-package 'midje-mode)
+  (require 'clojure-jump-to-file)
+#+END_SRC
+
+Display colors in nrepl buffers
+#+BEGIN_SRC emacs-lisp
+  (defun nrepl-emit-output (buffer string &optional bol)
+    "Using BUFFER, emit STRING.
+    If BOL is non-nil, emit at the beginning of the line."
+    (with-current-buffer buffer
+      (nrepl-emit-output-at-pos buffer string nrepl-input-start-mark bol)
+      (ansi-color-apply-on-region (marker-position nrepl-output-start) (point-max))))
 #+END_SRC
 
 Load snippets for datomic
