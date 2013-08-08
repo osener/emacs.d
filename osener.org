@@ -1,16 +1,16 @@
 #+TITLE: Ozan Sener's Emacs configuration
 #+OPTIONS: toc:nil num:nil ^:nil
 * Load some lisp
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'cl)
 
   (defun load-secrets ()
     (interactive)
     (require 'secrets (expand-file-name "secrets.el.gpg" user-emacs-directory)))
-#+end_src
+#+END_SRC
 
 Install some additional packages
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'starter-kit-bindings)
   (require-package 'yasnippet)
   (require-package 'jade-mode)
@@ -22,29 +22,29 @@ Install some additional packages
   (require-package 'typo)
   (require-package 'dic-lookup-w3m)
   (require-package 'protobuf-mode)
-#+end_src
+#+END_SRC
 
 * Programming languages
 ** Scheme
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'scheme-mode-hook 'sanityinc/lisp-setup)
-#+end_src
+#+END_SRC
 *** Chicken Scheme
 Load chicken
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "/usr/local/lib/chicken/6/")
   (autoload 'chicken-slime "chicken-slime" "SWANK backend for Chicken" t)
   (add-hook 'scheme-mode-hook
             (lambda ()
               (slime-mode t)))
-#+end_src
+#+END_SRC
 ** Clojure
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'lein)
-#+end_src
+#+END_SRC
 
 Static checking using kibit
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'compile)
   (add-to-list 'compilation-error-regexp-alist-alist
                '(kibit "At \\([^:]+\\):\\([[:digit:]]+\\):" 1 2 nil 0))
@@ -57,7 +57,7 @@ Static checking using kibit
   Display the results in a hyperlinked *compilation* buffer."
     (interactive)
     (compile "lein kibit"))
-#+end_src
+#+END_SRC
 
 Midje mode
 #+BEGIN_SRC emacs-lisp
@@ -82,14 +82,14 @@ Load snippets for datomic
 #+END_SRC
 
 ** Python
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'virtualenv)
   (require-package 'python-pep8)
   (require-package 'python-pylint)
-#+end_src
+#+END_SRC
 
 Code completion using IPython
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args ""
         python-shell-prompt-regexp "In \\[[0-9]+\\]: "
@@ -100,24 +100,24 @@ Code completion using IPython
         "';'.join(module_completion('''%s'''))\n"
         python-shell-completion-string-code
         "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
-#+end_src
+#+END_SRC
 
 Auto-indentation
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'python-mode-hook
     #'(lambda ()
         (define-key python-mode-map "\C-m" 'newline-and-indent)))
-#+end_src
+#+END_SRC
 
 ** C/C++
 Auto indentation (C-j is harder to reach on Colemak)
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'c-mode-common-hook '(lambda ()
         (local-set-key (kbd "RET") 'newline-and-indent)))
-#+end_src
+#+END_SRC
 
 ** Javascript
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq js2-concat-multiline-strings 'eol
         js2-rebind-eol-bol-keys t
         js2-idle-timer-delay 0.1
@@ -125,10 +125,10 @@ Auto indentation (C-j is harder to reach on Colemak)
 
   (require 'js2-imenu-extras)
   (js2-imenu-extras-setup)
-#+end_src
+#+END_SRC
 
 *** Declare globals
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default js2-global-externs '("module" "require" "jQuery"
                                      "$" "_" "buster" "assert"
                                      "setTimeout" "clearTimeout"
@@ -154,9 +154,9 @@ Auto indentation (C-j is harder to reach on Colemak)
                          (if (string-match "/\\* *global *\\(.*?\\) *\\*/" btext) (match-string-no-properties 1 btext) "")
                          " *, *" t))
                   ))))
-#+end_src
+#+END_SRC
 *** Insert semicolons automatically
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'js2-mode)
   (defvar js2-semicolon-contexts
     (list js2-NAME js2-LP js2-SCRIPT js2-CALL js2-BLOCK))
@@ -181,31 +181,31 @@ Auto indentation (C-j is harder to reach on Colemak)
                (setq autopair-handle-action-fns
                      (list #'autopair-default-handle-action
                            #'autopair-js2-maybe-insert-semi-colon))))
-#+end_src
+#+END_SRC
 
 *** json-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'json-mode)
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-#+end_src
+#+END_SRC
 *** Use lambda for anonymous functions
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (font-lock-add-keywords
    'js2-mode `(("\\(function\\) *("
                 (0 (progn (compose-region (match-beginning 1)
                                           (match-end 1) "\u0192")
                           nil)))))
-#+end_src
+#+END_SRC
 *** Use right arrow for return in one-line functions
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (font-lock-add-keywords
    'js2-mode `(("function *([^)]*) *{ *\\(return\\) "
                 (0 (progn (compose-region (match-beginning 1)
                                           (match-end 1) "\u2190")
                           nil)))))
-#+end_src
+#+END_SRC
 *** Refactoring
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'js2-refactor)
   (require 'js2-refactor)
 
@@ -214,9 +214,9 @@ Auto indentation (C-j is harder to reach on Colemak)
 
   (js2r-add-keybindings-with-prefix "C-c C-m")
   (define-key js2-mode-map (kbd "M-SPC") 'js2r--ensure-just-one-space)
-#+end_src
+#+END_SRC
 *** Code completion and analysis using Tern
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path (expand-file-name "site-lisp/tern/emacs/"
                                             user-emacs-directory))
   (require 'tern)
@@ -226,23 +226,23 @@ Auto indentation (C-j is harder to reach on Colemak)
     (setq tern-known-port 5005))
 
   (add-hook 'js2-mode-hook 'enable-tern)
-#+end_src
+#+END_SRC
 
 ** Scala
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'scala-mode2)
 
   (let ((default-directory "~/vcs/ensime"))
     (when (file-exists-p default-directory)
       (add-to-list 'load-path (expand-file-name "elisp/"))
       (require 'ensime)))
-#+end_src
+#+END_SRC
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
 http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshell/
 
 ** Change some defaults
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (eval-after-load 'esh-opt
     '(progn
        (require 'em-prompt)
@@ -253,7 +253,7 @@ http://www.masteringemacs.org/articles/2010/12/13/complete-guide-mastering-eshel
        (setq eshell-smart-space-goes-to-end t)
        (setq eshell-directory-name
              (expand-file-name "./" (expand-file-name "eshell" user-emacs-directory)))))
-#+end_src
+#+END_SRC
 
 ** Convenience function for usage in a terminal emulator
 This allows you to use eshell in a similar fashion to standard Unix
@@ -261,7 +261,7 @@ shells in a terminal emulator.
 
 Call Emacs like this for an one-off eshell buffer:
 emacsclient -a '' -t -e "(server-eshell)"
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun server-eshell ()
     "Command to be called by emacs-client to start a new shell.
 
@@ -285,10 +285,10 @@ emacsclient -a '' -t -e "(server-eshell)"
       (local-set-key (kbd "C-x #") (lambda () (interactive) (kill-buffer buf)))
       (delete-other-windows)
       nil))
-#+end_src
+#+END_SRC
 
 ** Quake-like eshell window
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'shell-pop)
 
   (setq shell-pop-window-position "bottom"
@@ -297,11 +297,11 @@ emacsclient -a '' -t -e "(server-eshell)"
 
   (global-set-key (kbd "<f8>") 'shell-pop)
 
-#+end_src
+#+END_SRC
 
 ** Easy way to open eshell in the directory of current buffer
 [[https://github.com/technomancy/emacs-starter-kit/commit/c0e568d3c9940c9dd5241e4b49467723590fc2c2][From here]]
-#+begin_src
+#+BEGIN_SRC
 (defun eshell-in-dir (&optional prompt)
   "Change the directory of an existing eshell to the directory of the file in
 the current buffer or launch a new eshell if one isn't running. If the
@@ -331,11 +331,11 @@ directory."
       (end-of-buffer)
       (switch-to-buffer original-buffer)
       (shell-pop-up))))
-#+end_src
+#+END_SRC
 
 ** Clickable ls output
 [[http://www.emacswiki.org/emacs/EshellEnhancedLS][From EmacsWiki]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (eval-after-load "em-ls"
     '(progn
        (defun ted-eshell-ls-find-file-at-point (point)
@@ -370,10 +370,10 @@ directory."
                                     'keymap ted-eshell-ls-keymap)
                               ad-return-value)
          ad-return-value)))
-#+end_src
+#+END_SRC
 
 ** Colorize prompt on nonzero exit codes
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defface esk-eshell-error-prompt-face
     '((((class color) (background dark)) (:foreground "red" :bold t))
       (((class color) (background light)) (:foreground "red" :bold t)))
@@ -388,10 +388,10 @@ directory."
                   (add-text-properties
                    (save-excursion (beginning-of-line) (point)) (point-max)
                    '(face esk-eshell-error-prompt-face))))))
-#+end_src
+#+END_SRC
 
 ** Misc commands
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun eshell/cds ()
     "Change directory to the project's root."
     (eshell/cd (locate-dominating-file default-directory "src")))
@@ -403,11 +403,11 @@ directory."
   (defun eshell/cdg ()
     "Change directory to the project's root."
     (eshell/cd (locate-dominating-file default-directory ".git")))
-#+end_src
+#+END_SRC
 
 * Term
 Don't keep buffers with finished processes around
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
     (if (memq (process-status proc) '(signal exit))
         (let ((buffer (process-buffer proc)))
@@ -415,10 +415,10 @@ Don't keep buffers with finished processes around
           (kill-buffer buffer))
       ad-do-it))
   (ad-activate 'term-sentinel)
-#+end_src
+#+END_SRC
 
 Yank into terminal with C-y
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun my-term-paste (&optional string)
    (interactive)
    (process-send-string
@@ -427,36 +427,36 @@ Yank into terminal with C-y
 
   (add-hook 'term-mode-hook
             (lambda () (define-key term-raw-map "\C-y" 'my-term-paste)))
-#+end_src
+#+END_SRC
 
 * Dired
 Toggleable verbosity
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'dired-details)
   (require-package 'dired-details+)
 
   (require 'dired-details+)
   (setq-default dired-details-hidden-string "--- ")
-#+end_src
+#+END_SRC
 
 Custom ls invocation
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dired-listing-switches
         "-aGhlvF --group-directories-first --time-style=long-iso")
-#+end_src
+#+END_SRC
 
 Try guessing dired targets
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dired-dwim-target t)
-#+end_src
+#+END_SRC
 
 Don't ask before doing recursive copies
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq dired-recursive-copies 'always)
-#+end_src
+#+END_SRC
 * Navigation
 Goto line with feedback
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
   (defun goto-line-with-feedback ()
@@ -470,10 +470,10 @@ Goto line with feedback
             (linum-mode 1)
             (call-interactively 'goto-line))
         (linum-mode -1))))
-#+end_src
+#+END_SRC
 * Window management
 Popwin
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'popwin)
 
   (require 'popwin)
@@ -498,9 +498,9 @@ Popwin
           ("*gists*" :height 30)
           ("*sldb.*":regexp t :height 30)
           ("*nrepl-error*" :noselect t)))
-#+end_src
+#+END_SRC
 Rotate windows
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun rotate-windows ()
     "Rotate your windows"
     (interactive)
@@ -525,10 +525,10 @@ Rotate windows
                (set-window-start w1 s2)
                (set-window-start w2 s1)
                (setq i (1+ i)))))))
-#+end_src
+#+END_SRC
 
 Toggle window split
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun toggle-window-split ()
     (interactive)
     (if (= (count-windows) 2)
@@ -553,14 +553,14 @@ Toggle window split
             (set-window-buffer (next-window) next-win-buffer)
             (select-window first-win)
             (if this-win-2nd (other-window 1))))))
-#+end_src
+#+END_SRC
 
 Keybindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x -") 'rotate-windows)
   (global-set-key (kbd "C-x C--") 'toggle-window-split)
   (global-unset-key (kbd "C-x C-+")) ;; don't zoom like this
-#+end_src
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (defun toggle-fullscreen ()
@@ -575,27 +575,27 @@ Keybindings
 
 
 * Chat
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun start-im ()
     (interactive)
     (load-secrets)
     (sauron-start-hidden))
-#+end_src
+#+END_SRC
 
 ** ERC
 Unique nick colorization
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'erc-hl-nicks)
-#+end_src
+#+END_SRC
 
 Disable trailing whitespace in ERC buffers
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'erc-mode-hook (lambda ()
                                 (setq show-trailing-whitespace nil)))
-#+end_src
+#+END_SRC
 
 Growl notifications
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun my-erc-hook (match-type nick message)
     "Shows a growl notification, when user's nick was mentioned. If the buffer is currently not visible, makes it sticky."
     (unless (posix-string-match "^\\** *Users on #" message)
@@ -604,26 +604,26 @@ Growl notifications
        (concat "Name mentioned on: " (buffer-name (current-buffer)))
        (todochiku-icon 'irc))))
   (add-hook 'erc-text-matched-hook 'my-erc-hook)
-#+end_src
+#+END_SRC
 
 * Helm
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'helm)
   (require-package 'helm-ls-git)
 
   (require 'helm-config)
   (setq helm-ls-git-show-abs-or-relative 'relative)
-#+end_src
+#+END_SRC
 
 Keybindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<f1>") 'helm-mini)
   (global-set-key (kbd "s-t") 'helm-ls-git-ls)
-#+end_src
+#+END_SRC
 
 * Git
 Toggle whitespace in magit-status buffers
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'magit)
 
   (defun magit-toggle-whitespace ()
@@ -643,104 +643,104 @@ Toggle whitespace in magit-status buffers
     (magit-refresh))
 
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
-#+end_src
+#+END_SRC
 
 Add keybinding for toggling --no-merges in log view
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (eval-after-load 'magit-key-mode
     '(magit-key-mode-insert-switch 'logging "-l" "No merges" "--no-merges"))
-#+end_src
+#+END_SRC
 
 Diff-hl mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'diff-hl)
   (global-diff-hl-mode t)
-#+end_src
+#+END_SRC
 
 Style-checking for git commit messages
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'git-commit-mode)
-#+end_src
+#+END_SRC
 
 * OSX related tweaks
 Input related tweaks
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (when *is-a-mac*
     (setq mac-command-modifier 'super)
     (setq mac-option-modifier 'meta)
     (setq mouse-wheel-scroll-amount '(0.001)))
-#+end_src
+#+END_SRC
 
 * Cosmetic changes
 Set default font
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (if *is-a-mac*
       (add-to-list 'default-frame-alist
                    '(font . "Akkurat-Mono-13"))
     (add-to-list 'default-frame-alist
                  '(font . "Akkurat-Mono-11")))
-#+end_src
+#+END_SRC
 
 Set Unicode font
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (set-fontset-font "fontset-default" 'unicode (if *is-a-mac* "Menlo" "Symbola"))
-#+end_src
+#+END_SRC
 
 Disable bold faces
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (mapc
    (lambda (face)
      (set-face-attribute face nil :weight 'normal :underline nil))
    (face-list))
-#+end_src
+#+END_SRC
 
 Use proportional fonts in mode-line
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (run-at-time "1 sec" nil
                (lambda ()
                  (set-face-attribute 'mode-line nil
                                      :family (if *is-a-mac* "Muli" "Muli-Regular"))))
-#+end_src
+#+END_SRC
 
 Use UTF-8 bullets on org-mode buffers
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
+#+END_SRC
 
 Parse ansi color escape codes in compilation-mode buffers
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'ansi-color)
   (defun colorize-compilation-buffer ()
     (toggle-read-only)
     (ansi-color-apply-on-region (point-min) (point-max))
     (toggle-read-only))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-#+end_src
+#+END_SRC
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq tab-always-indent 'complete)
   (add-to-list 'completion-styles 'initials t)
-#+end_src
+#+END_SRC
 
 Exclude very large buffers from dabbrev
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun sanityinc/dabbrev-friend-buffer (other-buffer)
     (< (buffer-size other-buffer) (* 1 1024 1024)))
 
   (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
-#+end_src
+#+END_SRC
 
 *** Company-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'company)
   (add-hook 'after-init-hook 'global-company-mode)
-#+end_src
+#+END_SRC
 
 Convenient key bindings
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (eval-after-load 'company
     '(progn
        (define-key company-active-map (kbd "\C-n") 'company-select-next)
@@ -751,10 +751,10 @@ Convenient key bindings
        (define-key company-active-map (kbd "\C-g") '(lambda ()
                                                       (interactive)
                                                       (company-abort)))))
-#+end_src
+#+END_SRC
 
 ** Convenient bookmarking using bm
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'bm)
 
   (global-set-key (kbd "<M-f2>") 'bm-toggle)
@@ -763,44 +763,44 @@ Convenient key bindings
   (global-set-key (kbd "<left-fringe> <mouse-1>") 'bm-toggle-mouse)
   (global-set-key (kbd "<left-fringe> <wheel-down>") 'bm-next-mouse)
   (global-set-key (kbd "<left-fringe> <wheel-up>") 'bm-previous-mouse)
-#+end_src
+#+END_SRC
 
 ** Browsers
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'w3m)
   (setq w3m-command "/usr/local/bin/w3m")
   (setq browse-url-browser-function 'browse-url-firefox)
-#+end_src
+#+END_SRC
 
 ** Disable hl-line-mode
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
-#+end_src
+#+END_SRC
 
 ** ag
 Editable buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'wgrep-ack)
   (add-hook 'ag-mode-hook 'wgrep-ack-and-a-half-setup)
   (setq wgrep-auto-save-buffer t)
   (setq wgrep-enable-key "w")
   (setq wgrep-change-readonly-file t)
-#+end_src
+#+END_SRC
 
 ** Shell
 Use fish shell
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq explicit-shell-file-name "/usr/local/bin/fish")
-#+end_src
+#+END_SRC
 
 ** Snippets
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (yas-global-mode 1)
-#+end_src
+#+END_SRC
 
 *** Helper functions
 Helm interface
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun shk-yas/helm-prompt (prompt choices &optional display-fn)
     "Use helm to select a snippet. Put this into `yas/prompt-functions.'"
     (interactive)
@@ -821,10 +821,10 @@ Helm interface
             (cdr (assoc result rmap))))
       nil))
   (setq yas/prompt-functions '(shk-yas/helm-prompt yas/no-prompt))
-#+end_src
+#+END_SRC
 
 JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-helpers.el][(From here)]]
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun js-method-p ()
     (save-excursion
       (word-search-backward "function")
@@ -844,15 +844,15 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 
   (defun snippet--function-name ()
     (if (js-function-declaration-p) "name" ""))
-#+end_src
+#+END_SRC
 
 ** Slate configuration language
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require 'slate-config-mode)
-#+end_src
+#+END_SRC
 
 ** EMMS
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (require-package 'emms)
 
   (autoload 'emms-browser "emms-browser"
@@ -1023,9 +1023,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                    (if *my-emms-ticker*
                        (emms-track-ticker-stop)
                      (emms-track-ticker-start))))))
-#+end_src
+#+END_SRC
 ** Browse documentation using Dash
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun define-dash-docset (mode-hook prefix)
     (add-hook mode-hook `(lambda () (setq dash-at-point-docset ,prefix))))
 
@@ -1038,7 +1038,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (define-dash-docset 'js2-mode-hook "js")
     (define-dash-docset 'emacs-lisp-mode-hook "elisp")
     (global-set-key "\C-cd" 'dash-at-point))
-#+end_src
+#+END_SRC
 
 ** Jenkins integration
 #+BEGIN_SRC emacs-lisp
@@ -1048,35 +1048,35 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
 
 * Misc keybindings
 Quick way to open a link
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key "\C-cb" 'org-open-at-point-global)
-#+end_src
+#+END_SRC
 
 Switch to previous buffer
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (global-set-key "\M-O" 'mode-line-other-buffer)
-#+end_src
+#+END_SRC
 
 * Misc tweaks
 Use system Trash
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq delete-by-moving-to-trash t)
-#+end_src
+#+END_SRC
 
 No bell whatsoever please
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq visual-bell nil)
   (setq ring-bell-function 'ignore)
-#+end_src
+#+END_SRC
 
 Disable autopair in some modes
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'erc-mode-hook 'inhibit-autopair)
   (add-hook 'term-mode-hook 'inhibit-autopair)
-#+end_src
+#+END_SRC
 
 Disable show-trailing-whitespace in some modes
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (dolist (hook '(erc-mode-hook
                   term-mode-hook
                   eshell-mode-hook
@@ -1092,21 +1092,21 @@ Disable show-trailing-whitespace in some modes
                   jabber-chat-mode-hook
                   jabber-browse-mode-hook))
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
-#+end_src
+#+END_SRC
 
 Disable yasnippet in some modes
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (add-hook 'term-mode-hook (lambda()
                   (yas-minor-mode -1)))
-#+end_src
+#+END_SRC
 
 Wrap lines longer than 79 characters
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq-default fill-column 79)
-#+end_src
+#+END_SRC
 
 Set tmp dir to ~/.emacs.d/tmp
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (setq temporary-file-directory (expand-file-name "tmp/" user-emacs-directory))
 
   (make-directory temporary-file-directory t)
@@ -1115,10 +1115,10 @@ Set tmp dir to ~/.emacs.d/tmp
         `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
-#+end_src
+#+END_SRC
 
 Cleanup buffers before saving
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
   (defun untabify-buffer ()
     (interactive)
     (untabify (point-min) (point-max)))
@@ -1147,4 +1147,4 @@ Cleanup buffers before saving
 
   (global-set-key (kbd "C-c n") 'cleanup-buffer)
   (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
-#+end_src
+#+END_SRC
