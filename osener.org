@@ -708,6 +708,10 @@ Use UTF-8 bullets on org-mode buffers
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC
 
+Fontify code blocks in org-mode buffers
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively t)
+#+END_SRC
 Parse ansi color escape codes in compilation-mode buffers
 #+BEGIN_SRC emacs-lisp
   (require 'ansi-color)
