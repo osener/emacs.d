@@ -38,6 +38,7 @@ Load chicken
             (lambda ()
               (slime-mode t)))
 #+END_SRC
+
 ** Clojure
 #+BEGIN_SRC emacs-lisp
   (require-package 'lein)
@@ -79,6 +80,48 @@ Load snippets for datomic
 #+BEGIN_SRC emacs-lisp
   (require-package 'datomic-snippets)
   (require 'datomic-snippets)
+#+END_SRC
+
+Highlight expression on eval
+#+BEGIN_SRC emacs-lisp
+  (require-package 'highlight)
+  (require-package 'nrepl-eval-sexp-fu)
+  (require 'highlight)
+  (require 'nrepl-eval-sexp-fu)
+  (setq nrepl-eval-sexp-fu-flash-duration 0.3)
+  (set-face-attribute 'nrepl-eval-sexp-fu-flash nil :background "#103050")
+#+END_SRC
+
+Fancy literals (from emacs-live)
+#+BEGIN_SRC emacs-lisp
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("(\\(fn\\)[\[[:space:]]"
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "λ")
+                               nil))))))
+
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("\\(#\\)("
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "ƒ")
+                               nil))))))
+
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("\\(#\\){"
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "∈")
+                               nil))))))
+#+END_SRC
+
+Specify the print length to be 100 to stop infinite sequences killing things.
+#+BEGIN_SRC emacs-lisp
+  (defun live-nrepl-set-print-length ()
+    (nrepl-send-string-sync "(set! *print-length* 100)" "clojure.core"))
+
+  (add-hook 'nrepl-connected-hook 'live-nrepl-set-print-length)
 #+END_SRC
 
 ** Python
