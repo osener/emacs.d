@@ -44,6 +44,7 @@ Load chicken
   (require-package 'lein)
 #+END_SRC
 
+*** Testing & static analysis
 Static checking using kibit
 #+BEGIN_SRC emacs-lisp
   (require 'compile)
@@ -60,12 +61,13 @@ Static checking using kibit
     (compile "lein kibit"))
 #+END_SRC
 
-Midje mode
+ Midje mode
 #+BEGIN_SRC emacs-lisp
   (require-package 'midje-mode)
   (require 'clojure-jump-to-file)
 #+END_SRC
 
+*** Nrepl
 Display colors in nrepl buffers
 #+BEGIN_SRC emacs-lisp
   (defun nrepl-emit-output (buffer string &optional bol)
@@ -74,46 +76,6 @@ Display colors in nrepl buffers
     (with-current-buffer buffer
       (nrepl-emit-output-at-pos buffer string nrepl-input-start-mark bol)
       (ansi-color-apply-on-region (marker-position nrepl-output-start) (point-max))))
-#+END_SRC
-
-Load snippets for datomic
-#+BEGIN_SRC emacs-lisp
-  (require-package 'datomic-snippets)
-  (require 'datomic-snippets)
-#+END_SRC
-
-Highlight expression on eval
-#+BEGIN_SRC emacs-lisp
-  (require-package 'highlight)
-  (require-package 'nrepl-eval-sexp-fu)
-  (require 'highlight)
-  (require 'nrepl-eval-sexp-fu)
-  (setq nrepl-eval-sexp-fu-flash-duration 0.3)
-  (set-face-attribute 'nrepl-eval-sexp-fu-flash nil :background "#103050")
-#+END_SRC
-
-Fancy literals (from emacs-live)
-#+BEGIN_SRC emacs-lisp
-(eval-after-load 'clojure-mode
-  '(font-lock-add-keywords
-    'clojure-mode `(("(\\(fn\\)[\[[:space:]]"
-                     (0 (progn (compose-region (match-beginning 1)
-                                               (match-end 1) "λ")
-                               nil))))))
-
-(eval-after-load 'clojure-mode
-  '(font-lock-add-keywords
-    'clojure-mode `(("\\(#\\)("
-                     (0 (progn (compose-region (match-beginning 1)
-                                               (match-end 1) "ƒ")
-                               nil))))))
-
-(eval-after-load 'clojure-mode
-  '(font-lock-add-keywords
-    'clojure-mode `(("\\(#\\){"
-                     (0 (progn (compose-region (match-beginning 1)
-                                               (match-end 1) "∈")
-                               nil))))))
 #+END_SRC
 
 Specify the print length to be 100 to stop infinite sequences killing things.
@@ -152,6 +114,48 @@ Trace vars using clojure.tools.trace (from [[https://github.com/clojure-emacs/nr
        query)))
 
   (define-key nrepl-interaction-mode-map (kbd "C-c M-t") 'nrepl-toggle-trace)
+#+END_SRC
+
+*** Datomic
+Load snippets for datomic
+#+BEGIN_SRC emacs-lisp
+  (require-package 'datomic-snippets)
+  (require 'datomic-snippets)
+#+END_SRC
+
+*** Cosmetic
+Highlight expression on eval
+#+BEGIN_SRC emacs-lisp
+  (require-package 'highlight)
+  (require-package 'nrepl-eval-sexp-fu)
+  (require 'highlight)
+  (require 'nrepl-eval-sexp-fu)
+  (setq nrepl-eval-sexp-fu-flash-duration 0.3)
+  (set-face-attribute 'nrepl-eval-sexp-fu-flash nil :background "#103050")
+#+END_SRC
+
+Fancy literals (from emacs-live)
+#+BEGIN_SRC emacs-lisp
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("(\\(fn\\)[\[[:space:]]"
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "λ")
+                               nil))))))
+
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("\\(#\\)("
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "ƒ")
+                               nil))))))
+
+(eval-after-load 'clojure-mode
+  '(font-lock-add-keywords
+    'clojure-mode `(("\\(#\\){"
+                     (0 (progn (compose-region (match-beginning 1)
+                                               (match-end 1) "∈")
+                               nil))))))
 #+END_SRC
 
 ** Python
