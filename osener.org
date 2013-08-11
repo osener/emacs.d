@@ -1,5 +1,5 @@
 #+TITLE: Ozan Sener's Emacs configuration
-#+OPTIONS: toc:nil num:nil ^:nil
+#+OPTIONS: num:nil ^:nil
 * Load some lisp
 #+BEGIN_SRC emacs-lisp
   (require 'cl)
@@ -378,7 +378,7 @@ emacsclient -a '' -t -e "(server-eshell)"
 
 ** Easy way to open eshell in the directory of current buffer
 [[https://github.com/technomancy/emacs-starter-kit/commit/c0e568d3c9940c9dd5241e4b49467723590fc2c2][From here]]
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
 (defun eshell-in-dir (&optional prompt)
   "Change the directory of an existing eshell to the directory of the file in
 the current buffer or launch a new eshell if one isn't running. If the
@@ -649,7 +649,6 @@ Keybindings
 
   (global-set-key (kbd "<f11>") 'toggle-fullscreen)
 #+END_SRC
-
 
 * Chat
 #+BEGIN_SRC emacs-lisp
