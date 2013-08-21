@@ -116,6 +116,12 @@ Trace vars using clojure.tools.trace (from [[https://github.com/clojure-emacs/nr
   (define-key nrepl-interaction-mode-map (kbd "C-c M-t") 'nrepl-toggle-trace)
 #+END_SRC
 
+Use persistent REPL history
+#+BEGIN_SRC emacs-lisp
+  (setq nrepl-history-file (expand-file-name ".nrepl-history"
+                                             user-emacs-directory))
+#+END_SRC
+
 *** Datomic
 Load snippets for datomic
 #+BEGIN_SRC emacs-lisp
