@@ -199,6 +199,14 @@ Auto indentation (C-j is harder to reach on Colemak)
         (local-set-key (kbd "RET") 'newline-and-indent)))
 #+END_SRC
 
+Style
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   c-default-style "bsd"
+   tab-width 4
+   c-indent-level 4
+   c-basic-offset 4)
+#+END_SRC
 ** Javascript
 #+BEGIN_SRC emacs-lisp
   (setq js2-concat-multiline-strings 'eol
