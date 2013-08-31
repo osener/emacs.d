@@ -847,6 +847,12 @@ Convenient key bindings
                                                       (company-abort)))))
 #+END_SRC
 
+Only trigger completion if the last command has been an editing command
+#+BEGIN_SRC emacs-lisp
+  (setq company-begin-commands '(self-insert-command))
+  (setq company-idle-delay 0.3)
+#+END_SRC
+
 ** Convenient bookmarking using bm
 #+BEGIN_SRC emacs-lisp
   (require-package 'bm)
