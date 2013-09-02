@@ -646,6 +646,12 @@ Toggle window split
             (if this-win-2nd (other-window 1))))))
 #+END_SRC
 
+Easy window navigation using M-1..M-0
+#+BEGIN_SRC emacs-lisp
+  (require-package 'window-numbering)
+  (window-numbering-mode t)
+#+END_SRC
+
 Keybindings
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x -") 'rotate-windows)
