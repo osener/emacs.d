@@ -875,7 +875,7 @@ Only trigger completion if the last command has been an editing command
 #+BEGIN_SRC emacs-lisp
   (require-package 'w3m)
   (setq w3m-command "/usr/local/bin/w3m")
-  (setq browse-url-browser-function 'browse-url-firefox)
+  (setq browse-url-browser-function 'browse-url-default-browser)
 #+END_SRC
 
 ** Disable hl-line-mode
