@@ -2,7 +2,7 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (when *is-a-mac*
-  (require-package 'org-mac-link-grabber))
+  (require-package 'org-mac-link))
 
 (require 'org)
 
@@ -95,9 +95,7 @@
     (define-key org-mode-map (kbd "M-h") nil))
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
   (when *is-a-mac*
-    (autoload 'omlg-grab-link "org-mac-link-grabber")
+    (autoload 'omlg-grab-link "org-mac-link")
     (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link)))
-
-(add-hook 'org-mode-hook 'inhibit-autopair)
 
 (provide 'init-org)
