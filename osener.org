@@ -532,13 +532,6 @@ Goto line with feedback
             (call-interactively 'goto-line))
         (linum-mode -1))))
 #+END_SRC
-
-Display search matches on mode-line
-#+BEGIN_SRC emacs-lisp
-  (require-package 'anzu)
-  (global-anzu-mode t)
-#+END_SRC
-
 * Window management
 Popwin
 #+BEGIN_SRC emacs-lisp
