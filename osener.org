@@ -537,7 +537,6 @@ Display search matches on mode-line
 #+BEGIN_SRC emacs-lisp
   (require-package 'anzu)
   (global-anzu-mode t)
-  (diminish 'anzu-mode)
 #+END_SRC
 
 * Window management
