@@ -21,7 +21,9 @@
     (auto-complete)))
 
 (defun set-auto-complete-as-completion-at-point-function ()
-  (add-to-list 'completion-at-point-functions 'sanityinc/auto-complete-at-point))
+  (setq completion-at-point-functions
+        (cons 'sanityinc/auto-complete-at-point
+              (remove 'sanityinc/auto-complete-at-point completion-at-point-functions))))
 
 (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
 
@@ -37,7 +39,7 @@
                 sass-mode yaml-mode csv-mode espresso-mode haskell-mode
                 html-mode nxml-mode sh-mode smarty-mode clojure-mode
                 lisp-mode textile-mode markdown-mode tuareg-mode
-                js3-mode css-mode less-css-mode sql-mode ielm-mode))
+                js3-mode css-mode less-css-mode sql-mode inferior-emacs-lisp-mode))
   (add-to-list 'ac-modes mode))
 
 

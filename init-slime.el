@@ -1,4 +1,9 @@
 (require-package 'slime)
+;; package.el compiles the contrib subdir, but the compilation order
+;; causes problems, so we remove the .elc files there. See
+;; http://lists.common-lisp.net/pipermail/slime-devel/2012-February/018470.html
+(mapc #'delete-file
+      (file-expand-wildcards (concat user-emacs-directory "elpa/slime-2*/contrib/*.elc")))
 
 ;; There are 2 versions of Slime available as packages. The 2010* version
 ;; is for Clojure compatibility, and uses separate packages for slime-fuzzy
@@ -13,33 +18,43 @@
 
 (require-package 'hippie-expand-slime)
 
-(defun smp/set-up-slime-repl-auto-complete ()
-  "Bind TAB to `indent-for-tab-command', as in regular Slime buffers."
-  (local-set-key (kbd "TAB") 'indent-for-tab-command))
+
+;;; Lisp buffers
 
-(eval-after-load 'slime
-  '(progn
-     (add-to-list 'load-path (concat (directory-of-library "slime") "/contrib"))
-     (setq slime-protocol-version 'ignore)
-     (setq slime-net-coding-system 'utf-8-unix)
-     (setq slime-complete-symbol*-fancy t)
-     (slime-setup '(slime-repl))
+(defun sanityinc/slime-setup ()
+  "Mode setup function for slime lisp buffers."
+  (set-up-slime-hippie-expand)
+  (set-up-slime-ac t))
 
-     (dolist (hook '(sldb-mode-hook slime-repl-mode-hook))
-       (add-hook hook 'inhibit-autopair))
+(after-load 'slime
+  (setq slime-protocol-version 'ignore)
+  (setq slime-net-coding-system 'utf-8-unix)
+  (slime-setup '(slime-repl slime-fuzzy))
+  (setq slime-complete-symbol*-fancy t)
+  (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+  (add-hook 'slime-mode-hook 'sanityinc/slime-setup))
 
-     ;; Stop SLIME's REPL from grabbing DEL, which is annoying when backspacing over a '('
-     (defun override-slime-repl-bindings-with-paredit ()
-       (define-key slime-repl-mode-map (read-kbd-macro paredit-backward-delete-key) nil))
-     (add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)
+
+;;; REPL
 
-     (add-hook 'slime-mode-hook 'set-up-slime-hippie-expand)
-     (add-hook 'slime-repl-mode-hook 'set-up-slime-hippie-expand)
+(defun sanityinc/slime-repl-setup ()
+  "Mode setup function for slime REPL."
+  (sanityinc/lisp-setup)
+  (set-up-slime-hippie-expand)
+  (set-up-slime-ac t)
+  (setq show-trailing-whitespace nil))
 
-     (add-hook 'slime-repl-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+(after-load 'slime-repl
+  ;; Stop SLIME's REPL from grabbing DEL, which is annoying when backspacing over a '('
+  (define-key slime-repl-mode-map (read-kbd-macro paredit-backward-delete-key) nil)
 
-     (add-hook 'slime-repl-mode-hook 'smp/set-up-slime-repl-auto-complete)))
+  ;; Bind TAB to `indent-for-tab-command', as in regular Slime buffers.
+  (define-key slime-repl-mode-map (kbd "TAB") 'indent-for-tab-command)
 
+  (add-hook 'slime-repl-mode-hook 'sanityinc/slime-repl-setup))
+
+(after-load 'auto-complete
+  (add-to-list 'ac-modes 'slime-repl-mode))
 
 (setq slime-load-hook nil)
 
