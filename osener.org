@@ -278,13 +278,12 @@ Style
 #+END_SRC
 *** Code completion and analysis using Tern
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path (expand-file-name "site-lisp/tern/emacs/"
-                                            user-emacs-directory))
+  (require-package 'tern)
   (require 'tern)
 
   (defun enable-tern ()
     (tern-mode t)
-    (setq tern-known-port 5005))
+    (setq tern-known-port 39204))
 
   (add-hook 'js2-mode-hook 'enable-tern)
 #+END_SRC
