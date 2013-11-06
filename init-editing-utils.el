@@ -37,7 +37,7 @@
       auto-revert-verbose nil)
 
 ;; But don't show trailing whitespace in SQLi, inf-ruby etc.
-(dolist (hook '(term-mode-hook comint-mode-hook compilation-mode-hook twittering-mode-hook))
+(dolist (hook '(special-mode-hook term-mode-hook comint-mode-hook compilation-mode-hook twittering-mode-hook))
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
@@ -58,6 +58,13 @@
 (require-package 'undo-tree)
 (global-undo-tree-mode)
 (diminish 'undo-tree-mode)
+
+
+(require-package 'highlight-symbol)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+(eval-after-load 'highlight-symbol
+  '(diminish 'highlight-symbol-mode))
 
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
@@ -278,16 +285,12 @@ With arg N, insert N newlines."
 
 
 
-(require-package 'visual-regexp)
-(global-set-key [remap query-replace-regexp] 'vr/query-replace)
-(global-set-key [remap replace-regexp] 'vr/replace)
-
-
 
 (when (executable-find "ag")
   (require-package 'ag)
   (require-package 'wgrep-ag)
-  (setq-default ag-highlight-search t))
+  (setq-default ag-highlight-search t)
+  (global-set-key (kbd "M-?") 'ag-project))
 
 
 
