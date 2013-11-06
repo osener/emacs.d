@@ -777,6 +777,7 @@ Fontify code blocks in org-mode buffers
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
 #+END_SRC
+
 Parse ansi color escape codes in compilation-mode buffers
 #+BEGIN_SRC emacs-lisp
   (require 'ansi-color)
@@ -786,6 +787,16 @@ Parse ansi color escape codes in compilation-mode buffers
     (toggle-read-only))
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 #+END_SRC
+
+Use different background colors for even and odd lines in some modes.
+#+BEGIN_SRC emacs-lisp
+  (require-package 'stripe-buffer)
+
+  (add-hook 'dired-mode-hook 'stripe-listify-buffer)
+  (add-hook 'emms-playlist-mode-hook 'stripe-listify-buffer)
+  (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+#+END_SRC
+
 * Misc Emacs modes
 ** Completion
 Launch standard completion using tab
