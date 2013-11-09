@@ -61,8 +61,9 @@
 
 
 (require-package 'highlight-symbol)
-(add-hook 'prog-mode-hook 'highlight-symbol-mode)
-(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+(dolist (hook '(prog-mode-hook html-mode-hook))
+  (add-hook hook 'highlight-symbol-mode)
+  (add-hook hook 'highlight-symbol-nav-mode))
 (eval-after-load 'highlight-symbol
   '(diminish 'highlight-symbol-mode))
 
@@ -82,8 +83,7 @@
 ;;----------------------------------------------------------------------------
 ;; Show matching parens
 ;;----------------------------------------------------------------------------
-(require-package 'mic-paren)
-(paren-activate)     ; activating mic-paren
+(show-paren-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; Expand region
