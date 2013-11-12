@@ -29,10 +29,10 @@
 ;; nrepl with Clojure
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq nrepl-popup-stacktraces nil)
+(setq cider-popup-stacktraces nil)
 
 (after-load 'cider
-  (add-hook 'cider-mode-hook 'nrepl-turn-on-eldoc-mode)
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (add-hook 'cider-repl-mode-hook 'subword-mode)
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
