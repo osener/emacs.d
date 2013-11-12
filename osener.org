@@ -288,6 +288,16 @@ Style
   (add-hook 'js2-mode-hook 'enable-tern)
 #+END_SRC
 
+*** Use HTML mode to edit tags processed by JSX
+#+BEGIN_SRC emacs-lisp
+  (setq mweb-default-major-mode 'js2-mode)
+  (setq mweb-filename-extensions '("js" "jsx"))
+  (setq mweb-tags '((html-mode "([[:space:]\n]*<"
+                               ">[[:space:]\n]*)")))
+  (multi-web-global-mode 1)
+  (setq sgml-basic-offset 4)
+#+END_SRC
+
 ** Scala
 #+BEGIN_SRC emacs-lisp
   (require-package 'scala-mode2)
