@@ -104,7 +104,6 @@ Highlight expression on eval
 #+BEGIN_SRC emacs-lisp
   (require-package 'highlight)
   (require-package 'nrepl-eval-sexp-fu)
-  (require 'highlight)
   (require 'nrepl-eval-sexp-fu)
   (setq nrepl-eval-sexp-fu-flash-duration 0.3)
   (set-face-attribute 'nrepl-eval-sexp-fu-flash nil :background "#103050")

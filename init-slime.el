@@ -9,7 +9,7 @@
 ;; is for Clojure compatibility, and uses separate packages for slime-fuzzy
 ;; and slime-repl. The other version is the latest available, which
 ;; contains a complete "contrib" dir.
-(let ((slime-contrib-dir (concat (directory-of-library "slime") "/contrib")))
+(let ((slime-contrib-dir (concat (sanityinc/directory-of-library "slime") "/contrib")))
   (if (file-directory-p slime-contrib-dir)
       ;; Ensure contrib dir is ahead of any slime-{fuzzy,repl} package
       (add-to-list 'load-path slime-contrib-dir)
