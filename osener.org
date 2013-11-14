@@ -807,47 +807,6 @@ Use different background colors for even and odd lines in some modes.
 #+END_SRC
 
 * Misc Emacs modes
-** Completion
-Launch standard completion using tab
-#+BEGIN_SRC emacs-lisp
-  (setq tab-always-indent 'complete)
-  (add-to-list 'completion-styles 'initials t)
-#+END_SRC
-
-Exclude very large buffers from dabbrev
-#+BEGIN_SRC emacs-lisp
-  (defun sanityinc/dabbrev-friend-buffer (other-buffer)
-    (< (buffer-size other-buffer) (* 1 1024 1024)))
-
-  (setq dabbrev-friend-buffer-function 'sanityinc/dabbrev-friend-buffer)
-#+END_SRC
-
-*** Company-mode
-#+BEGIN_SRC emacs-lisp
-  (require-package 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
-
-Convenient key bindings
-#+BEGIN_SRC emacs-lisp
-  (eval-after-load 'company
-    '(progn
-       (define-key company-active-map (kbd "\C-n") 'company-select-next)
-       (define-key company-active-map (kbd "\C-p") 'company-select-previous)
-       (define-key company-active-map (kbd "\C-d") 'company-show-doc-buffer)
-       (define-key company-active-map (kbd "\C-v") 'company-show-location)
-       (define-key company-active-map (kbd "<tab>") 'company-complete)
-       (define-key company-active-map (kbd "\C-g") '(lambda ()
-                                                      (interactive)
-                                                      (company-abort)))))
-#+END_SRC
-
-Only trigger completion if the last command has been an editing command
-#+BEGIN_SRC emacs-lisp
-  (setq company-begin-commands '(self-insert-command))
-  (setq company-idle-delay 0.3)
-#+END_SRC
-
 ** Convenient bookmarking using bm
 #+BEGIN_SRC emacs-lisp
   (require-package 'bm)
