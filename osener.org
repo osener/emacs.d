@@ -278,6 +278,7 @@ Style
 *** Code completion and analysis using Tern
 #+BEGIN_SRC emacs-lisp
   (require-package 'tern)
+  (require-package 'tern-auto-complete)
   (require 'tern)
 
   (defun enable-tern ()
@@ -285,6 +286,11 @@ Style
     (setq tern-known-port 39204))
 
   (add-hook 'js2-mode-hook 'enable-tern)
+
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
 #+END_SRC
 
 *** Use HTML mode to edit tags processed by JSX
