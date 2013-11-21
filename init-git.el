@@ -8,7 +8,7 @@
 (setq-default
  magit-save-some-buffers nil
  magit-process-popup-time 10
- magit-diff-refine-hunk t
+ magit-diff-refine-hunk 'all
  magit-completing-read-function 'magit-ido-completing-read)
 
 ;; Hint: customize `magit-repo-dirs' so that you can use C-u M-F12 to
