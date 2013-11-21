@@ -281,11 +281,7 @@ Style
   (require-package 'tern-auto-complete)
   (require 'tern)
 
-  (defun enable-tern ()
-    (tern-mode t)
-    (setq tern-known-port 39204))
-
-  (add-hook 'js2-mode-hook 'enable-tern)
+  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 
   (eval-after-load 'tern
     '(progn
