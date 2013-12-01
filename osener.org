@@ -220,27 +220,22 @@ Style
   (require 'js2-mode)
   (defvar js2-semicolon-contexts
     (list js2-NAME js2-LP js2-SCRIPT js2-CALL js2-BLOCK))
-  (defun autopair-js2-maybe-insert-semi-colon (action pair pos-before)
-    "handler for automatically inserting semi-colon at the end of function call."
-    (cond ((and (eq action 'opening)
-                (eq pair ?\))
-                (save-excursion
-                  (goto-char pos-before)
-                  (skip-chars-backward " \t")
-                  (memq (js2-node-type (js2-node-at-point (point)))
-                        js2-semicolon-contexts)))
-           (save-excursion
-             (let ((forward-sexp-function nil))
-               (goto-char pos-before)
-               (forward-sexp))
-             (if (looking-at-p "[^[:graph:]]*$")
-                 (insert ";"))))))
+  (defun sp-js2-maybe-insert-semicolon (id action context)
+    (when (and (eq action 'insert)
+               (save-excursion
+                 (goto-char (- (point) 1))
+                 (skip-chars-backward " \t")
+                 (memq (js2-node-type (js2-node-at-point (point)))
+                       js2-semicolon-contexts)))
+      (save-excursion
+        (let ((forward-sexp-function nil))
+          (goto-char (- (point) 1))
+          (forward-sexp))
+        (if (looking-at-p "[^[:graph:]]*$")
+            (insert ";")))))
 
-  (add-hook 'js2-mode-hook
-            '(lambda ()
-               (setq autopair-handle-action-fns
-                     (list #'autopair-default-handle-action
-                           #'autopair-js2-maybe-insert-semi-colon))))
+  (sp-local-pair 'js2-mode "(" nil :post-handlers
+                 '(:add sp-js2-maybe-insert-semicolon))
 #+END_SRC
 
 *** json-mode
@@ -808,6 +803,14 @@ Use different background colors for even and odd lines in some modes.
 #+END_SRC
 
 * Misc Emacs modes
+** Smartparens
+#+BEGIN_SRC emacs-lisp
+  (require-package 'smartparens)
+  (setq sp-base-key-bindings 'paredit)
+  (smartparens-global-strict-mode t)
+  (require 'smartparens-config)
+#+END_SRC
+
 ** Convenient bookmarking using bm
 #+BEGIN_SRC emacs-lisp
   (require-package 'bm)
@@ -1132,12 +1135,6 @@ No bell whatsoever please
 #+BEGIN_SRC emacs-lisp
   (setq visual-bell nil)
   (setq ring-bell-function 'ignore)
-#+END_SRC
-
-Disable autopair in some modes
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'erc-mode-hook 'inhibit-autopair)
-  (add-hook 'term-mode-hook 'inhibit-autopair)
 #+END_SRC
 
 Disable show-trailing-whitespace in some modes
