@@ -688,7 +688,6 @@ Growl notifications
   (require-package 'helm-ls-git)
 
   (require 'helm-config)
-  (setq helm-ls-git-show-abs-or-relative 'relative)
 #+END_SRC
 
 Keybindings
