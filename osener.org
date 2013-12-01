@@ -1092,6 +1092,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
     (define-dash-docset 'clojure-mode-hook "clojure")
     (define-dash-docset 'js2-mode-hook "js")
     (define-dash-docset 'emacs-lisp-mode-hook "elisp")
+    (define-dash-docset 'yaml-mode-hook "ansible")
     (global-set-key "\C-cd" 'dash-at-point))
 #+END_SRC
 
