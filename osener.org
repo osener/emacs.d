@@ -294,6 +294,24 @@ Style
   (setq sgml-basic-offset 4)
 #+END_SRC
 
+*** DWIM new line indentation
+
+#+BEGIN_SRC emacs-lisp
+  (defun osener/newline-and-indent ()
+    "Open a new brace or bracket expression, with relevant newlines and indent. "
+    (interactive)
+    (if (or (and (looking-back "(") (looking-at ")"))
+            (and (looking-back "{") (looking-at "}")))
+        (progn
+          (newline-and-indent)
+          (newline-and-indent)
+          (forward-line -1)
+          (indent-according-to-mode))
+      (newline-and-indent)))
+
+  (define-key js2-mode-map (kbd "RET") 'osener/newline-and-indent)
+#+END_SRC
+
 ** Scala
 #+BEGIN_SRC emacs-lisp
   (require-package 'scala-mode2)
