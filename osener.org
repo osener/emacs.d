@@ -711,6 +711,7 @@ Keybindings
   (global-set-key (kbd "s-t") 'helm-ls-git-ls)
   (global-set-key (kbd "M-i") 'helm-swoop)
   (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+  (define-key org-mode-map (kbd "C-x TAB") 'helm-org-headlines)
 #+END_SRC
 
 * Git
