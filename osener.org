@@ -291,6 +291,7 @@ Style
   (setq mweb-tags '((html-mode "([[:space:]\n]*<"
                                ">[[:space:]\n]*)")))
   (multi-web-global-mode 1)
+  (diminish 'multi-web-mode)
   (setq sgml-basic-offset 4)
 #+END_SRC
 
@@ -829,6 +830,7 @@ Use different background colors for even and odd lines in some modes.
   (require-package 'smartparens)
   (setq sp-base-key-bindings 'paredit)
   (smartparens-global-strict-mode t)
+  (diminish 'smartparens-mode)
   (require 'smartparens-config)
 #+END_SRC
 
@@ -1131,6 +1133,7 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
   (require-package 'guide-key)
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8"))
   (guide-key-mode t)
+  (diminish 'guide-key-mode)
   (setq guide-key/recursive-key-sequence-flag t)
   (setq guide-key/popup-window-position 'bottom)
   (setq guide-key/idle-delay 0.0)
