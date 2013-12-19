@@ -1137,7 +1137,13 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
   (setq guide-key/recursive-key-sequence-flag t)
   (setq guide-key/popup-window-position 'bottom)
   (setq guide-key/idle-delay 0.0)
+
 #+END_SRC
+** Which-function
+#+BEGIN_SRC emacs-lisp
+  (which-function-mode 1)
+#+END_SRC
+
 * Misc keybindings
 Quick way to open a link
 #+BEGIN_SRC emacs-lisp
