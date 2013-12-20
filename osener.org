@@ -182,9 +182,6 @@ Style
         js2-rebind-eol-bol-keys t
         js2-idle-timer-delay 0.1
         js2-strict-inconsistent-return-warning nil)
-
-  (require 'js2-imenu-extras)
-  (js2-imenu-extras-setup)
 #+END_SRC
 
 *** Declare globals
@@ -292,7 +289,7 @@ Style
                                ">[[:space:]\n]*)")))
   (multi-web-global-mode 1)
   (diminish 'multi-web-mode)
-  (setq sgml-basic-offset 4)
+  (setq sgml-basic-offset 2)
 #+END_SRC
 
 *** DWIM new line indentation
@@ -539,6 +536,12 @@ Don't ask before doing recursive copies
 #+BEGIN_SRC emacs-lisp
   (setq dired-recursive-copies 'always)
 #+END_SRC
+
+Display changed files
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+#+END_SRC
+
 * Navigation
 Goto line with feedback
 #+BEGIN_SRC emacs-lisp
@@ -569,7 +572,6 @@ Popwin
           ("*Completions*" :noselect t)
           ("*compilation*" :noselect t)
           ("*Messages*" :height 30)
-          ("*Occur*" :noselect t)
           ("*Directory*" :noselect t)
           ("*Packages*" :height 30)
           ("\\*Slime Description.*" :noselect t :regexp t :height 30)
@@ -893,31 +895,11 @@ Use fish shell
   (yas-global-mode 1)
 #+END_SRC
 
-*** Helper functions
-Helm interface
 #+BEGIN_SRC emacs-lisp
-  (defun shk-yas/helm-prompt (prompt choices &optional display-fn)
-    "Use helm to select a snippet. Put this into `yas/prompt-functions.'"
-    (interactive)
-    (setq display-fn (or display-fn 'identity))
-    (if (require 'helm-config)
-        (let (tmpsource cands result rmap)
-          (setq cands (mapcar (lambda (x) (funcall display-fn x)) choices))
-          (setq rmap (mapcar (lambda (x) (cons (funcall display-fn x) x)) choices))
-          (setq tmpsource
-                (list
-                 (cons 'name prompt)
-                 (cons 'candidates cands)
-                 '(action . (("Expand" . (lambda (selection) selection))))
-                 ))
-          (setq result (helm-other-buffer '(tmpsource) "*helm-select-yasnippet"))
-          (if (null result)
-              (signal 'quit "user quit!")
-            (cdr (assoc result rmap))))
-      nil))
-  (setq yas/prompt-functions '(shk-yas/helm-prompt yas/no-prompt))
+  (diminish 'yas-minor-mode)
 #+END_SRC
 
+*** Helper functions
 JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-helpers.el][(From here)]]
 #+BEGIN_SRC emacs-lisp
   (defun js-method-p ()
