@@ -1026,17 +1026,6 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
              emms-source-file-default-directory "~/Music"
              emms-browser-covers 'my-emms-covers)
 
-       ;; lastfm
-       (when (and (load-secrets)
-                  (require 'emms-lastfm-scrobbler nil t)
-                  (let ((url-request-method "GET"))
-                    (ignore-errors        ; check for internet connection
-                      (url-retrieve-synchronously
-                       "http://post.audioscrobbler.com"))))
-         (condition-case err
-             (emms-lastfm-scrobbler-enable)
-           (error (message "No scrobbling: %s" err))))
-
        (require 'emms-player-mplayer)
        (define-emms-simple-player mplayer '(file url)
          (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
