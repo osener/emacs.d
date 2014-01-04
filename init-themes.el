@@ -1,9 +1,9 @@
-(require-package 'color-theme-sanityinc-tomorrow)
+(require-package 'afternoon-theme)
 
 ;;------------------------------------------------------------------------------
 ;; Old-style color theming support (via color-theme.el)
 ;;------------------------------------------------------------------------------
-(defcustom window-system-color-theme 'color-theme-sanityinc-tomorrow-night
+(defcustom window-system-color-theme 'afternoon
   "Color theme to use in window-system frames.
 If Emacs' native theme support is available, this setting is
 ignored: use `custom-enabled-themes' instead."
@@ -40,10 +40,7 @@ ignored: use `custom-enabled-themes' instead."
 ;; New-style theme support, in which per-frame theming is not possible
 ;;------------------------------------------------------------------------------
 ;; If you don't customize it, this is the theme you get.
-(require 'solarized-definitions)
-(setq solarized-bold nil
-      solarized-contrast 'high)
-(setq-default custom-enabled-themes '(solarized-light))
+(setq-default custom-enabled-themes '(afternoon))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -70,7 +67,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a dark color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(sanityinc-tomorrow-night)))
+      (custom-set-variables '(custom-enabled-themes '(afternoon)))
     (sanityinc-tomorrow-night)))
 
 
