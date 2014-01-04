@@ -1,12 +1,3 @@
-[submodule "site-lisp/helm-ipython"]
-        path = site-lisp/helm-ipython
-        url = https://github.com/osener/helm-ipython.git
-[submodule "site-lisp/color-theme-solarized"]
-        path = site-lisp/color-theme-solarized
-        url = https://github.com/osener/emacs-color-theme-solarized.git
-[submodule "site-lisp/helm-slime"]
-        path = site-lisp/helm-slime
-        url = https://github.com/emacs-helm/helm-slime.git
 [submodule "site-lisp/slate-config-mode"]
         path = site-lisp/slate-config-mode
         url = https://github.com/ddjfreedom/slate-config-mode.git
