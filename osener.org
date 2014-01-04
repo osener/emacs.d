@@ -3,10 +3,6 @@
 * Load some lisp
 #+BEGIN_SRC emacs-lisp
   (require 'cl)
-
-  (defun load-secrets ()
-    (interactive)
-    (require 'secrets (expand-file-name "secrets.el.gpg" user-emacs-directory)))
 #+END_SRC
 
 Install some additional packages
@@ -667,13 +663,6 @@ Keybindings
 #+END_SRC
 
 * Chat
-#+BEGIN_SRC emacs-lisp
-  (defun start-im ()
-    (interactive)
-    (load-secrets)
-    (sauron-start-hidden))
-#+END_SRC
-
 ** ERC
 Unique nick colorization
 #+BEGIN_SRC emacs-lisp
