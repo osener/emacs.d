@@ -36,3 +36,5 @@ site-lisp/jshint-mode/node_modules/
 /recentf
 /frame-restore-parameters
 /.nrepl-history
+/.achievements
+/.bookmarks.el
