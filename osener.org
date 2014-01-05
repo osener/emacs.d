@@ -507,6 +507,13 @@ Yank into terminal with C-y
             (lambda () (define-key term-raw-map "\C-y" 'my-term-paste)))
 #+END_SRC
 
+Increase max buffer size
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (setq term-buffer-maximum-size 10000)))
+#+END_SRC
+
 * Dired
 Toggleable verbosity
 #+BEGIN_SRC emacs-lisp
