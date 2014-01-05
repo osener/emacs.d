@@ -497,14 +497,8 @@ Don't keep buffers with finished processes around
 
 Yank into terminal with C-y
 #+BEGIN_SRC emacs-lisp
-  (defun my-term-paste (&optional string)
-   (interactive)
-   (process-send-string
-    (get-buffer-process (current-buffer))
-    (if string string (current-kill 0))))
-
   (add-hook 'term-mode-hook
-            (lambda () (define-key term-raw-map "\C-y" 'my-term-paste)))
+            (lambda () (define-key term-raw-map (kbd "C-y") 'term-paste)))
 #+END_SRC
 
 Increase max buffer size
