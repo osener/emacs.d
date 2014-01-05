@@ -555,6 +555,19 @@ Goto line with feedback
             (call-interactively 'goto-line))
         (linum-mode -1))))
 #+END_SRC
+
+Project explorer
+#+BEGIN_SRC emacs-lisp
+  (require-package 'project-explorer)
+  (autoload 'project-explorer-open "project-explorer"
+    "Show or create the project explorer for the current project." t)
+  (autoload 'project-explorer-helm "project-explorer"
+    "Browse the project using helm." t)
+  (setq pe/omit-regex "^\\.\\|^#\\|~$\\|^node_modules$")
+
+  (global-set-key (kbd "s-t") 'project-explorer-helm)
+#+END_SRC
+
 * Window management
 Popwin
 #+BEGIN_SRC emacs-lisp
@@ -678,7 +691,6 @@ Disable trailing whitespace in ERC buffers
 * Helm
 #+BEGIN_SRC emacs-lisp
   (require-package 'helm)
-  (require-package 'helm-ls-git)
   (require-package 'helm-swoop)
 
   (require 'helm-config)
@@ -700,7 +712,6 @@ Clojure headlines ([[http://blog.jenkster.com/2013/10/a-tip-for-navigating-cloju
 Keybindings
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<f1>") 'helm-mini)
-  (global-set-key (kbd "s-t") 'helm-ls-git-ls)
   (global-set-key (kbd "M-i") 'helm-swoop)
   (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
   (define-key org-mode-map (kbd "C-x TAB") 'helm-org-headlines)
