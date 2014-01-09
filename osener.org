@@ -1048,7 +1048,9 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
        (require 'emms-info-metaflac)
        (add-to-list 'emms-info-functions 'emms-info-metaflac nil 'eq)
 
-       (global-set-key "\C-cp" 'emms-pause)
+       (global-set-key (kbd "C-c p") 'emms-pause)
+       (global-set-key (kbd "C-c s") 'emms-stop)
+
 
        ;; track info ticker
        (defun string-shift-left (str &optional offset)
