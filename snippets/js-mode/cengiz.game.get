@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cengiz.game.get
+# key: cg
+# --
+cengiz.game.get('$0');

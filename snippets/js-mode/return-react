@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: return.react
+# key: rr
+# --
+return (
+    <$1 $2>
+      $0
+    </$1>
+        );

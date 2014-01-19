@@ -50,6 +50,13 @@ ARCHIVE is the string name of the package archive.")
 ;;; Also use Melpa for most packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
 
+;; But don't take Melpa versions of certain packages
+(setq package-filter-function
+      (lambda (package version archive)
+        (or (not (string-equal archive "melpa"))
+            (not (memq package '())))))
+
+
 
 ;;; On-demand installation of packages
 

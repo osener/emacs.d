@@ -21,6 +21,8 @@
       (eval-region beg end)
     (pp-eval-last-sexp prefix)))
 
+(global-set-key (kbd "M-:") 'pp-eval-expression)
+
 (after-load 'lisp-mode
   (define-key emacs-lisp-mode-map (kbd "C-x C-e") 'sanityinc/eval-last-sexp-or-region))
 
@@ -83,16 +85,16 @@
 
 (defun sanityinc/lisp-setup ()
   "Enable features useful in any Lisp mode."
+  (rainbow-delimiters-mode t)
   (enable-paredit-mode)
   (turn-on-eldoc-mode)
-  (rainbow-delimiters-mode t)
-  (redshank-mode)
-  (hl-sexp-mode t))
+  (redshank-mode))
 
 (defun sanityinc/emacs-lisp-setup ()
   "Enable features useful when working with elisp."
   (elisp-slime-nav-mode t)
-  (set-up-hippie-expand-for-elisp))
+  (set-up-hippie-expand-for-elisp)
+  (ac-emacs-lisp-mode-setup))
 
 (defconst sanityinc/elispy-modes
   '(emacs-lisp-mode ielm-mode)

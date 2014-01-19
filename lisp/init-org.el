@@ -2,9 +2,9 @@
   (require-package 'org))
 (require-package 'org-fstree)
 (when *is-a-mac*
-  (require-package 'org-mac-link))
+  (require-package 'org-mac-link)
+  (require-package 'org-mac-iCal))
 
-(require 'org)
 
 (define-key global-map (kbd "C-c l") 'org-store-link)
 (define-key global-map (kbd "C-c a") 'org-agenda)
@@ -19,8 +19,7 @@
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80
-      org-startup-indented t)
+      org-tags-column 80)
 
 
 ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
@@ -96,6 +95,6 @@
   (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
   (when *is-a-mac*
     (autoload 'omlg-grab-link "org-mac-link")
-    (define-key org-mode-map (kbd "C-c i") 'omlg-grab-link)))
+    (define-key org-mode-map (kbd "C-c g") 'omlg-grab-link)))
 
 (provide 'init-org)

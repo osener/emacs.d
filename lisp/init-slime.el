@@ -5,17 +5,7 @@
 (mapc #'delete-file
       (file-expand-wildcards (concat user-emacs-directory "elpa/slime-2*/contrib/*.elc")))
 
-;; There are 2 versions of Slime available as packages. The 2010* version
-;; is for Clojure compatibility, and uses separate packages for slime-fuzzy
-;; and slime-repl. The other version is the latest available, which
-;; contains a complete "contrib" dir.
-(let ((slime-contrib-dir (concat (sanityinc/directory-of-library "slime") "/contrib")))
-  (if (file-directory-p slime-contrib-dir)
-      ;; Ensure contrib dir is ahead of any slime-{fuzzy,repl} package
-      (add-to-list 'load-path slime-contrib-dir)
-    (require-package 'slime-fuzzy)
-    (require-package 'slime-repl)))
-
+(require-package 'ac-slime)
 (require-package 'hippie-expand-slime)
 
 
@@ -56,6 +46,5 @@
 (after-load 'auto-complete
   (add-to-list 'ac-modes 'slime-repl-mode))
 
-(setq slime-load-hook nil)
 
 (provide 'init-slime)

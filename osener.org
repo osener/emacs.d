@@ -10,7 +10,6 @@ Install some additional packages
   (require-package 'starter-kit-bindings)
   (require-package 'yasnippet)
   (require-package 'jade-mode)
-  (require-package 'stylus-mode)
   (require-package 'dash)
   (require-package 'multiple-cursors)
   (require-package 'async)
@@ -129,6 +128,12 @@ Fancy literals (from emacs-live)
                                nil))))))
 #+END_SRC
 
+Highlight sexp
+#+BEGIN_SRC emacs-lisp
+  (dolist (hook (mapcar #'derived-mode-hook-name sanityinc/lispy-modes))
+    (add-hook hook 'hl-sexp-mode))
+#+END_SRC
+
 ** Python
 #+BEGIN_SRC emacs-lisp
   (require-package 'virtualenv)
@@ -177,7 +182,8 @@ Style
   (setq js2-concat-multiline-strings 'eol
         js2-rebind-eol-bol-keys t
         js2-idle-timer-delay 0.1
-        js2-strict-inconsistent-return-warning nil)
+        js2-strict-inconsistent-return-warning nil
+        js2-basic-offset 4)
 #+END_SRC
 
 *** Declare globals
@@ -315,6 +321,16 @@ Style
     (when (file-exists-p default-directory)
       (add-to-list 'load-path (expand-file-name "elisp/"))
       (require 'ensime)))
+#+END_SRC
+* Webdev
+** Stylus
+#+BEGIN_SRC emacs-lisp
+  (require-package 'stylus-mode)
+  (after-load 'auto-complete
+    (add-hook 'stylus-mode-hook
+              (lambda ()
+                (ac-css-mode-setup)
+                (rainbow-mode t))))
 #+END_SRC
 * Eshell
 Great intro post for eshell, also the source of some of these settings:
@@ -783,6 +799,11 @@ Style-checking for git commit messages
   (require-package 'git-commit-mode)
 #+END_SRC
 
+Misc
+#+BEGIN_SRC emacs-lisp
+  (setq magit-diff-refine-hunk 'all)
+#+END_SRC
+
 * OSX related tweaks
 Input related tweaks
 #+BEGIN_SRC emacs-lisp
@@ -832,6 +853,11 @@ Use UTF-8 bullets on org-mode buffers
 Fontify code blocks in org-mode buffers
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t)
+#+END_SRC
+
+Turn on `org-indent-mode' on startup
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-indented t)
 #+END_SRC
 
 Parse ansi color escape codes in compilation-mode buffers
@@ -901,6 +927,18 @@ Editable buffer
 Use fish shell
 #+BEGIN_SRC emacs-lisp
   (setq explicit-shell-file-name "/usr/local/bin/fish")
+#+END_SRC
+
+Get the PATH from fish
+#+BEGIN_SRC emacs-lisp
+  (if (and (not (getenv "TERM_PROGRAM"))
+           (executable-find "/usr/local/bin/fish"))
+      (let ((path (split-string
+                   (shell-command-to-string
+                    "/usr/local/bin/fish -c \"printf \\\"\\\$PATH\\\"\"")
+                   " ")))
+        (setq exec-path path)
+        (setenv "PATH" (mapconcat 'identity path ":"))))
 #+END_SRC
 
 ** Snippets

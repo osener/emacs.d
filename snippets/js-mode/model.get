@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: model.get
+# key: mg
+# --
+model.get('$0');

@@ -27,9 +27,9 @@ site-lisp/package/
 /places
 /osener.el
 /.mc-lists.el
-site-lisp/jshint-mode/node_modules/
 /tmp
 /var
+/.sqli_history
 /emms
 /image-dired
 /ido.last
@@ -38,3 +38,5 @@ site-lisp/jshint-mode/node_modules/
 /.nrepl-history
 /.achievements
 /.bookmarks.el
+/.litable-lists.el
+/history
