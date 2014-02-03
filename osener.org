@@ -1171,6 +1171,18 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
   (which-function-mode 1)
 #+END_SRC
 
+** Deft
+#+BEGIN_SRC emacs-lisp
+  (require-package 'deft)
+
+  (setq deft-directory "~/Dropbox/Documents"
+        deft-extension "org"
+        deft-text-mode 'org-mode
+        deft-use-filename-as-title t)
+
+  (global-set-key (kbd "<f9>") 'deft)
+#+END_SRC
+
 * Misc keybindings
 Quick way to open a link
 #+BEGIN_SRC emacs-lisp
