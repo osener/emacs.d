@@ -4,6 +4,7 @@
 (require-package 'git-rebase-mode)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
+(require-package 'git-messenger)
 
 (setq-default
  magit-save-some-buffers nil
@@ -20,7 +21,7 @@
 
 (require-package 'fullframe)
 (after-load 'magit
-  (fullframe magit-status magit-mode-quit-window :magit-fullscreen nil))
+  (fullframe magit-status magit-mode-quit-window))
 
 
 ;;; When we start working on git-backed files, use git-wip if available
