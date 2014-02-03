@@ -745,19 +745,6 @@ Disable trailing whitespace in ERC buffers
   (require 'helm-config)
 #+END_SRC
 
-Clojure headlines ([[http://blog.jenkster.com/2013/10/a-tip-for-navigating-clojure-files-in-emacs.html][source]])
-#+BEGIN_SRC emacs-lisp
-  (defun helm-clojure-headlines ()
-    "Display headlines for the current Clojure file."
-    (interactive)
-    (helm-mode t)
-    (helm :sources '(((name . "Clojure Headlines")
-                      (volatile)
-                      (headline "^[;(]")))))
-
-  (define-key clojure-mode-map (kbd "C-x TAB") 'helm-clojure-headlines)
-
-#+END_SRC
 Keybindings
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<f1>") 'helm-mini)
