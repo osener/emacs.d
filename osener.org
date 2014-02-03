@@ -39,6 +39,14 @@ Load chicken
   (require-package 'lein)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (require-package 'clj-refactor)
+
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (clj-refactor-mode 1)
+              (cljr-add-keybindings-with-prefix "C-c C-m")))
+#+END_SRC
 *** Testing & static analysis
 Static checking using kibit
 #+BEGIN_SRC emacs-lisp
