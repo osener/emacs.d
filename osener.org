@@ -743,6 +743,8 @@ Disable trailing whitespace in ERC buffers
   (require-package 'helm-swoop)
 
   (require 'helm-config)
+
+  (helm-mode -1)
 #+END_SRC
 
 Keybindings
