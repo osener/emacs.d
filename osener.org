@@ -875,6 +875,11 @@ Use different background colors for even and odd lines in some modes.
 #+END_SRC
 
 * Misc Emacs modes
+M-x find-file http://en.wikipedia.org/wiki/Main_Page
+#+BEGIN_SRC emacs-lisp
+  (url-handler-mode t)
+#+END_SRC
+
 ** Smartparens
 #+BEGIN_SRC emacs-lisp
   (require-package 'smartparens)
