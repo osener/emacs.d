@@ -882,6 +882,12 @@ M-x find-file http://en.wikipedia.org/wiki/Main_Page
   (url-handler-mode t)
 #+END_SRC
 
+Clean old buffers
+#+BEGIN_SRC emacs-lisp
+  (autoload 'clean-buffer-list "midnight"
+    "Kill old buffers that have not been displayed recently." t)
+#+END_SRC
+
 ** Smartparens
 #+BEGIN_SRC emacs-lisp
   (require-package 'smartparens)
