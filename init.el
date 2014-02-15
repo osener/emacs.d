@@ -1,5 +1,10 @@
+
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
+
+(let ((minver 23))
+  (unless (>= emacs-major-version minver)
+    (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'init-benchmarking) ;; Measure startup time
@@ -31,7 +36,6 @@
 (require 'init-themes)
 ;; (require 'init-osx-keys)
 (require 'init-gui-frames)
-;; (require 'init-maxframe)
 (require 'init-proxies)
 (require 'init-dired)
 (require 'init-isearch)
