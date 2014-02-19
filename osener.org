@@ -1140,6 +1140,16 @@ JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-help
                        (emms-track-ticker-stop)
                      (emms-track-ticker-start))))))
 #+END_SRC
+
+Use `+` and `-` to change OS X system volume
+#+BEGIN_SRC emacs-lisp
+  (setq emms-volume-change-function
+        (lambda (amount)
+          (call-process "osascript" nil (current-buffer) nil
+                        (format "-e set volume output volume (%s + %d)"
+                                "(output volume of (get volume settings))"
+                                amount))))
+#+END_SRC
 ** Browse documentation using Dash
 #+BEGIN_SRC emacs-lisp
   (defun define-dash-docset (mode-hook prefix)
