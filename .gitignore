@@ -40,3 +40,4 @@ site-lisp/package/
 /.bookmarks.el
 /.litable-lists.el
 /history
+/helm-adaptive-history
