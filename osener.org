@@ -876,6 +876,12 @@ Use different background colors for even and odd lines in some modes.
   (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 #+END_SRC
 
+Indent guide
+#+BEGIN_SRC emacs-lisp
+  (require-package 'indent-guide)
+  (require 'indent-guide)
+  (indent-guide-global-mode t)
+#+END_SRC
 * Misc Emacs modes
 M-x find-file http://en.wikipedia.org/wiki/Main_Page
 #+BEGIN_SRC emacs-lisp
