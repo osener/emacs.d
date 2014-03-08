@@ -7,7 +7,6 @@
 
 Install some additional packages
 #+BEGIN_SRC emacs-lisp
-  (require-package 'starter-kit-bindings)
   (require-package 'yasnippet)
   (require-package 'jade-mode)
   (require-package 'dash)
@@ -753,6 +752,7 @@ Keybindings
   (global-set-key (kbd "M-i") 'helm-swoop)
   (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
   (define-key org-mode-map (kbd "C-x TAB") 'helm-org-headlines)
+  (global-set-key (kbd "C-x TAB") 'helm-imenu)
 #+END_SRC
 
 * Git
@@ -776,6 +776,7 @@ Toggle whitespace in magit-status buffers
     (setq magit-diff-options (remove "-w" magit-diff-options))
     (magit-refresh))
 
+  (global-set-key (kbd "C-c g") 'magit-status)
   (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
 #+END_SRC
 
@@ -831,14 +832,6 @@ Disable bold faces
    (lambda (face)
      (set-face-attribute face nil :weight 'normal :underline nil))
    (face-list))
-#+END_SRC
-
-Use proportional fonts in mode-line
-#+BEGIN_SRC emacs-lisp
-  (run-at-time "1 sec" nil
-               (lambda ()
-                 (set-face-attribute 'mode-line nil
-                                     :family (if *is-a-mac* "Muli" "Muli-Regular"))))
 #+END_SRC
 
 Use UTF-8 bullets on org-mode buffers
