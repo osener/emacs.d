@@ -7,7 +7,6 @@
 
 Install some additional packages
 #+BEGIN_SRC emacs-lisp
-  (require-package 'yasnippet)
   (require-package 'jade-mode)
   (require-package 'dash)
   (require-package 'multiple-cursors)
@@ -950,12 +949,30 @@ Get the PATH from fish
 
 ** Snippets
 #+BEGIN_SRC emacs-lisp
+  (require-package 'yasnippet)
+#+END_SRC
+
+Enable globally
+#+BEGIN_SRC emacs-lisp
   (yas-global-mode 1)
+#+END_SRC
+
+Disable in some modes
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'term-mode-hook (lambda ()
+                              (yas-minor-mode -1)))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
   (diminish 'yas-minor-mode)
 #+END_SRC
+
+Prefer IDO prompt
+#+BEGIN_SRC emacs-lisp
+  (setq yas/prompt-functions '(yas/ido-prompt yas/dropdown-prompt))
+#+END_SRC
+
+
 
 *** Helper functions
 JavaScript [[https://github.com/magnars/.emacs.d/blob/master/defuns/snippet-helpers.el][(From here)]]
@@ -1240,12 +1257,6 @@ Disable show-trailing-whitespace in some modes
                   jabber-chat-mode-hook
                   jabber-browse-mode-hook))
     (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
-#+END_SRC
-
-Disable yasnippet in some modes
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'term-mode-hook (lambda()
-                  (yas-minor-mode -1)))
 #+END_SRC
 
 Wrap lines longer than 79 characters
