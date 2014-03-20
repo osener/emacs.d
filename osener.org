@@ -319,6 +319,13 @@ Style
   (define-key js2-mode-map (kbd "RET") 'osener/newline-and-indent)
 #+END_SRC
 
+** Typescript
+#+BEGIN_SRC emacs-lisp
+  (require-package 'flymake-cursor)
+  (require-package 'tss)
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+  (tss-config-default)
+#+END_SRC
 ** Scala
 #+BEGIN_SRC emacs-lisp
   (require-package 'scala-mode2)
