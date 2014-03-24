@@ -1205,14 +1205,12 @@ Use `+` and `-` to change OS X system volume
 
 ** Guide-key
 #+BEGIN_SRC emacs-lisp
-  (require-package 'guide-key)
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8"))
-  (guide-key-mode t)
-  (diminish 'guide-key-mode)
+  (add-to-list 'guide-key/guide-key-sequence "C-x v")
+  (add-to-list 'guide-key/guide-key-sequence  "C-x 8")
+  (add-to-list 'guide-key/guide-key-sequence  "C-c C-m")
   (setq guide-key/recursive-key-sequence-flag t)
   (setq guide-key/popup-window-position 'bottom)
   (setq guide-key/idle-delay 0.0)
-
 #+END_SRC
 ** Which-function
 #+BEGIN_SRC emacs-lisp
