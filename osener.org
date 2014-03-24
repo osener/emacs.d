@@ -324,6 +324,7 @@ Style
   (require-package 'flymake-cursor)
   (require-package 'tss)
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
+  (setq tss-popup-help-key "C-c C-d")
   (tss-config-default)
 #+END_SRC
 ** Scala
