@@ -335,6 +335,13 @@ Style
       (add-to-list 'load-path (expand-file-name "elisp/"))
       (require 'ensime)))
 #+END_SRC
+** Haskell
+ghc-mod
+#+BEGIN_SRC emacs-lisp
+  (require-package 'ghc)
+  (autoload 'ghc-init "ghc" nil t)
+  (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+#+END_SRC
 * Webdev
 ** Stylus
 #+BEGIN_SRC emacs-lisp
