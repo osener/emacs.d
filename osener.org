@@ -325,6 +325,7 @@ Style
   (require-package 'tss)
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   (setq tss-popup-help-key "C-c C-d")
+  (setq tss-jump-to-definition-key "M-.")
   (tss-config-default)
 #+END_SRC
 ** Scala
@@ -889,6 +890,12 @@ Indent guide
   (require 'indent-guide)
   (indent-guide-global-mode t)
 #+END_SRC
+
+No blinking!
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode -1)
+#+END_SRC
+
 * Misc Emacs modes
 M-x find-file http://en.wikipedia.org/wiki/Main_Page
 #+BEGIN_SRC emacs-lisp
@@ -1241,6 +1248,23 @@ Switch to previous buffer
   (global-set-key "\M-O" 'mode-line-other-buffer)
 #+END_SRC
 
+Prefer regex searches
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-r") 'isearch-backward)
+#+END_SRC
+
+Some useful bindings from emacs-starter-kit
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "C-+") 'text-scale-increase)
+  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (global-set-key (kbd "C-c y") 'bury-buffer)
+  (global-set-key (kbd "C-c r") 'revert-buffer)
+
+  (windmove-default-keybindings) ;; Shift+direction
+#+END_SRC
 * Misc tweaks
 Use system Trash
 #+BEGIN_SRC emacs-lisp
