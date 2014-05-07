@@ -1,4 +1,5 @@
 (require-package 'afternoon-theme)
+(require-package 'flatui-theme)
 
 ;;------------------------------------------------------------------------------
 ;; Old-style color theming support (via color-theme.el)
@@ -60,7 +61,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a light color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(solarized-light)))
+      (custom-set-variables '(custom-enabled-themes '(flatui)))
     (sanityinc-tomorrow-day)))
 
 (defun dark ()
