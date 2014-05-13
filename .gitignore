@@ -30,7 +30,6 @@ site-lisp/package/
 /tmp
 /var
 /.sqli_history
-/emms
 /image-dired
 /ido.last
 /recentf
@@ -41,3 +40,5 @@ site-lisp/package/
 /.litable-lists.el
 /history
 /helm-adaptive-history
+/thumbs/
+/emms/

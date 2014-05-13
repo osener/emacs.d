@@ -60,6 +60,10 @@
   (after-load 'subword
     (diminish 'subword-mode)))
 
+
+(when (fboundp 'global-prettify-symbols-mode)
+  (global-prettify-symbols-mode))
+
 
 (require-package 'undo-tree)
 (global-undo-tree-mode)

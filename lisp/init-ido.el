@@ -1,4 +1,5 @@
 ;; Use C-f during file selection to switch to regular find-file
+(require 'ido)
 (ido-mode t)
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
@@ -11,8 +12,9 @@
  (ido-ubiquitous-mode t))
 
 ;; Use smex to handle M-x
-(require-package 'smex)
-(global-set-key [remap execute-extended-command] 'smex)
+(when (eval-when-compile (>= emacs-major-version 24))
+  (require-package 'smex)
+  (global-set-key [remap execute-extended-command] 'smex))
 
 (require-package 'idomenu)
 
@@ -25,7 +27,9 @@
    (interactive)
    (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
        (ido-switch-buffer)
-     (find-file (ido-completing-read "Open file: " recentf-list nil t))))
+     (find-file (ido-completing-read "Open file: "
+                                     (mapcar 'abbreviate-file-name recentf-list)
+                                     nil t))))
 
  (global-set-key [(meta f11)] 'sanityinc/ido-choose-from-recentf))
 
