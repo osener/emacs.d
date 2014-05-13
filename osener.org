@@ -188,8 +188,7 @@ Style
   (setq js2-concat-multiline-strings 'eol
         js2-rebind-eol-bol-keys t
         js2-idle-timer-delay 0.1
-        js2-strict-inconsistent-return-warning nil
-        js2-basic-offset 4)
+        js2-strict-inconsistent-return-warning nil)
 #+END_SRC
 
 *** Declare globals
