@@ -179,9 +179,9 @@ Style
 #+BEGIN_SRC emacs-lisp
   (setq-default
    c-default-style "bsd"
-   tab-width 4
-   c-indent-level 4
-   c-basic-offset 4)
+   tab-width 2
+   c-indent-level 2
+   c-basic-offset 2)
 #+END_SRC
 ** Javascript
 #+BEGIN_SRC emacs-lisp
