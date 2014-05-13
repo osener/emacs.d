@@ -888,7 +888,7 @@ Indent guide
 #+BEGIN_SRC emacs-lisp
   (require-package 'indent-guide)
   (require 'indent-guide)
-  (indent-guide-global-mode t)
+  (add-hook 'stylus-mode-hook 'indent-guide-mode)
 #+END_SRC
 
 No blinking!
