@@ -343,6 +343,7 @@ ghc-mod
   (require-package 'ghc)
   (autoload 'ghc-init "ghc" nil t)
   (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+  (setq haskell-font-lock-symbols t)
 #+END_SRC
 * Webdev
 ** Stylus
