@@ -248,21 +248,33 @@ Style
   (require-package 'json-mode)
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 #+END_SRC
-*** Use lambda for anonymous functions
+*** Cosmetic changes
 #+BEGIN_SRC emacs-lisp
-  (font-lock-add-keywords
-   'js2-mode `(("\\(function\\) *\\*?("
-                (0 (progn (compose-region (match-beginning 1)
-                                          (match-end 1) "\u0192")
-                          nil)))))
-#+END_SRC
-*** Use right arrow for return in one-line functions
-#+BEGIN_SRC emacs-lisp
-  (font-lock-add-keywords
-   'js2-mode `(("function *([^)]*) *{ *\\(return\\) "
-                (0 (progn (compose-region (match-beginning 1)
-                                          (match-end 1) "\u2190")
-                          nil)))))
+  (dolist (mode '(js2-mode typescript-mode))
+    (font-lock-add-keywords
+     mode `( ;; Use right arrow for return in one-line functions
+            ("\\(function\\) *\\*?("
+             (0 (progn (compose-region (match-beginning 1)
+                                       (match-end 1) "\u0192")
+                       nil)))
+
+            ;; Use lambda for anonymous functions
+            ("function *([^)]*) *{ *\\(return\\) "
+             (0 (progn (compose-region (match-beginning 1)
+                                       (match-end 1) "\u2190")
+                       nil)))
+            ))
+    (dolist (pair '(("=>" . "\u21D2")
+                    ("===" . "\u2261")
+                    ("!==" . "\u2262")
+                    ("&&" . "\u22C0")
+                    ("||" . "\u22C1")))
+      (destructuring-bind (-operator . char) pair
+        (font-lock-add-keywords
+         mode `((,operator
+                 (0 (progn (compose-region (match-beginning 0)
+                                           (match-end 0) ,char)
+                           nil))))))))
 #+END_SRC
 *** Refactoring
 #+BEGIN_SRC emacs-lisp
