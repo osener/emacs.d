@@ -1220,11 +1220,6 @@ Use `+` and `-` to change OS X system volume
   (setq guide-key/popup-window-position 'bottom)
   (setq guide-key/idle-delay 0.0)
 #+END_SRC
-** Which-function
-#+BEGIN_SRC emacs-lisp
-  (which-function-mode 1)
-#+END_SRC
-
 ** Deft
 #+BEGIN_SRC emacs-lisp
   (require-package 'deft)
