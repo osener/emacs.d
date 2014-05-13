@@ -738,6 +738,11 @@ Keybindings
   (global-set-key (kbd "<f11>") 'toggle-fullscreen)
 #+END_SRC
 
+* Mail
+#+BEGIN_SRC emacs-lisp
+  (require 'gnus)
+  (define-key gnus-group-mode-map (kbd "o") 'gnus-group-list-all-groups)
+#+END_SRC
 * Chat
 ** ERC
 Unique nick colorization
