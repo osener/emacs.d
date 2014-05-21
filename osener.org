@@ -937,6 +937,21 @@ Clean old buffers
   (require 'smartparens-config)
 #+END_SRC
 
+Temporary fix for missing cua-replace-region (See [[https://github.com/Fuco1/smartparens/issues/271][#271]])
+#+BEGIN_SRC emacs-lisp
+  (unless (fboundp 'cua-replace-region)
+    (defun cua-replace-region ()
+      "Replace the active region with the character you type."
+      (interactive)
+      (let ((not-empty (and cua-delete-selection (cua-delete-region))))
+        (unless (eq this-original-command this-command)
+          (let ((overwrite-mode
+                 (and overwrite-mode
+                      not-empty
+                      (not (eq this-original-command 'self-insert-command)))))
+            (cua--fallback))))))
+#+END_SRC
+
 ** Convenient bookmarking using bm
 #+BEGIN_SRC emacs-lisp
   (require-package 'bm)
