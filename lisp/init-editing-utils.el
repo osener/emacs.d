@@ -36,6 +36,15 @@
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
 
+(transient-mark-mode t)
+
+
+;;; Whitespace
+
+(defun sanityinc/no-trailing-whitespace ()
+  "Turn off display of trailing whitespace in this buffer."
+  (setq show-trailing-whitespace nil))
+
 ;; But don't show trailing whitespace in SQLi, inf-ruby etc.
 (dolist (hook '(special-mode-hook
                 eww-mode
@@ -44,22 +53,32 @@
                 compilation-mode-hook
                 twittering-mode-hook
                 minibuffer-setup-hook))
-  (add-hook hook
-            (lambda () (setq show-trailing-whitespace nil))))
+  (add-hook hook #'sanityinc/no-trailing-whitespace))
 
 
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
 
-(transient-mark-mode t)
+
+;;; Newline behaviour
 
 (global-set-key (kbd "RET") 'newline-and-indent)
+(defun sanityinc/newline-at-end-of-line ()
+  "Move to end of line, enter a newline, and reindent."
+  (interactive)
+  (move-end-of-line 1)
+  (newline-and-indent))
+
+(global-set-key (kbd "<S-return>") 'sanityinc/newline-at-end-of-line)
+
+
 
 (when (eval-when-compile (string< "24.3.2" emacs-version))
   ;; https://github.com/purcell/emacs.d/issues/138
   (after-load 'subword
     (diminish 'subword-mode)))
 
+
 
 (when (fboundp 'global-prettify-symbols-mode)
   (global-prettify-symbols-mode))
