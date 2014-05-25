@@ -1227,6 +1227,7 @@ Use `+` and `-` to change OS X system volume
     (define-dash-docset 'c++-mode-hook "cpp")
     (define-dash-docset 'clojure-mode-hook "clojure")
     (define-dash-docset 'js2-mode-hook "js")
+    (define-dash-docset 'typescript-mode-hook "js")
     (define-dash-docset 'emacs-lisp-mode-hook "elisp")
     (define-dash-docset 'yaml-mode-hook "ansible")
     (global-set-key "\C-cd" 'dash-at-point))
