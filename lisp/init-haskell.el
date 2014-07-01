@@ -2,20 +2,30 @@
 
 (when (> emacs-major-version 23)
   (require-package 'flycheck-hdevtools)
-  (require-package 'flycheck-haskell))
-(after-load 'flycheck
-  (require 'flycheck-hdevtools))
+  (require-package 'flycheck-haskell)
+  (after-load 'flycheck
+    (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup)
 
-(dolist (hook '(haskell-mode-hook inferior-haskell-mode-hook))
+    (defadvice haskell-mode-stylish-buffer (around skip-if-flycheck-errors activate)
+      "Don't run stylish-buffer if the buffer appears to have a syntax error."
+      (unless (flycheck-has-current-errors-p 'error)
+        ad-do-it))))
+
+
+(dolist (hook '(haskell-mode-hook inferior-haskell-mode-hook interactive-haskell-mode-hook))
   (add-hook hook 'turn-on-haskell-doc-mode))
+(add-hook 'haskell-mode-hook 'inferior-haskell-mode)
+
+(after-load 'haskell-interactive-mode
+  (diminish 'interactive-haskell-mode " IntHS"))
 
 (add-auto-mode 'haskell-mode "\\.ghci\\'")
 
 (require-package 'hi2)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'haskell-mode-hook 'turn-on-hi2)
 
 (add-hook 'haskell-mode-hook (lambda () (subword-mode +1)))
+(add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
 
 (setq-default haskell-stylish-on-save t)
 
