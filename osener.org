@@ -1241,6 +1241,11 @@ Use `+` and `-` to change OS X system volume
   (global-set-key (kbd "<f9>") 'deft)
 #+END_SRC
 
+** AUCTeX
+#+BEGIN_SRC emacs-lisp
+  (require-package 'auctex)
+#+END_SRC
+
 * Misc keybindings
 Quick way to open a link
 #+BEGIN_SRC emacs-lisp
