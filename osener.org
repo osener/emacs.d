@@ -1274,6 +1274,10 @@ Some useful bindings from emacs-starter-kit
 
   (windmove-default-keybindings) ;; Shift+direction
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x a r") 'align-regexp)
+#+END_SRC
 * Misc tweaks
 Use system Trash
 #+BEGIN_SRC emacs-lisp
