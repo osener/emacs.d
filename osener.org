@@ -965,18 +965,6 @@ Use fish shell
   (setq explicit-shell-file-name "/usr/local/bin/fish")
 #+END_SRC
 
-Get the PATH from fish
-#+BEGIN_SRC emacs-lisp
-  (if (and (not (getenv "TERM_PROGRAM"))
-           (executable-find "/usr/local/bin/fish"))
-      (let ((path (split-string
-                   (shell-command-to-string
-                    "/usr/local/bin/fish -c \"printf \\\"\\\$PATH\\\"\"")
-                   " ")))
-        (setq exec-path path)
-        (setenv "PATH" (mapconcat 'identity path ":"))))
-#+END_SRC
-
 ** Snippets
 #+BEGIN_SRC emacs-lisp
   (require-package 'yasnippet)
