@@ -316,6 +316,35 @@ ghc-mod
   (add-hook 'haskell-mode-hook (lambda () (ghc-init)))
   (setq haskell-font-lock-symbols t)
 #+END_SRC
+
+structured-haskell-mode
+#+BEGIN_SRC emacs-lisp
+  (require 'haskell-mode)
+  ;; (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+
+  (custom-set-variables
+    '(haskell-process-suggest-remove-import-lines t)
+    '(haskell-process-auto-import-loaded-modules t)
+    '(haskell-process-log t)
+    '(haskell-process-suggest-haskell-docs-imports t))
+
+  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+  (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+  (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
+  (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+  (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
+  (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
+  (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
+
+  ; (set-face-background 'shm-current-face "#dfe4ea")
+  ; (set-face-background 'shm-quarantine-face "lemonchiffon")
+
+  (custom-set-variables
+    '(haskell-process-type 'cabal-repl))
+
+
+#+END_SRC
 * Webdev
 ** Stylus
 #+BEGIN_SRC emacs-lisp
