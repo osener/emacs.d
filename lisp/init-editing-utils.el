@@ -1,7 +1,5 @@
 (require-package 'unfill)
 
-(when (fboundp 'electric-pair-mode)
-  (electric-pair-mode))
 (when (fboundp 'electric-indent-mode)
   (electric-indent-mode))
 
