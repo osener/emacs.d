@@ -833,8 +833,7 @@ Input related tweaks
 #+BEGIN_SRC emacs-lisp
   (when *is-a-mac*
     (setq mac-command-modifier 'super)
-    (setq mac-option-modifier 'meta)
-    (setq mouse-wheel-scroll-amount '(0.001)))
+    (setq mac-option-modifier 'meta))
 #+END_SRC
 
 * Cosmetic changes
