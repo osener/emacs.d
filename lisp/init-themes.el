@@ -1,10 +1,10 @@
-(require-package 'afternoon-theme)
+(require-package 'gruvbox-theme)
 (require-package 'flatui-theme)
 
 ;;------------------------------------------------------------------------------
 ;; Old-style color theming support (via color-theme.el)
 ;;------------------------------------------------------------------------------
-(defcustom window-system-color-theme 'afternoon
+(defcustom window-system-color-theme 'gruvbox
   "Color theme to use in window-system frames.
 If Emacs' native theme support is available, this setting is
 ignored: use `custom-enabled-themes' instead."
@@ -68,7 +68,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a dark color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(afternoon)))
+      (custom-set-variables '(custom-enabled-themes '(gruvbox)))
     (sanityinc-tomorrow-night)))
 
 
