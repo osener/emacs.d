@@ -317,6 +317,12 @@ ghc-mod
   (setq haskell-font-lock-symbols t)
 #+END_SRC
 
+hindent
+#+BEGIN_SRC emacs-lisp
+  (autoload 'hindent/reformat-decl "hindent" nil t)
+  (define-key haskell-mode-map (kbd "C-c i") 'hindent/reformat-decl)
+  (setq-default hindent-style "chris-done")
+#+END_SRC
 *** structured-haskell-mode
 #+BEGIN_SRC emacs-lisp
   (require 'haskell-mode)
