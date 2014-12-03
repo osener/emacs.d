@@ -58,12 +58,6 @@ Static checking using kibit
     (compile "lein kibit"))
 #+END_SRC
 
- Midje mode
-#+BEGIN_SRC emacs-lisp
-  (require-package 'midje-mode)
-  (require 'clojure-jump-to-file)
-#+END_SRC
-
 *** Nrepl
 Display colors in nrepl buffers
 #+BEGIN_SRC emacs-lisp
