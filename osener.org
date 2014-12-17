@@ -265,7 +265,15 @@ Style
 *** Web-mode for JSX
 #+BEGIN_SRC emacs-lisp
   (require-package 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-enable-auto-quoting nil)
 #+END_SRC
+
 *** DWIM new line indentation
 
 #+BEGIN_SRC emacs-lisp
@@ -474,30 +482,15 @@ Misc
       (goto-char (point-min))
       (forward-char 4)))
 
-  (defun shm-contextual-space ()
-    "Do contextual space first, and run shm/space if no change in
-  the cursor position happened."
-    (interactive)
-    (if (looking-back "import")
-        (call-interactively 'haskell-mode-contextual-space)
-      (progn
-        (let ((ident (haskell-ident-at-point)))
-          (when ident
-            (and interactive-haskell-mode
-                 (haskell-process-do-try-type ident))))
-        (call-interactively 'shm/space))))
-
-
   ;; (define-key interactive-haskell-mode-map (kbd "C-?") 'haskell-mode-find-uses)
   (define-key interactive-haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key interactive-haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key interactive-haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
   (define-key interactive-haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-  (define-key interactive-haskell-mode-map (kbd "C-c C-t") 'haskell-mode-show-type-at)
-  ;; (define-key interactive-haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
+  ;; (define-key interactive-haskell-mode-map (kbd "C-c C-t") 'haskell-mode-show-type-at)
+  (define-key interactive-haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
   (define-key interactive-haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
   (define-key interactive-haskell-mode-map (kbd "M-,") 'haskell-who-calls)
-  (define-key interactive-haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
   (define-key interactive-haskell-mode-map [f12] 'haskell-process-reload-devel-main)
   (define-key interactive-haskell-mode-map [f5] 'haskell-process-load-or-reload)
 
@@ -507,7 +500,7 @@ Misc
   (define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
   (define-key haskell-mode-map (kbd "C-<right>") 'haskell-move-right)
   (define-key haskell-mode-map (kbd "C-<left>") 'haskell-move-left)
-  (define-key haskell-mode-map (kbd "<space>") 'haskell-mode-contextual-space)
+  ;; (define-key haskell-mode-map (kbd "<space>") 'haskell-mode-contextual-space)
 
   (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
   (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)
@@ -524,7 +517,7 @@ Misc
 
   (define-key shm-map (kbd "C-c C-p") 'shm/expand-pattern)
   (define-key shm-map (kbd "C-c C-s") 'shm/case-split)
-  (define-key shm-map (kbd "SPC") 'shm-contextual-space)
+  ;; (define-key shm-map (kbd "SPC") 'shm-contextual-space)
   (define-key shm-map (kbd "C-\\") 'shm/goto-last-point)
   (define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
   (define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
@@ -1029,7 +1022,7 @@ Input related tweaks
 Set default font
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "PragmataPro-14"))
+               '(font . "PragmataPro-15"))
 #+END_SRC
 
 Disable bold faces
