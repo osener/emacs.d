@@ -391,24 +391,6 @@ Misc
   (add-hook 'haskell-interactive-mode-hook 'structured-haskell-repl-mode)
 
 
-
-  (defun haskell-process-all-types ()
-    "List all types in a grep-mode buffer."
-    (interactive)
-    (let ((session (haskell-session)))
-      (switch-to-buffer (get-buffer-create (format "*%s:all-types*"
-                                                   (haskell-session-name (haskell-session)))))
-      (setq haskell-session session)
-      (cd (haskell-session-current-dir session))
-      (let ((inhibit-read-only t))
-        (erase-buffer)
-        (let ((haskell-process-log nil))
-          (insert (haskell-process-queue-sync-request (haskell-process) ":all-types")))
-        (unless (eq major-mode  'compilation-mode)
-          (compilation-mode)
-          (setq compilation-error-regexp-alist
-                haskell-compilation-error-regexp-alist)))))
-
   (defun haskell-interactive-toggle-print-mode ()
     (interactive)
     (setq haskell-interactive-mode-eval-mode
@@ -521,11 +503,6 @@ Misc
   (define-key shm-map (kbd "C-\\") 'shm/goto-last-point)
   (define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
   (define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
-
-  (custom-set-faces
-   '(shm-quarantine-face ((t (:inherit font-lock-error))))
-   '(shm-current-face ((t (:background "#dfe4ea")))))
-
 #+END_SRC
 * Webdev
 ** Stylus
@@ -1008,6 +985,7 @@ Style-checking for git commit messages
 Misc
 #+BEGIN_SRC emacs-lisp
   (setq magit-diff-refine-hunk 'all)
+  (setq magit-repo-dirs '("~/vcs"))
 #+END_SRC
 
 * OSX related tweaks
@@ -1015,7 +993,8 @@ Input related tweaks
 #+BEGIN_SRC emacs-lisp
   (when *is-a-mac*
     (setq mac-command-modifier 'super)
-    (setq mac-option-modifier 'meta))
+    (setq mac-option-modifier 'meta)
+    (global-unset-key (kbd "s-q")))
 #+END_SRC
 
 * Cosmetic changes
