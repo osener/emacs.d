@@ -1001,7 +1001,9 @@ Input related tweaks
 Set default font
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "PragmataPro-15"))
+               `(font . ,(if *is-a-mac*
+                            "PragmataPro-15"
+                            "PragmataPro-12")))
 #+END_SRC
 
 Disable bold faces
