@@ -1061,12 +1061,6 @@ No blinking!
   (blink-cursor-mode -1)
 #+END_SRC
 
-Fancy mode-line
-#+BEGIN_SRC emacs-lisp
-  (require-package 'smart-mode-line)
-  (setq sml/name-width 10)
-  (sml/setup)
-#+END_SRC
 * Misc Emacs modes
 M-x find-file http://en.wikipedia.org/wiki/Main_Page
 #+BEGIN_SRC emacs-lisp
