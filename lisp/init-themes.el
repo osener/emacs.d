@@ -1,10 +1,10 @@
-(require-package 'ujelly-theme)
+(require-package 'gruvbox-theme)
 (require-package 'flatui-theme)
 
 ;;------------------------------------------------------------------------------
 ;; Old-style color theming support (via color-theme.el)
 ;;------------------------------------------------------------------------------
-(defcustom window-system-color-theme 'ujelly
+(defcustom window-system-color-theme 'gruvbox
   "Color theme to use in window-system frames.
 If Emacs' native theme support is available, this setting is
 ignored: use `custom-enabled-themes' instead."
@@ -41,7 +41,7 @@ ignored: use `custom-enabled-themes' instead."
 ;; New-style theme support, in which per-frame theming is not possible
 ;;------------------------------------------------------------------------------
 ;; If you don't customize it, this is the theme you get.
-(setq-default custom-enabled-themes '(afternoon))
+(setq-default custom-enabled-themes '(gruvbox))
 
 ;; Ensure that themes will be applied even if they have not been customized
 (defun reapply-themes ()
@@ -68,7 +68,7 @@ ignored: use `custom-enabled-themes' instead."
   "Activate a dark color theme."
   (interactive)
   (if (boundp 'custom-enabled-themes)
-      (custom-set-variables '(custom-enabled-themes '(ujelly)))
+      (custom-set-variables '(custom-enabled-themes '(gruvbox)))
     (sanityinc-tomorrow-night)))
 
 
