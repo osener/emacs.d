@@ -1063,6 +1063,11 @@ No blinking!
   (blink-cursor-mode -1)
 #+END_SRC
 
+Increase fringe width
+#+BEGIN_SRC emacs-lisp
+  (fringe-mode 8)
+#+END_SRC
+
 * Misc Emacs modes
 M-x find-file http://en.wikipedia.org/wiki/Main_Page
 #+BEGIN_SRC emacs-lisp
@@ -1446,6 +1451,10 @@ Some useful bindings from emacs-starter-kit
 
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x a r") 'align-regexp)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<key-4660>") 'ignore)
 #+END_SRC
 * Misc tweaks
 Use system Trash
