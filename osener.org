@@ -1372,20 +1372,18 @@ Use `+` and `-` to change OS X system volume
 #+END_SRC
 ** Browse documentation using Dash
 #+BEGIN_SRC emacs-lisp
-  (defun define-dash-docset (mode-hook prefix)
-    (add-hook mode-hook `(lambda () (setq dash-at-point-docset ,prefix))))
+  (require-package 'helm-dash)
 
-  (when *is-a-mac*
-    (require-package 'dash-at-point)
-    (make-variable-buffer-local 'dash-at-point-docset)
-    (define-dash-docset 'c-mode-hook "c")
-    (define-dash-docset 'c++-mode-hook "cpp")
-    (define-dash-docset 'clojure-mode-hook "clojure")
-    (define-dash-docset 'js2-mode-hook "js")
-    (define-dash-docset 'typescript-mode-hook "js")
-    (define-dash-docset 'emacs-lisp-mode-hook "elisp")
-    (define-dash-docset 'yaml-mode-hook "ansible")
-    (global-set-key "\C-cd" 'dash-at-point))
+  (defun add-dash-docsets (mode-hook &rest docsets)
+    (add-hook mode-hook
+              `(lambda () (setq-local helm-dash-docsets (quote ,docsets)))))
+
+  (add-dash-docsets 'js2-mode-hook "JavaScript" "Lo-Dash")
+  (add-dash-docsets 'clojure-mode-hook "Clojure")
+  (add-dash-docsets 'emacs-lisp-mode-hook "Emacs Lisp")
+
+  (setq helm-dash-browser-func 'eww)
+  (global-set-key (kbd "C-c d") 'helm-dash-at-point)
 #+END_SRC
 
 ** Jenkins integration
