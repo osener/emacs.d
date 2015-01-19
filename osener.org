@@ -791,6 +791,13 @@ Project explorer
   (global-set-key (kbd "s-t") 'project-explorer-helm)
 #+END_SRC
 
+Projectile
+#+BEGIN_SRC emacs-lisp
+  (require-package 'projectile)
+  (require-package 'helm-projectile)
+
+  (projectile-global-mode t)
+#+END_SRC
 * Editing
 #+BEGIN_SRC emacs-lisp
   (require-package 'zop-to-char)

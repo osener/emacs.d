@@ -45,3 +45,4 @@ site-lisp/package/
 /.smex-items
 /image-dired/
 /eshell
+/projectile-bookmarks.eld
