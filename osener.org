@@ -770,18 +770,6 @@ Goto line with feedback
         (linum-mode -1))))
 #+END_SRC
 
-Project explorer
-#+BEGIN_SRC emacs-lisp
-  (require-package 'project-explorer)
-  (autoload 'project-explorer-open "project-explorer"
-    "Show or create the project explorer for the current project." t)
-  (autoload 'project-explorer-helm "project-explorer"
-    "Browse the project using helm." t)
-  (setq pe/omit-regex "^\\.\\|^#\\|~$\\|^node_modules$")
-
-  (global-set-key (kbd "s-t") 'project-explorer-helm)
-#+END_SRC
-
 Projectile
 #+BEGIN_SRC emacs-lisp
   (require-package 'projectile)
