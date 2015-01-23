@@ -1040,15 +1040,6 @@ Parse ansi color escape codes in compilation-mode buffers
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 #+END_SRC
 
-Use different background colors for even and odd lines in some modes.
-#+BEGIN_SRC emacs-lisp
-  (require-package 'stripe-buffer)
-
-  (add-hook 'dired-mode-hook 'stripe-listify-buffer)
-  (add-hook 'emms-playlist-mode-hook 'stripe-listify-buffer)
-  (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
-#+END_SRC
-
 Indent guide
 #+BEGIN_SRC emacs-lisp
   (require-package 'indent-guide)
