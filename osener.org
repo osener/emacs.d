@@ -731,15 +731,6 @@ Multi-term
 #+END_SRC
 
 * Dired
-Toggleable verbosity
-#+BEGIN_SRC emacs-lisp
-  (require-package 'dired-details)
-  (require-package 'dired-details+)
-
-  (require 'dired-details+)
-  (setq-default dired-details-hidden-string "--- ")
-#+END_SRC
-
 Custom ls invocation
 #+BEGIN_SRC emacs-lisp
   (setq dired-listing-switches
