@@ -352,6 +352,9 @@ company-ghc
 
 Misc
 #+BEGIN_SRC emacs-lisp
+  (add-hook 'kill-emacs-hook
+            (lambda ()
+              (shell-command-to-string "killall hdevtools")))
 
   (custom-set-variables
    '(haskell-interactive-mode-eval-pretty nil)
