@@ -896,7 +896,76 @@ Keybindings
 #+BEGIN_SRC emacs-lisp
   (require 'gnus)
   (define-key gnus-group-mode-map (kbd "o") 'gnus-group-list-all-groups)
+
+  (setq user-mail-address "ozan@ozansener.com"
+        user-full-name  "Ozan Sener")
+
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+
+  (add-hook 'message-send-hook
+            (lambda ()
+              (unless (yes-or-no-p "Sure you want to send this?")
+                (signal 'quit nil))))
+
+
 #+END_SRC
+
+Mu4e
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "/run/current-system/sw/share/emacs/site-lisp/mu4e/")
+  (require 'mu4e)
+
+
+  (add-hook 'mu4e-view-mode-hook (lambda () (visual-line-mode)))
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+  (defun mu4e-shr2text ()
+    (let ((dom (libxml-parse-html-region (point-min) (point-max))))
+      (erase-buffer)
+      (shr-insert-document dom)
+      (goto-char (point-min))))
+  (defun oni:shr-colorize-remove-last-arg (args)
+    "If ARGS has more than 3 items, remove the last one."
+    (if (> (length args) 3)
+        (butlast args)
+      args))
+  (with-eval-after-load 'shr
+    (advice-add #'shr-colorize-region :filter-args
+                #'oni:shr-colorize-remove-last-arg))
+
+  ;; Maildirs extension
+  (require-package 'mu4e-maildirs-extension)
+  (require 'mu4e-maildirs-extension)
+  (mu4e-maildirs-extension)
+
+  (setq mu4e-maildir "~/.mail"
+        mu4e-sent-folder "/sent"
+        mu4e-drafts-folder "/drafts"
+        mu4e-trash-folder "/trash"
+        mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval nil
+        mu4e-sent-messages-behavior 'delete
+        mu4e-headers-include-related nil
+        mu4e-headers-skip-duplicates t
+        mu4e-confirm-quit nil
+        mu4e-maildir-shortcuts'(("/INBOX" . ?i))
+        mu4e-html2text-command 'mu4e-shr2text
+        mu4e-view-prefer-html t
+        mu4e-view-show-images t
+        mu4e-use-fancy-chars t
+        mu4e-update-interval 300
+        mu4e-skip-duplicates t
+        mu4e-compose-signature
+        (concat
+         "Ozan Sener\n"
+         "http://www.ozansener.com\n"))
+#+END_SRC
+
 * Chat
 ** ERC
 Unique nick colorization
