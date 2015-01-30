@@ -1513,3 +1513,12 @@ Cleanup buffers before saving
   (global-set-key (kbd "C-c n") 'cleanup-buffer)
   (global-set-key (kbd "C-c C-<return>") 'delete-blank-lines)
 #+END_SRC
+
+* Misc defuns
+Utility function for creating a xmonad scratchpad
+#+BEGIN_SRC emacs-lisp
+  (defun osener-create-scratch-frame ()
+    (select-frame
+     (make-frame '((name . "emacs-scratch"))))
+    (switch-to-buffer "*scratch*"))
+#+END_SRC
