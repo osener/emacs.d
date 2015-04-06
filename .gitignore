@@ -45,4 +45,7 @@ site-lisp/package/
 /.smex-items
 /image-dired/
 /eshell
+/.cask/
+/.sx/
+/org-clock-save.el
 /projectile-bookmarks.eld

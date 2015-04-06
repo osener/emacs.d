@@ -750,11 +750,6 @@ Don't ask before doing recursive copies
   (setq dired-recursive-copies 'always)
 #+END_SRC
 
-Display changed files
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
-#+END_SRC
-
 * Navigation
 Goto line with feedback
 #+BEGIN_SRC emacs-lisp
