@@ -1462,6 +1462,11 @@ Use `+` and `-` to change OS X system volume
   (require-package 'auctex)
 #+END_SRC
 
+** Nix
+#+BEGIN_SRC emacs-lisp
+(require-package 'nix-mode)
+#+END_SRC
+
 * Misc keybindings
 Quick way to open a link
 #+BEGIN_SRC emacs-lisp
