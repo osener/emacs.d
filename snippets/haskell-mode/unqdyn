@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unqdyn
+# key: unq
+# --
+$(unqDyn [|$0|])

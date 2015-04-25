@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: qdyn
+# key: qd
+# --
+$(qDyn [|$0|])
