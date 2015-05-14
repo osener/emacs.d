@@ -49,3 +49,4 @@ site-lisp/package/
 /.sx/
 /org-clock-save.el
 /projectile-bookmarks.eld
+/ditaa*.jar

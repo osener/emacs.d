@@ -360,8 +360,6 @@ Misc
    '(haskell-interactive-mode-eval-pretty nil)
    '(haskell-interactive-mode-include-file-name nil)
    '(haskell-notify-p t)
-   '(haskell-process-args-cabal-repl
-     '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
    '(haskell-process-args-ghci '("-ferror-spans"))
    '(haskell-process-auto-import-loaded-modules t)
    '(haskell-process-log t)
