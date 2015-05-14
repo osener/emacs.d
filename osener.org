@@ -374,7 +374,7 @@ Misc
    '(haskell-tags-on-save t)
    '(shm-auto-insert-bangs t)
    '(shm-auto-insert-skeletons t)
-   '(shm-use-hdevtools t)
+   '(shm-use-hdevtools nil)
    '(shm-use-presentation-mode t)
    '(haskell-complete-module-preferred
      '("Data.ByteString"
