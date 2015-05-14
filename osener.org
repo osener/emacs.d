@@ -507,6 +507,13 @@ Misc
   (define-key shm-map (kbd "C-c C-f") 'shm-fold-toggle-decl)
   (define-key shm-map (kbd "C-c i") 'shm-reformat-decl)
 #+END_SRC
+
+Ignore ghcjs output files
+#+BEGIN_SRC emacs-lisp
+  (mapc (lambda (ext) (push ext completion-ignored-extensions))
+        '(".js_dyn_hi" ".js_dyn_o" ".js_hi" ".js_o"))
+
+#+END_SRC
 * Webdev
 ** Stylus
 #+BEGIN_SRC emacs-lisp
@@ -1470,6 +1477,10 @@ Editable buffer
   (setq wgrep-change-readonly-file t)
 #+END_SRC
 
+Ignore ghcjs output files
+#+BEGIN_SRC emacs-lisp
+  (setq ag-ignore-list '(".js_" "*.jsexe*"))
+#+END_SRC
 ** Shell
 Use fish shell
 #+BEGIN_SRC emacs-lisp
