@@ -34,10 +34,10 @@
 
 ;;; When we start working on git-backed files, use git-wip if available
 
-(after-load 'magit
-  (when (executable-find magit-git-executable)
-    (global-magit-wip-save-mode)
-    (diminish 'magit-wip-save-mode)))
+;; (after-load 'magit
+;;   (when (executable-find magit-git-executable)
+;;     (global-magit-wip-save-mode)
+;;     (diminish 'magit-wip-save-mode)))
 
 (after-load 'magit
   (diminish 'magit-auto-revert-mode))
