@@ -1048,6 +1048,7 @@ Misc
 #+BEGIN_SRC emacs-lisp
   (setq magit-diff-refine-hunk 'all)
   (setq magit-repo-dirs '("~/vcs"))
+  (setq magit-last-seen-setup-instructions "1.4.0")
 #+END_SRC
 
 * OSX related tweaks
