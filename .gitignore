@@ -50,3 +50,6 @@ site-lisp/package/
 /org-clock-save.el
 /projectile-bookmarks.eld
 /ditaa*.jar
+/ido.last
+/recentf
+/viper
