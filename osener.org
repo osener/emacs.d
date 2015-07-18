@@ -1037,11 +1037,6 @@ Diff-hl mode
   (global-diff-hl-mode t)
 #+END_SRC
 
-Style-checking for git commit messages
-#+BEGIN_SRC emacs-lisp
-  (require-package 'git-commit-mode)
-#+END_SRC
-
 Misc
 #+BEGIN_SRC emacs-lisp
   (setq magit-diff-refine-hunk 'all)
