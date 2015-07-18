@@ -96,7 +96,9 @@
   (diminish 'highlight-symbol-mode)
   (defadvice highlight-symbol-temp-highlight (around sanityinc/maybe-suppress activate)
     "Suppress symbol highlighting while isearching."
-    (unless isearch-mode ad-do-it)))
+    (unless (or isearch-mode
+                (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
+      ad-do-it)))
 
 ;;----------------------------------------------------------------------------
 ;; Zap *up* to char is a handy pair for zap-to-char
@@ -108,6 +110,10 @@
 
 (require-package 'browse-kill-ring)
 (setq browse-kill-ring-separator "\f")
+(global-set-key (kbd "M-Y") 'browse-kill-ring)
+(after-load 'browse-kill-ring
+  (define-key browse-kill-ring-mode-map (kbd "M-n") 'browse-kill-ring-forward)
+  (define-key browse-kill-ring-mode-map (kbd "M-p") 'browse-kill-ring-previous))
 (after-load 'page-break-lines
   (push 'browse-kill-ring-mode page-break-lines-modes))
 
